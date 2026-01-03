@@ -40,6 +40,8 @@ next-env.d.ts
 # IDE / Editor
 .idea
 .vscode
+.agent
+.kiro
 *.swp
 *.swo
 *~
