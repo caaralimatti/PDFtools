@@ -740,6 +740,29 @@ export const toolContentPt: Record<string, ToolContent> = {
     ],
   },
 
+  'grid-combine': {
+    title: 'Combinar em Grade',
+    metaDescription: 'Combine vários arquivos PDF em um único layout de grade. Crie planilhas de contatos, galerias de fotos e muito mais.',
+    keywords: ['combinar em grade', 'mosaico pdf', 'galeria pdf', 'unir pdfs em grade'],
+    description: `
+      <p>"Combinar em Grade" permite mesclar vários arquivos PDF (ou imagens convertidas em PDF) em um layout de grade estruturado. Ideal para criar galerias de fotos, portfólios visuais ou planilhas de contatos a partir de várias fontes.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload Arquivos', description: 'Selecione ou arraste seus arquivos PDF.' },
+      { step: 2, title: 'Configurar Grade', description: 'Escolha a estrutura da grade (ex: 2x2, 3x3), tamanho da página e opções de margem.' },
+      { step: 3, title: 'Mesclar', description: 'Combine os arquivos em um único PDF formatado.' },
+    ],
+    useCases: [
+      { title: 'Criar Portfólios', description: 'Exiba vários designs ou exemplos em uma única página.', icon: 'grid' },
+      { title: 'Planilhas de Contatos', description: 'Crie visões gerais rápidas de grandes coleções de documentos.', icon: 'users' },
+      { title: 'Impressão Econômica', description: 'Combine vários recibos ou pequenos documentos em uma folha para imprimir.', icon: 'printer' },
+    ],
+    faq: [
+      { question: 'Posso misturar tamanhos de arquivo?', answer: 'Sim, a ferramenta redimensiona automaticamente cada página para caber na célula da grade.' },
+      { question: 'Quantos arquivos posso combinar?', answer: 'Você pode combinar dezenas de arquivos, limitado apenas pela memória do seu navegador.' },
+    ],
+  },
+
   'reverse-pages': {
     title: 'Inverter Ordem das Páginas',
     metaDescription: 'Inverta a ordem das páginas do PDF. Espelhe o documento do fim para o começo.',

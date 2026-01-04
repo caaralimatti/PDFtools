@@ -452,3 +452,70 @@ export {
   type ChangePermissionsOptions,
   type PDFPermissionSettings,
 } from './change-permissions';
+
+// XPS to PDF processor
+export {
+  XPSToPDFProcessor,
+  createXPSToPDFProcessor,
+  xpsToPDF,
+  type XPSToPDFOptions,
+} from './xps-to-pdf';
+
+// RTF to PDF processor
+export {
+  RTFToPDFProcessor,
+  createRTFToPDFProcessor,
+  rtfToPDF,
+  type RTFToPDFOptions,
+} from './rtf-to-pdf';
+
+// Word to PDF processor
+export {
+  WordToPDFProcessor,
+  createWordToPDFProcessor,
+  wordToPDF,
+  type WordToPDFOptions,
+} from './word-to-pdf';
+
+// Excel to PDF processor
+export {
+  ExcelToPDFProcessor,
+  createExcelToPDFProcessor,
+  excelToPDF,
+  type ExcelToPDFOptions,
+} from './excel-to-pdf';
+
+// PowerPoint to PDF processor
+export {
+  PPTXToPDFProcessor,
+  createPPTXToPDFProcessor,
+  pptxToPDF,
+  type PPTXToPDFOptions,
+} from './pptx-to-pdf';
+
+// EPUB to PDF processor
+export {
+  EPUBToPDFProcessor,
+  createEPUBToPDFProcessor,
+  epubToPDF,
+  type EPUBToPDFOptions,
+} from './epub-to-pdf';
+
+// MOBI to PDF processor
+export {
+  MOBIToPDFProcessor,
+  createMOBIToPDFProcessor,
+  mobiToPDF,
+  type MOBIToPDFOptions,
+} from './mobi-to-pdf';
+
+// PDF Grid Combine processor
+export {
+  GridCombineProcessor,
+  createGridCombineProcessor,
+  createGridCombinePDF,
+  type GridCombineOptions,
+} from './grid-combine';
+
+
+

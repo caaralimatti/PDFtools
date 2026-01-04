@@ -13,6 +13,7 @@ import { NUpPDFTool } from '@/components/tools/n-up';
 import { AlternateMergeTool } from '@/components/tools/alternate-merge';
 import { DividePagesTool } from '@/components/tools/divide';
 import { CombineSinglePageTool } from '@/components/tools/combine-single-page';
+import { GridCombineTool } from '@/components/tools/grid-combine';
 import { PosterizePDFTool } from '@/components/tools/posterize';
 import { PDFMultiTool } from '@/components/tools/pdf-multi-tool';
 import { AddAttachmentsTool } from '@/components/tools/add-attachments';
@@ -64,6 +65,13 @@ import { PDFToDocxTool } from '@/components/tools/pdf-to-docx';
 import { PDFToPptxTool } from '@/components/tools/pdf-to-pptx';
 import { PDFToExcelTool } from '@/components/tools/pdf-to-excel';
 import { RotateCustomTool } from '@/components/tools/rotate-custom/RotateCustomTool';
+import { WordToPDFTool } from '@/components/tools/word-to-pdf';
+import { ExcelToPDFTool } from '@/components/tools/excel-to-pdf';
+import { PPTXToPDFTool } from '@/components/tools/pptx-to-pdf';
+import { XPSToPDFTool } from '@/components/tools/xps-to-pdf';
+import { RTFToPDFTool } from '@/components/tools/rtf-to-pdf';
+import { EPUBToPDFTool } from '@/components/tools/epub-to-pdf';
+import { MOBIToPDFTool } from '@/components/tools/mobi-to-pdf';
 import { generateToolMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import {
@@ -203,6 +211,8 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
         return <ReversePagesTool />;
       case 'n-up-pdf':
         return <NUpPDFTool />;
+      case 'grid-combine':
+        return <GridCombineTool />;
       case 'alternate-merge':
         return <AlternateMergeTool />;
       case 'divide-pages':
@@ -333,6 +343,21 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
         return <RemoveMetadataTool />;
       case 'change-permissions':
         return <ChangePermissionsTool />;
+      // Office to PDF conversion tools
+      case 'word-to-pdf':
+        return <WordToPDFTool />;
+      case 'excel-to-pdf':
+        return <ExcelToPDFTool />;
+      case 'pptx-to-pdf':
+        return <PPTXToPDFTool />;
+      case 'xps-to-pdf':
+        return <XPSToPDFTool />;
+      case 'rtf-to-pdf':
+        return <RTFToPDFTool />;
+      case 'epub-to-pdf':
+        return <EPUBToPDFTool />;
+      case 'mobi-to-pdf':
+        return <MOBIToPDFTool />;
       // Add more tool cases here as they are implemented
       default:
         return (

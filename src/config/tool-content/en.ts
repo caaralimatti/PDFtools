@@ -92,6 +92,33 @@ export const toolContentEn: Record<string, ToolContent> = {
     ],
   },
 
+  'grid-combine': {
+    title: 'Grid Combine PDF',
+    metaDescription: 'Combine multiple PDF files onto single pages with a flexible grid layout. Arrange 2, 4, 6, 9 or more PDFs per page with borders and spacing.',
+    keywords: ['grid combine', 'merge pdf grid', 'pdf collage', 'multiple pdfs one page', 'pdf n-up', 'combine pdfs grid'],
+    description: `
+      <p>The Grid Combine tool offers a unique way to merge multiple separate PDF files onto single pages. Unlike the standard "Merge PDF" tool which simply appends pages, or the "N-Up" tool which rearranges pages from a single document, Grid Combine takes multiple input files and arranges them side-by-side in a customizable grid layout.</p>
+      <p>You can choose from various grid configurations such as 2x1, 2x2, 3x3, etc. This is perfect for comparing multiple documents, creating handouts from different sources, or printing compact versions of several files.</p>
+      <p>Customize the output with control over page size, orientation, margins, spacing, and borders. All processing happens locally in your browser for maximum privacy.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload PDF Files', description: 'Upload two or more PDF files you want to combine. You can rearrange them in your desired order.' },
+      { step: 2, title: 'Choose Grid Layout', description: 'Select your desired grid layout (e.g., 2x2 for 4 files per page, 3x3 for 9 files per page).' },
+      { step: 3, title: 'Customize Appearance', description: 'Adjust settings like page size (A4, Letter), orientation, spacing between items, and borders.' },
+      { step: 4, title: 'Combine and Download', description: 'Click "Combine PDFs" to generate your new grid layout document and download the result.' },
+    ],
+    useCases: [
+      { title: 'Visual Comparison', description: 'Place different versions of a design or document side-by-side on a single page for easy comparison.', icon: 'layout-grid' },
+      { title: 'Printing Handouts', description: 'Combine multiple short documents or slides onto a single sheet of paper to save printing costs.', icon: 'printer' },
+      { title: 'Portfolio Creation', description: 'Showcase multiple project files in a clean, organized grid overview.', icon: 'image' },
+    ],
+    faq: [
+      { question: 'How is this different from N-Up?', answer: 'N-Up takes pages from ONE PDF and puts them on a sheet. Grid Combine takes MULTIPLE DIFFERENT PDF files and puts them on a sheet.' },
+      { question: 'How many files can I combine?', answer: 'You can combine up to 100 files depending on your browser memory, but layouts like 4x4 accommodate up to 16 files per page.' },
+      { question: 'Can I add borders?', answer: 'Yes, you can add borders around each PDF file and customize the border color.' },
+    ],
+  },
+
   'split-pdf': {
     title: 'Split PDF',
     metaDescription: 'Split PDF files into multiple documents. Extract specific pages or divide by page ranges.',
@@ -930,7 +957,190 @@ export const toolContentEn: Record<string, ToolContent> = {
     ],
   },
 
+  'word-to-pdf': {
+    title: 'Word to PDF',
+    metaDescription: 'Convert Word documents (DOCX) to PDF. Preserve formatting and layout in your converted documents.',
+    keywords: ['word to pdf', 'docx to pdf', 'convert word', 'word converter', 'microsoft word to pdf'],
+    description: `
+      <p>Word to PDF converts Microsoft Word documents into PDF format while preserving the original formatting, layout, and content structure.</p>
+      <p>Upload your DOCX files and get high-quality PDF output suitable for sharing, printing, or archiving. The conversion maintains text formatting, paragraph styles, and basic document structure.</p>
+      <p>All conversion happens locally in your browser, ensuring your documents remain private and secure.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload Word Document', description: 'Drag and drop your .docx file or click to select from your device.' },
+      { step: 2, title: 'Wait for Processing', description: 'The tool will load the document and prepare it for conversion.' },
+      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+    ],
+    useCases: [
+      { title: 'Document Sharing', description: 'Convert Word documents to PDF for universal sharing and viewing.', icon: 'share-2' },
+      { title: 'Print Preparation', description: 'Create print-ready PDFs from Word documents.', icon: 'printer' },
+      { title: 'Document Archive', description: 'Archive Word documents in stable PDF format for long-term storage.', icon: 'archive' },
+    ],
+    faq: [
+      { question: 'Is .doc format supported?', answer: 'Currently only .docx format is supported. Please convert .doc files to .docx first using Microsoft Word or LibreOffice.' },
+      { question: 'Are images preserved?', answer: 'Text content and basic formatting are preserved. Complex layouts with many images may have simplified rendering.' },
+      { question: 'Is the conversion secure?', answer: 'Yes, all processing happens in your browser. Your documents never leave your device.' },
+    ],
+  },
+
+  'excel-to-pdf': {
+    title: 'Excel to PDF',
+    metaDescription: 'Convert Excel spreadsheets (XLSX) to PDF. Preserve tables and data in your converted documents.',
+    keywords: ['excel to pdf', 'xlsx to pdf', 'convert excel', 'spreadsheet to pdf', 'microsoft excel to pdf'],
+    description: `
+      <p>Excel to PDF converts Microsoft Excel spreadsheets into PDF format while preserving table structure and data organization.</p>
+      <p>Upload your XLSX files and get clean PDF output with properly formatted tables. Each sheet in your workbook becomes a separate section in the PDF.</p>
+      <p>All conversion happens locally in your browser, ensuring your data remains private and secure.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload Excel File', description: 'Drag and drop your .xlsx file or click to select from your device.' },
+      { step: 2, title: 'Wait for Processing', description: 'The tool will load the spreadsheet and convert all sheets.' },
+      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+    ],
+    useCases: [
+      { title: 'Report Sharing', description: 'Convert Excel reports to PDF for distribution to stakeholders.', icon: 'file-text' },
+      { title: 'Data Archiving', description: 'Archive spreadsheet data in stable PDF format.', icon: 'archive' },
+      { title: 'Print Preparation', description: 'Create print-ready PDFs from Excel worksheets.', icon: 'printer' },
+    ],
+    faq: [
+      { question: 'Are multiple sheets supported?', answer: 'Yes, all sheets in the workbook are converted and included in the PDF.' },
+      { question: 'Is .xls format supported?', answer: 'Currently only .xlsx format is supported. Please save .xls files as .xlsx first.' },
+      { question: 'Are formulas preserved?', answer: 'The PDF shows calculated values. Formulas are not executable in PDF format.' },
+    ],
+  },
+
+  'pptx-to-pdf': {
+    title: 'PowerPoint to PDF',
+    metaDescription: 'Convert PowerPoint presentations (PPTX) to PDF. Preserve slides and content for easy sharing.',
+    keywords: ['powerpoint to pdf', 'pptx to pdf', 'convert pptx', 'presentation to pdf', 'slides to pdf'],
+    description: `
+      <p>PowerPoint to PDF converts Microsoft PowerPoint presentations into PDF format, preserving slide content and text for easy sharing and viewing.</p>
+      <p>Each slide becomes a page in the PDF, maintaining the presentation flow. Perfect for sharing presentations with people who don't have PowerPoint installed.</p>
+      <p>All conversion happens locally in your browser, ensuring your presentations remain private and secure.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload PowerPoint File', description: 'Drag and drop your .pptx file or click to select from your device.' },
+      { step: 2, title: 'Wait for Processing', description: 'The tool will extract slide content and create the PDF.' },
+      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+    ],
+    useCases: [
+      { title: 'Presentation Sharing', description: 'Share presentations with anyone without requiring PowerPoint.', icon: 'share-2' },
+      { title: 'Handout Creation', description: 'Create PDF handouts from your presentation slides.', icon: 'file-text' },
+      { title: 'Archive Presentations', description: 'Archive presentations in stable PDF format.', icon: 'archive' },
+    ],
+    faq: [
+      { question: 'Are animations preserved?', answer: 'PDF is a static format, so animations and transitions are not preserved. Each slide becomes a static page.' },
+      { question: 'Is .ppt format supported?', answer: 'Currently only .pptx format is supported. Please convert .ppt files to .pptx first.' },
+      { question: 'Are speaker notes included?', answer: 'Currently, speaker notes are not included in the PDF output.' },
+    ],
+  },
+
+  'xps-to-pdf': {
+    title: 'XPS to PDF',
+    metaDescription: 'Convert XPS documents to PDF format. High-fidelity conversion preserving layout and graphics.',
+    keywords: ['xps to pdf', 'convert xps', 'xps converter', 'microsoft xps to pdf', 'oxps to pdf'],
+    description: `
+      <p>XPS to PDF converts Microsoft XPS (XML Paper Specification) documents into PDF format while preserving the original layout, text, and vector graphics.</p>
+      <p>XPS is a fixed-document format similar to PDF. This tool provides high-fidelity conversion using native XPS parsing, ensuring accurate reproduction of your documents.</p>
+      <p>All conversion happens locally in your browser, ensuring your documents remain private and secure.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload XPS File', description: 'Drag and drop your .xps file or click to select from your device.' },
+      { step: 2, title: 'Wait for Processing', description: 'The tool will parse and convert the XPS document.' },
+      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+    ],
+    useCases: [
+      { title: 'Format Conversion', description: 'Convert XPS documents to more widely supported PDF format.', icon: 'file' },
+      { title: 'Document Sharing', description: 'Share XPS documents with users who don\'t have XPS viewers.', icon: 'share-2' },
+      { title: 'Archive Migration', description: 'Migrate XPS archives to PDF format for better compatibility.', icon: 'archive' },
+    ],
+    faq: [
+      { question: 'What is XPS format?', answer: 'XPS (XML Paper Specification) is Microsoft\'s fixed-document format, similar to PDF. It\'s commonly used for Windows printing.' },
+      { question: 'Is the conversion lossless?', answer: 'Yes, the conversion preserves text, graphics, and layout with high fidelity.' },
+      { question: 'Are multi-page XPS files supported?', answer: 'Yes, all pages in the XPS document are converted to the PDF.' },
+    ],
+  },
+
+  'rtf-to-pdf': {
+    title: 'RTF to PDF',
+    metaDescription: 'Convert RTF (Rich Text Format) files to PDF. Preserve text formatting in your documents.',
+    keywords: ['rtf to pdf', 'convert rtf', 'rich text to pdf', 'rtf converter'],
+    description: `
+      <p>RTF to PDF converts Rich Text Format files into PDF documents. RTF is a widely supported text format that includes basic formatting like fonts, colors, and styles.</p>
+      <p>Upload your RTF files and get clean PDF output while preserving text content and basic formatting. Perfect for converting legacy documents to modern PDF format.</p>
+      <p>All conversion happens locally in your browser, ensuring your documents remain private and secure.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload RTF File', description: 'Drag and drop your .rtf file or click to select from your device.' },
+      { step: 2, title: 'Wait for Processing', description: 'The tool will parse and convert the RTF content.' },
+      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+    ],
+    useCases: [
+      { title: 'Legacy Conversion', description: 'Convert old RTF documents to modern PDF format.', icon: 'history' },
+      { title: 'Document Sharing', description: 'Share RTF documents in universally viewable PDF format.', icon: 'share-2' },
+      { title: 'Archive Documents', description: 'Archive RTF files in stable PDF format for long-term storage.', icon: 'archive' },
+    ],
+    faq: [
+      { question: 'What formatting is preserved?', answer: 'Basic text formatting including fonts, paragraphs, and styles are converted. Complex RTF features may be simplified.' },
+      { question: 'Can I convert multiple RTF files?', answer: 'Currently, one file is converted at a time. Use Merge PDF to combine multiple converted files.' },
+      { question: 'Are embedded images supported?', answer: 'Text content is the primary focus. Embedded objects may not be rendered.' },
+    ],
+  },
+
+  'epub-to-pdf': {
+    title: 'EPUB to PDF',
+    metaDescription: 'Convert EPUB e-books to PDF. Preserve formatting, images, and chapter structure.',
+    keywords: ['epub to pdf', 'convert epub', 'ebook to pdf', 'epub converter'],
+    description: `
+      <p>EPUB to PDF converts electronic book files into high-quality PDF documents. EPUB is the most popular e-book format, used by most e-readers and digital libraries.</p>
+      <p>This tool preserves text formatting, images, and the chapter structure of your e-books. Perfect for printing, archiving, or sharing e-books in a universally viewable format.</p>
+      <p>All conversion happens locally in your browser using advanced rendering technology, ensuring your books remain private and the conversion is fast.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload EPUB File', description: 'Drag and drop your .epub file or click to select from your device.' },
+      { step: 2, title: 'Wait for Conversion', description: 'The tool will render and convert all pages of your e-book.' },
+      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+    ],
+    useCases: [
+      { title: 'Print E-books', description: 'Convert e-books to PDF for physical printing.', icon: 'printer' },
+      { title: 'Archive Books', description: 'Store e-books in long-term stable PDF format.', icon: 'archive' },
+      { title: 'Share Documents', description: 'Share e-books with anyone, even without an e-reader.', icon: 'share-2' },
+    ],
+    faq: [
+      { question: 'Is the formatting preserved?', answer: 'Yes! This tool uses native EPUB rendering, preserving text formatting, images, and layout with high fidelity.' },
+      { question: 'Are DRM-protected EPUBs supported?', answer: 'No, DRM-protected e-books cannot be converted. Only DRM-free EPUB files are supported.' },
+      { question: 'How is page size determined?', answer: 'EPUB content is rendered to standard A4 page size for optimal readability.' },
+    ],
+  },
+
+  'mobi-to-pdf': {
+    title: 'MOBI to PDF',
+    metaDescription: 'Convert MOBI e-books to PDF. Support for Kindle format with high-quality rendering.',
+    keywords: ['mobi to pdf', 'convert mobi', 'kindle to pdf', 'azw to pdf', 'mobi converter'],
+    description: `
+      <p>MOBI to PDF converts Amazon Kindle e-book files into high-quality PDF documents. MOBI format (including AZW and AZW3) is Amazon's proprietary e-book format used on Kindle devices.</p>
+      <p>This tool preserves text formatting, images, and the structure of your Kindle books. Perfect for printing, archiving, or reading on devices that don't support MOBI format.</p>
+      <p>All conversion happens locally in your browser using advanced rendering technology, ensuring your books remain private.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload MOBI File', description: 'Drag and drop your .mobi, .azw, or .azw3 file or click to select from your device.' },
+      { step: 2, title: 'Wait for Conversion', description: 'The tool will render and convert all pages of your e-book.' },
+      { step: 3, title: 'Download PDF', description: 'Click Download to save your converted PDF document.' },
+    ],
+    useCases: [
+      { title: 'Print Kindle Books', description: 'Convert Kindle e-books to PDF for physical printing.', icon: 'printer' },
+      { title: 'Archive Books', description: 'Store Kindle books in universal PDF format.', icon: 'archive' },
+      { title: 'Cross-Device Reading', description: 'Read Kindle books on devices that only support PDF.', icon: 'tablet-smartphone' },
+    ],
+    faq: [
+      { question: 'What MOBI formats are supported?', answer: 'This tool supports .mobi, .azw, and .azw3 files (non-DRM versions).' },
+      { question: 'Are DRM-protected Kindle books supported?', answer: 'No, DRM-protected e-books cannot be converted. Only DRM-free files are supported.' },
+      { question: 'Will my formatting be preserved?', answer: 'Yes! The tool uses native MOBI rendering to preserve text, images, and layout.' },
+    ],
+  },
+
   // ==================== CONVERT FROM PDF ====================
+
   'pdf-to-jpg': {
     title: 'PDF to JPG',
     metaDescription: 'Convert PDF pages to JPG images. High-quality extraction with customizable resolution.',

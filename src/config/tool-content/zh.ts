@@ -89,6 +89,33 @@ export const toolContentZh: Record<string, ToolContent> = {
     ],
   },
 
+  'grid-combine': {
+    title: '网格组合 PDF',
+    metaDescription: '将多个PDF文件组合到单页面上的灵活网格布局中。每页排列2、4、6、9个或更多PDF，支持边框和间距。',
+    keywords: ['网格组合', '合并pdf网格', 'pdf拼贴', '多pdf一页', 'pdf n-up', '组合pdf网格'],
+    description: `
+      <p>网格组合工具提供了一种将多个独立的PDF文件合并到单页面上的独特方式。与简单追加页面的标准“合并PDF”工具或重新排列单个文档页面的“N-Up”工具不同，网格组合获取多个输入文件并将它们并排排列在可自定义的网格布局中。</p>
+      <p>您可以选择各种网格配置，如2x1、2x2、3x3等。这非常适合比较多个文档、从不同来源创建讲义或打印多个文件的紧凑版本。</p>
+      <p>通过控制页面大小、方向、边距、间距和边框来自定义输出。所有处理都在您的浏览器本地进行，以实现最大的隐私保护。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传PDF文件', description: '上传两个或更多您想要组合的PDF文件。您可以按所需顺序重新排列它们。' },
+      { step: 2, title: '选择网格布局', description: '选择您想要的网格布局（例如，2x2表示每页4个文件，3x3表示每页9个文件）。' },
+      { step: 3, title: '自定义外观', description: '调整设置，如页面大小（A4、Letter）、方向、项目之间的间距和边框。' },
+      { step: 4, title: '组合并下载', description: '点击“组合PDF”生成您的新网格布局文档并下载结果。' },
+    ],
+    useCases: [
+      { title: '视觉比较', description: '将设计或文档的不同版本并排放置在单个页面上以便于比较。', icon: 'layout-grid' },
+      { title: '打印讲义', description: '将多个短文档或幻灯片合并到单张纸上以节省打印成本。', icon: 'printer' },
+      { title: '作品集创建', description: '在清晰、有组织的网格概览中展示多个项目文件。', icon: 'image' },
+    ],
+    faq: [
+      { question: '这与N-Up有什么不同？', answer: 'N-Up从一个PDF中获取页面并将它们放在一张纸上。网格组合获取多个不同的PDF文件并将它们放在一张纸上。' },
+      { question: '我可以组合多少个文件？', answer: '您可以根据浏览器内存组合多达100个文件，但像4x4这样的布局每页最多可容纳16个文件。' },
+      { question: '我可以添加边框吗？', answer: '是的，您可以在每个PDF文件周围添加边框并自定义边框颜色。' },
+    ],
+  },
+
   'split-pdf': {
     title: '拆分PDF',
     metaDescription: '将PDF文件拆分成多个文档。提取特定页面或按页面范围分割。',
@@ -901,7 +928,190 @@ export const toolContentZh: Record<string, ToolContent> = {
     ],
   },
 
+  'word-to-pdf': {
+    title: 'Word转PDF',
+    metaDescription: '将Word文档（DOCX）转换为PDF。保留格式和布局。',
+    keywords: ['word转pdf', 'docx转pdf', '转换word', 'word转换器', '微软word转pdf'],
+    description: `
+      <p>Word转PDF将Microsoft Word文档转换为PDF格式，同时保留原始格式、布局和内容结构。</p>
+      <p>上传您的DOCX文件，获得适合分享、打印或存档的高质量PDF输出。转换过程保持文本格式、段落样式和基本文档结构。</p>
+      <p>所有转换都在您的浏览器本地进行，确保您的文档保持私密和安全。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传Word文档', description: '拖放您的.docx文件或点击从设备中选择。' },
+      { step: 2, title: '等待处理', description: '工具将加载文档并准备进行转换。' },
+      { step: 3, title: '下载PDF', description: '点击下载保存转换后的PDF文档。' },
+    ],
+    useCases: [
+      { title: '文档分享', description: '将Word文档转换为PDF以便通用分享和查看。', icon: 'share-2' },
+      { title: '打印准备', description: '从Word文档创建可打印的PDF。', icon: 'printer' },
+      { title: '文档存档', description: '以稳定的PDF格式存档Word文档以供长期保存。', icon: 'archive' },
+    ],
+    faq: [
+      { question: '支持.doc格式吗？', answer: '目前仅支持.docx格式。请先使用Microsoft Word或LibreOffice将.doc文件转换为.docx。' },
+      { question: '图像会保留吗？', answer: '文本内容和基本格式会保留。包含许多图像的复杂布局可能会简化渲染。' },
+      { question: '转换安全吗？', answer: '是的，所有处理都在您的浏览器中进行。您的文档永远不会离开您的设备。' },
+    ],
+  },
+
+  'excel-to-pdf': {
+    title: 'Excel转PDF',
+    metaDescription: '将Excel电子表格（XLSX）转换为PDF。保留表格和数据。',
+    keywords: ['excel转pdf', 'xlsx转pdf', '转换excel', '电子表格转pdf', '微软excel转pdf'],
+    description: `
+      <p>Excel转PDF将Microsoft Excel电子表格转换为PDF格式，同时保留表格结构和数据组织。</p>
+      <p>上传您的XLSX文件，获得具有正确格式化表格的清晰PDF输出。工作簿中的每个工作表都会成为PDF中的单独部分。</p>
+      <p>所有转换都在您的浏览器本地进行，确保您的数据保持私密和安全。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传Excel文件', description: '拖放您的.xlsx文件或点击从设备中选择。' },
+      { step: 2, title: '等待处理', description: '工具将加载电子表格并转换所有工作表。' },
+      { step: 3, title: '下载PDF', description: '点击下载保存转换后的PDF文档。' },
+    ],
+    useCases: [
+      { title: '报告分享', description: '将Excel报告转换为PDF以供利益相关者分发。', icon: 'file-text' },
+      { title: '数据存档', description: '以稳定的PDF格式存档电子表格数据。', icon: 'archive' },
+      { title: '打印准备', description: '从Excel工作表创建可打印的PDF。', icon: 'printer' },
+    ],
+    faq: [
+      { question: '支持多个工作表吗？', answer: '是的，工作簿中的所有工作表都会被转换并包含在PDF中。' },
+      { question: '支持.xls格式吗？', answer: '目前仅支持.xlsx格式。请先将.xls文件另存为.xlsx。' },
+      { question: '公式会保留吗？', answer: 'PDF显示计算值。公式在PDF格式中不可执行。' },
+    ],
+  },
+
+  'pptx-to-pdf': {
+    title: 'PowerPoint转PDF',
+    metaDescription: '将PowerPoint演示文稿（PPTX）转换为PDF。保留幻灯片内容便于分享。',
+    keywords: ['powerpoint转pdf', 'pptx转pdf', '转换pptx', '演示文稿转pdf', '幻灯片转pdf'],
+    description: `
+      <p>PowerPoint转PDF将Microsoft PowerPoint演示文稿转换为PDF格式，保留幻灯片内容和文本以便轻松分享和查看。</p>
+      <p>每张幻灯片成为PDF中的一页，保持演示流程。非常适合与没有安装PowerPoint的人分享演示文稿。</p>
+      <p>所有转换都在您的浏览器本地进行，确保您的演示文稿保持私密和安全。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传PowerPoint文件', description: '拖放您的.pptx文件或点击从设备中选择。' },
+      { step: 2, title: '等待处理', description: '工具将提取幻灯片内容并创建PDF。' },
+      { step: 3, title: '下载PDF', description: '点击下载保存转换后的PDF文档。' },
+    ],
+    useCases: [
+      { title: '演示文稿分享', description: '与任何人分享演示文稿，无需PowerPoint。', icon: 'share-2' },
+      { title: '讲义创建', description: '从演示幻灯片创建PDF讲义。', icon: 'file-text' },
+      { title: '存档演示文稿', description: '以稳定的PDF格式存档演示文稿。', icon: 'archive' },
+    ],
+    faq: [
+      { question: '动画会保留吗？', answer: 'PDF是静态格式，因此动画和过渡不会保留。每张幻灯片变成静态页面。' },
+      { question: '支持.ppt格式吗？', answer: '目前仅支持.pptx格式。请先将.ppt文件转换为.pptx。' },
+      { question: '演讲者备注会包含吗？', answer: '目前演讲者备注不会包含在PDF输出中。' },
+    ],
+  },
+
+  'xps-to-pdf': {
+    title: 'XPS转PDF',
+    metaDescription: '将XPS文档转换为PDF格式。高保真转换，保留布局和图形。',
+    keywords: ['xps转pdf', '转换xps', 'xps转换器', '微软xps转pdf', 'oxps转pdf'],
+    description: `
+      <p>XPS转PDF将Microsoft XPS（XML纸规范）文档转换为PDF格式，同时保留原始布局、文本和矢量图形。</p>
+      <p>XPS是一种类似于PDF的固定文档格式。此工具使用原生XPS解析提供高保真转换，确保文档的准确再现。</p>
+      <p>所有转换都在您的浏览器本地进行，确保您的文档保持私密和安全。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传XPS文件', description: '拖放您的.xps文件或点击从设备中选择。' },
+      { step: 2, title: '等待处理', description: '工具将解析并转换XPS文档。' },
+      { step: 3, title: '下载PDF', description: '点击下载保存转换后的PDF文档。' },
+    ],
+    useCases: [
+      { title: '格式转换', description: '将XPS文档转换为更广泛支持的PDF格式。', icon: 'file' },
+      { title: '文档分享', description: '与没有XPS查看器的用户分享XPS文档。', icon: 'share-2' },
+      { title: '存档迁移', description: '将XPS存档迁移到PDF格式以获得更好的兼容性。', icon: 'archive' },
+    ],
+    faq: [
+      { question: '什么是XPS格式？', answer: 'XPS（XML纸规范）是Microsoft的固定文档格式，类似于PDF。它常用于Windows打印。' },
+      { question: '转换是无损的吗？', answer: '是的，转换以高保真度保留文本、图形和布局。' },
+      { question: '支持多页XPS文件吗？', answer: '是的，XPS文档中的所有页面都会转换到PDF中。' },
+    ],
+  },
+
+  'rtf-to-pdf': {
+    title: 'RTF转PDF',
+    metaDescription: '将RTF（富文本格式）文件转换为PDF。保留文档中的文本格式。',
+    keywords: ['rtf转pdf', '转换rtf', '富文本转pdf', 'rtf转换器'],
+    description: `
+      <p>RTF转PDF将富文本格式文件转换为PDF文档。RTF是一种广泛支持的文本格式，包含基本格式如字体、颜色和样式。</p>
+      <p>上传您的RTF文件，获得干净的PDF输出，同时保留文本内容和基本格式。非常适合将旧文档转换为现代PDF格式。</p>
+      <p>所有转换都在您的浏览器本地进行，确保您的文档保持私密和安全。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传RTF文件', description: '拖放您的.rtf文件或点击从设备中选择。' },
+      { step: 2, title: '等待处理', description: '工具将解析并转换RTF内容。' },
+      { step: 3, title: '下载PDF', description: '点击下载保存转换后的PDF文档。' },
+    ],
+    useCases: [
+      { title: '旧版转换', description: '将旧的RTF文档转换为现代PDF格式。', icon: 'history' },
+      { title: '文档分享', description: '以通用可查看的PDF格式分享RTF文档。', icon: 'share-2' },
+      { title: '存档文档', description: '以稳定的PDF格式存档RTF文件以供长期保存。', icon: 'archive' },
+    ],
+    faq: [
+      { question: '保留哪些格式？', answer: '包括字体、段落和样式在内的基本文本格式会被转换。复杂的RTF功能可能会被简化。' },
+      { question: '可以转换多个RTF文件吗？', answer: '目前一次只能转换一个文件。使用合并PDF来合并多个转换后的文件。' },
+      { question: '支持嵌入图像吗？', answer: '文本内容是主要焦点。嵌入对象可能无法渲染。' },
+    ],
+  },
+
+  'epub-to-pdf': {
+    title: 'EPUB转PDF',
+    metaDescription: '将EPUB电子书转换为PDF。保留格式、图片和章节结构。',
+    keywords: ['epub转pdf', '转换epub', '电子书转pdf', 'epub转换器'],
+    description: `
+      <p>EPUB转PDF将电子书文件转换为高质量的PDF文档。EPUB是最流行的电子书格式，被大多数电子阅读器和数字图书馆使用。</p>
+      <p>此工具可保留电子书的文本格式、图片和章节结构。非常适合打印、存档或以通用格式分享电子书。</p>
+      <p>所有转换都在您的浏览器本地进行，使用先进的渲染技术，确保您的书籍保持私密，转换速度快。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传EPUB文件', description: '拖放您的.epub文件或点击从设备中选择。' },
+      { step: 2, title: '等待转换', description: '工具将渲染并转换电子书的所有页面。' },
+      { step: 3, title: '下载PDF', description: '点击下载保存转换后的PDF文档。' },
+    ],
+    useCases: [
+      { title: '打印电子书', description: '将电子书转换为PDF以便物理打印。', icon: 'printer' },
+      { title: '存档书籍', description: '以长期稳定的PDF格式存储电子书。', icon: 'archive' },
+      { title: '分享文档', description: '与任何人分享电子书，即使没有电子阅读器。', icon: 'share-2' },
+    ],
+    faq: [
+      { question: '格式会保留吗？', answer: '是的！此工具使用原生EPUB渲染，以高保真度保留文本格式、图片和布局。' },
+      { question: '支持受DRM保护的EPUB吗？', answer: '不支持，受DRM保护的电子书无法转换。仅支持无DRM的EPUB文件。' },
+      { question: '页面大小是如何确定的？', answer: 'EPUB内容被渲染为标准A4页面大小，以获得最佳可读性。' },
+    ],
+  },
+
+  'mobi-to-pdf': {
+    title: 'MOBI转PDF',
+    metaDescription: '将MOBI电子书转换为PDF。支持Kindle格式的高质量渲染。',
+    keywords: ['mobi转pdf', '转换mobi', 'kindle转pdf', 'azw转pdf', 'mobi转换器'],
+    description: `
+      <p>MOBI转PDF将亚马逊Kindle电子书文件转换为高质量的PDF文档。MOBI格式（包括AZW和AZW3）是亚马逊专有的电子书格式，用于Kindle设备。</p>
+      <p>此工具可保留Kindle书籍的文本格式、图片和结构。非常适合打印、存档或在不支持MOBI格式的设备上阅读。</p>
+      <p>所有转换都在您的浏览器本地进行，使用先进的渲染技术，确保您的书籍保持私密。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传MOBI文件', description: '拖放您的.mobi、.azw或.azw3文件，或点击从设备中选择。' },
+      { step: 2, title: '等待转换', description: '工具将渲染并转换电子书的所有页面。' },
+      { step: 3, title: '下载PDF', description: '点击下载保存转换后的PDF文档。' },
+    ],
+    useCases: [
+      { title: '打印Kindle书籍', description: '将Kindle电子书转换为PDF以便物理打印。', icon: 'printer' },
+      { title: '存档书籍', description: '以通用PDF格式存储Kindle书籍。', icon: 'archive' },
+      { title: '跨设备阅读', description: '在只支持PDF的设备上阅读Kindle书籍。', icon: 'tablet-smartphone' },
+    ],
+    faq: [
+      { question: '支持哪些MOBI格式？', answer: '此工具支持.mobi、.azw和.azw3文件（非DRM版本）。' },
+      { question: '支持受DRM保护的Kindle书籍吗？', answer: '不支持，受DRM保护的电子书无法转换。仅支持无DRM的文件。' },
+      { question: '格式会保留吗？', answer: '是的！该工具使用原生MOBI渲染来保留文本、图片和布局。' },
+    ],
+  },
+
   // ==================== 从PDF转换 ====================
+
   'pdf-to-jpg': {
     title: 'PDF转JPG',
     metaDescription: '将PDF页面转换为JPG图像。高质量提取，可自定义分辨率。',
@@ -1786,6 +1996,30 @@ export const toolContentZh: Record<string, ToolContent> = {
       { question: '扁平化是可逆的吗？', answer: '不，扁平化是永久的。保留原件的备份。' },
       { question: '外观会改变吗？', answer: '不会，文档看起来相同，但不再是交互式的。' },
       { question: '会减小文件大小吗？', answer: '有时会，因为交互元素被转换为更简单的内容。' },
+    ],
+  },
+
+  'remove-metadata-full': {
+    title: '元数据的完全删除',
+    metaDescription: '从 PDF 文件中剥离所有元数据和属性。清理以增加匿名性。',
+    keywords: ['pdf 元数据 删除', 'pdf 属性 清除', 'pdf 匿名化', 'pdf 隐私'],
+    description: `
+      <p>删除 PDF 文件中隐藏的所有信息，如作者、创建软件和创建日期/时间。这在从公开发布的材料中清除内部信息时非常重要。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '选择 PDF', description: '上传您想要清理的 PDF 文件。' },
+      { step: 2, title: '执行删除', description: '点击“删除元数据”按钮。' },
+      { step: 3, title: '保存', description: '下载属性为空的 PDF。' },
+    ],
+    useCases: [
+      { title: '公共文档分发', description: '在互联网上发布之前删除作者的个人姓名。', icon: 'shield' },
+      { title: '企业对企业交易', description: '清除不必要的元数据（如创建历史记录）以保持机密性。', icon: 'briefcase' },
+      { title: '匿名材料创建', description: '确保无法通过属性识别身份。', icon: 'user-x' },
+    ],
+    faq: [
+      { question: '文件内容会改变吗？', answer: '不会，任何可见内容（如文本或图像）都不会改变。' },
+      { question: '哪些项目会消失？', answer: '标题、作者、主题、关键词、创建日期、修改日期、PDF 创建程序名称等将被删除。' },
+      { question: '可以恢复吗？', answer: '删除后的文件中的元数据无法恢复。' },
     ],
   },
 

@@ -429,6 +429,13 @@
     "useCases": "Use Cases",
     "faq": "Frequently Asked Questions",
     "comingSoon": "This tool is coming soon.",
+    "quality": {
+      "title": "Qualité de sortie",
+      "low": "Basse",
+      "medium": "Moyenne",
+      "high": "Haute",
+      "hint": "Une qualité plus élevée produit des fichiers plus volumineux et prend plus de temps à convertir."
+    },
     "mergePdf": {
       "uploadLabel": "Upload PDF Files",
       "uploadDescription": "Drag and drop PDF files here, or click to browse. You can add multiple files.",
@@ -777,19 +784,54 @@
       "successMessage": "Page order reversed successfully! Click the download button to save your file."
     },
     "nUpPdf": {
-      "uploadLabel": "Upload PDF File",
-      "uploadDescription": "Drag and drop a PDF file here, or click to browse.",
-      "optionsTitle": "N-Up Options",
-      "layout": "Layout",
-      "pagesPerSheet": "Pages per Sheet",
-      "pageSize": "Output Page Size",
+      "uploadLabel": "Télécharger un fichier PDF",
+      "uploadDescription": "Glissez-déposez un fichier PDF ici, ou cliquez pour parcourir.",
+      "optionsTitle": "Options N-Up",
+      "layout": "Mise en page",
+      "pagesPerSheet": "Pages par feuille",
+      "pageSize": "Taille de la page de sortie",
       "orientation": "Orientation",
-      "useMargins": "Add margins and gutters",
-      "addBorder": "Add border around pages",
-      "borderColor": "Border Color",
-      "previewInfo": "{pages} pages will be arranged into {sheets} sheet(s) with {perSheet} pages per sheet.",
-      "createButton": "Create N-Up PDF",
-      "successMessage": "N-Up PDF created successfully! Click the download button to save your file."
+      "useMargins": "Ajouter des marges et des gouttières",
+      "addBorder": "Ajouter une bordure autour des pages",
+      "borderColor": "Couleur de la bordure",
+      "previewInfo": "{pages} pages seront disposées en {sheets} feuille(s) avec {perSheet} pages par feuille.",
+      "createButton": "Créer le PDF N-Up",
+      "successMessage": "PDF N-Up créé avec succès ! Cliquez sur le bouton de téléchargement pour enregistrer votre fichier."
+    },
+    "gridCombine": {
+      "uploadLabel": "Téléverser des fichiers PDF",
+      "uploadDescription": "Glissez et déposez plusieurs fichiers PDF ici.",
+      "filesTitle": "Fichiers à combiner",
+      "reorderHint": "Glisser-déposer pour réorganiser.",
+      "optionsTitle": "Options de mise en page",
+      "gridLayout": "Disposition en grille",
+      "pageSize": "Taille de page",
+      "orientation": "Orientation",
+      "spacing": "Espacement",
+      "useMargins": "Ajouter des marges",
+      "addBorder": "Ajouter des bordures",
+      "borderColor": "Couleur de bordure",
+      "combineButton": "Combiner PDFs",
+      "successMessage": "PDFs combinés avec succès ! Cliquez sur le bouton de téléchargement pour enregistrer votre fichier.",
+      "layoutPreview": "Aperçu de la mise en page",
+      "columns": "colonnes",
+      "rows": "lignes",
+      "pageMode": "Mode de page",
+      "firstPageOnly": "Première page seulement",
+      "allPages": "Toutes les pages",
+      "firstPageOnlyHint": "Utiliser seulement la première page de chaque PDF.",
+      "allPagesHint": "Inclure toutes les pages de chaque PDF dans la grille.",
+      "fillMode": "Mode de remplissage",
+      "leaveEmpty": "Laisser les cellules vides",
+      "repeat": "Répéter depuis le début",
+      "stretchLast": "Répéter la dernière page",
+      "fillModeHint": "Comment remplir les cellules vides lorsqu'il y a moins de fichiers que de cellules.",
+      "cells": "cellules",
+      "page": "page",
+      "pages": "pages",
+      "previewInfoAllPages": "{fileCount} PDF(s) avec {totalPages} pages au total seront organisés dans une grille {layout} sur {outputPages} page(s) de sortie.",
+      "previewInfoFirstPage": "{fileCount} PDF(s) seront organisés dans une grille {layout} sur {outputPages} page(s).",
+      "minFilesError": "Veuillez ajouter au moins 2 fichiers PDF à combiner."
     },
     "alternateMerge": {
       "uploadLabel": "Upload PDF Files",
@@ -1351,6 +1393,48 @@
       "uploadDescription": "Drag and drop a PDF file here, or click to browse.",
       "convertButton": "Convert to DOCX",
       "successMessage": "Your PDF has been successfully converted to DOCX! Click the download button to save your file."
+    },
+    "wordToPdf": {
+      "uploadLabel": "Télécharger un document Word",
+      "uploadDescription": "Glissez-déposez un document Word (.docx) ici ou cliquez pour sélectionner.",
+      "convertButton": "Convertir en PDF",
+      "successMessage": "Votre document Word a été converti en PDF avec succès !"
+    },
+    "excelToPdf": {
+      "uploadLabel": "Télécharger un fichier Excel",
+      "uploadDescription": "Glissez-déposez un fichier Excel (.xlsx) ici ou cliquez pour sélectionner.",
+      "convertButton": "Convertir en PDF",
+      "successMessage": "Votre fichier Excel a été converti en PDF avec succès !"
+    },
+    "pptxToPdf": {
+      "uploadLabel": "Télécharger un fichier PowerPoint",
+      "uploadDescription": "Glissez-déposez un fichier PowerPoint (.pptx) ici ou cliquez pour sélectionner.",
+      "convertButton": "Convertir en PDF",
+      "successMessage": "Votre fichier PowerPoint a été converti en PDF avec succès !"
+    },
+    "xpsToPdf": {
+      "uploadLabel": "Télécharger un fichier XPS",
+      "uploadDescription": "Glissez-déposez un fichier XPS ici ou cliquez pour sélectionner.",
+      "convertButton": "Convertir en PDF",
+      "successMessage": "Votre fichier XPS a été converti en PDF avec succès !"
+    },
+    "rtfToPdf": {
+      "uploadLabel": "Télécharger un fichier RTF",
+      "uploadDescription": "Glissez-déposez un fichier RTF ici ou cliquez pour sélectionner.",
+      "convertButton": "Convertir en PDF",
+      "successMessage": "Votre fichier RTF a été converti en PDF avec succès !"
+    },
+    "epubToPdf": {
+      "uploadLabel": "Télécharger un fichier EPUB",
+      "uploadDescription": "Glissez-déposez un fichier EPUB de livre électronique ici ou cliquez pour sélectionner.",
+      "convertButton": "Convertir en PDF",
+      "successMessage": "Votre fichier EPUB a été converti en PDF avec succès !"
+    },
+    "mobiToPdf": {
+      "uploadLabel": "Télécharger un fichier MOBI",
+      "uploadDescription": "Glissez-déposez un fichier MOBI/AZW de livre électronique ici ou cliquez pour sélectionner.",
+      "convertButton": "Convertir en PDF",
+      "successMessage": "Votre fichier MOBI a été converti en PDF avec succès !"
     }
   }
 }

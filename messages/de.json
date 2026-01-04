@@ -429,6 +429,13 @@
     "useCases": "Use Cases",
     "faq": "Frequently Asked Questions",
     "comingSoon": "This tool is coming soon.",
+    "quality": {
+      "title": "Ausgabequalität",
+      "low": "Niedrig",
+      "medium": "Mittel",
+      "high": "Hoch",
+      "hint": "Höhere Qualität erzeugt größere Dateien und benötigt mehr Zeit für die Konvertierung."
+    },
     "mergePdf": {
       "uploadLabel": "Upload PDF Files",
       "uploadDescription": "Drag and drop PDF files here, or click to browse. You can add multiple files.",
@@ -790,6 +797,41 @@
       "previewInfo": "{pages} pages will be arranged into {sheets} sheet(s) with {perSheet} pages per sheet.",
       "createButton": "Create N-Up PDF",
       "successMessage": "N-Up PDF created successfully! Click the download button to save your file."
+    },
+    "gridCombine": {
+      "uploadLabel": "PDF-Dateien hochladen",
+      "uploadDescription": "Ziehen Sie mehrere PDF-Dateien hierher.",
+      "filesTitle": "Dateien zum Kombinieren",
+      "reorderHint": "Zum Neuordnen ziehen und ablegen.",
+      "optionsTitle": "Layout-Optionen",
+      "gridLayout": "Rasterlayout",
+      "pageSize": "Seitengröße",
+      "orientation": "Ausrichtung",
+      "spacing": "Abstand",
+      "useMargins": "Ränder hinzufügen",
+      "addBorder": "Rahmen hinzufügen",
+      "borderColor": "Rahmenfarbe",
+      "combineButton": "PDFs kombinieren",
+      "successMessage": "PDFs erfolgreich kombiniert! Klicken Sie auf den Download-Button, um Ihre Datei zu speichern.",
+      "layoutPreview": "Layout-Vorschau",
+      "columns": "Spalten",
+      "rows": "Zeilen",
+      "pageMode": "Seitenmodus",
+      "firstPageOnly": "Nur erste Seite",
+      "allPages": "Alle Seiten",
+      "firstPageOnlyHint": "Nur die erste Seite von jedem PDF verwenden.",
+      "allPagesHint": "Alle Seiten von jedem PDF in das Raster aufnehmen.",
+      "fillMode": "Füllmodus",
+      "leaveEmpty": "Zellen leer lassen",
+      "repeat": "Von Anfang wiederholen",
+      "stretchLast": "Letzte Seite wiederholen",
+      "fillModeHint": "Wie leere Zellen gefüllt werden, wenn weniger Dateien als Zellen vorhanden sind.",
+      "cells": "Zellen",
+      "page": "Seite",
+      "pages": "Seiten",
+      "previewInfoAllPages": "{fileCount} PDF(s) mit insgesamt {totalPages} Seiten werden in einem {layout} Raster auf {outputPages} Ausgabeseite(n) angeordnet.",
+      "previewInfoFirstPage": "{fileCount} PDF(s) werden in einem {layout} Raster auf {outputPages} Seite(n) angeordnet.",
+      "minFilesError": "Bitte fügen Sie mindestens 2 PDF-Dateien zum Kombinieren hinzu."
     },
     "alternateMerge": {
       "uploadLabel": "Upload PDF Files",
@@ -1351,6 +1393,48 @@
       "uploadDescription": "Drag and drop a PDF file here, or click to browse.",
       "convertButton": "Convert to DOCX",
       "successMessage": "Your PDF has been successfully converted to DOCX! Click the download button to save your file."
+    },
+    "wordToPdf": {
+      "uploadLabel": "Word-Dokument hochladen",
+      "uploadDescription": "Word-Dokument (.docx) hierher ziehen oder klicken zum Auswählen.",
+      "convertButton": "In PDF konvertieren",
+      "successMessage": "Ihr Word-Dokument wurde erfolgreich in PDF konvertiert!"
+    },
+    "excelToPdf": {
+      "uploadLabel": "Excel-Datei hochladen",
+      "uploadDescription": "Excel-Datei (.xlsx) hierher ziehen oder klicken zum Auswählen.",
+      "convertButton": "In PDF konvertieren",
+      "successMessage": "Ihre Excel-Datei wurde erfolgreich in PDF konvertiert!"
+    },
+    "pptxToPdf": {
+      "uploadLabel": "PowerPoint-Datei hochladen",
+      "uploadDescription": "PowerPoint-Datei (.pptx) hierher ziehen oder klicken zum Auswählen.",
+      "convertButton": "In PDF konvertieren",
+      "successMessage": "Ihre PowerPoint-Datei wurde erfolgreich in PDF konvertiert!"
+    },
+    "xpsToPdf": {
+      "uploadLabel": "XPS-Datei hochladen",
+      "uploadDescription": "XPS-Datei hierher ziehen oder klicken zum Auswählen.",
+      "convertButton": "In PDF konvertieren",
+      "successMessage": "Ihre XPS-Datei wurde erfolgreich in PDF konvertiert!"
+    },
+    "rtfToPdf": {
+      "uploadLabel": "RTF-Datei hochladen",
+      "uploadDescription": "RTF-Datei hierher ziehen oder klicken zum Auswählen.",
+      "convertButton": "In PDF konvertieren",
+      "successMessage": "Ihre RTF-Datei wurde erfolgreich in PDF konvertiert!"
+    },
+    "epubToPdf": {
+      "uploadLabel": "EPUB-Datei hochladen",
+      "uploadDescription": "EPUB-E-Book-Datei hierher ziehen oder klicken zum Auswählen.",
+      "convertButton": "In PDF konvertieren",
+      "successMessage": "Ihre EPUB-Datei wurde erfolgreich in PDF konvertiert!"
+    },
+    "mobiToPdf": {
+      "uploadLabel": "MOBI-Datei hochladen",
+      "uploadDescription": "MOBI/AZW-E-Book-Datei hierher ziehen oder klicken zum Auswählen.",
+      "convertButton": "In PDF konvertieren",
+      "successMessage": "Ihre MOBI-Datei wurde erfolgreich in PDF konvertiert!"
     }
   }
 }

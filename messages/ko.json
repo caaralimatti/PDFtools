@@ -429,6 +429,13 @@
     "useCases": "Use Cases",
     "faq": "Frequently Asked Questions",
     "comingSoon": "This tool is coming soon.",
+    "quality": {
+      "title": "출력 품질",
+      "low": "낮음",
+      "medium": "중간",
+      "high": "높음",
+      "hint": "품질이 높을수록 파일 크기가 커지고 변환 시간이 오래 걸립니다."
+    },
     "mergePdf": {
       "uploadLabel": "Upload PDF Files",
       "uploadDescription": "Drag and drop PDF files here, or click to browse. You can add multiple files.",
@@ -790,6 +797,41 @@
       "previewInfo": "{pages} pages will be arranged into {sheets} sheet(s) with {perSheet} pages per sheet.",
       "createButton": "Create N-Up PDF",
       "successMessage": "N-Up PDF created successfully! Click the download button to save your file."
+    },
+    "gridCombine": {
+      "uploadLabel": "PDF 파일 업로드",
+      "uploadDescription": "여러 PDF 파일을 여기에 드래그 앤 드롭하세요.",
+      "filesTitle": "병합할 파일",
+      "reorderHint": "드래그 앤 드롭으로 순서 변경.",
+      "optionsTitle": "레이아웃 옵션",
+      "gridLayout": "격자 레이아웃",
+      "pageSize": "페이지 크기",
+      "orientation": "방향",
+      "spacing": "간격",
+      "useMargins": "여백 추가",
+      "addBorder": "테두리 추가",
+      "borderColor": "테두리 색상",
+      "combineButton": "PDF 병합",
+      "successMessage": "PDF가 성공적으로 병합되었습니다! 다운로드 버튼을 클릭하여 파일을 저장하세요.",
+      "layoutPreview": "레이아웃 미리보기",
+      "columns": "열",
+      "rows": "행",
+      "pageMode": "페이지 모드",
+      "firstPageOnly": "첫 페이지만",
+      "allPages": "모든 페이지",
+      "firstPageOnlyHint": "각 PDF의 첫 페이지만 사용합니다.",
+      "allPagesHint": "각 PDF의 모든 페이지를 격자에 포함합니다.",
+      "fillMode": "채우기 모드",
+      "leaveEmpty": "셀 비워두기",
+      "repeat": "처음부터 반복",
+      "stretchLast": "마지막 페이지 반복",
+      "fillModeHint": "파일 수가 셀 수보다 적을 때 빈 셀을 채우는 방법.",
+      "cells": "셀",
+      "page": "페이지",
+      "pages": "페이지",
+      "previewInfoAllPages": "{fileCount}개의 PDF(총 {totalPages} 페이지)가 {outputPages}장의 {layout} 격자에 배치됩니다.",
+      "previewInfoFirstPage": "{fileCount}개의 PDF가 {outputPages}장의 {layout} 격자에 배치됩니다.",
+      "minFilesError": "병합할 PDF 파일을 최소 2개 이상 추가해 주세요."
     },
     "alternateMerge": {
       "uploadLabel": "Upload PDF Files",
@@ -1351,6 +1393,48 @@
       "uploadDescription": "Drag and drop a PDF file here, or click to browse.",
       "convertButton": "Convert to DOCX",
       "successMessage": "Your PDF has been successfully converted to DOCX! Click the download button to save your file."
+    },
+    "wordToPdf": {
+      "uploadLabel": "Word 문서 업로드",
+      "uploadDescription": "Word 문서(.docx)를 여기로 드래그하거나 클릭하여 선택하세요.",
+      "convertButton": "PDF로 변환",
+      "successMessage": "Word 문서가 PDF로 성공적으로 변환되었습니다!"
+    },
+    "excelToPdf": {
+      "uploadLabel": "Excel 파일 업로드",
+      "uploadDescription": "Excel 파일(.xlsx)을 여기로 드래그하거나 클릭하여 선택하세요.",
+      "convertButton": "PDF로 변환",
+      "successMessage": "Excel 파일이 PDF로 성공적으로 변환되었습니다!"
+    },
+    "pptxToPdf": {
+      "uploadLabel": "PowerPoint 파일 업로드",
+      "uploadDescription": "PowerPoint 파일(.pptx)을 여기로 드래그하거나 클릭하여 선택하세요.",
+      "convertButton": "PDF로 변환",
+      "successMessage": "PowerPoint 파일이 PDF로 성공적으로 변환되었습니다!"
+    },
+    "xpsToPdf": {
+      "uploadLabel": "XPS 파일 업로드",
+      "uploadDescription": "XPS 파일을 여기로 드래그하거나 클릭하여 선택하세요.",
+      "convertButton": "PDF로 변환",
+      "successMessage": "XPS 파일이 PDF로 성공적으로 변환되었습니다!"
+    },
+    "rtfToPdf": {
+      "uploadLabel": "RTF 파일 업로드",
+      "uploadDescription": "RTF 파일을 여기로 드래그하거나 클릭하여 선택하세요.",
+      "convertButton": "PDF로 변환",
+      "successMessage": "RTF 파일이 PDF로 성공적으로 변환되었습니다!"
+    },
+    "epubToPdf": {
+      "uploadLabel": "EPUB 파일 업로드",
+      "uploadDescription": "EPUB 전자책 파일을 여기로 드래그하거나 클릭하여 선택하세요.",
+      "convertButton": "PDF로 변환",
+      "successMessage": "EPUB 파일이 PDF로 성공적으로 변환되었습니다!"
+    },
+    "mobiToPdf": {
+      "uploadLabel": "MOBI 파일 업로드",
+      "uploadDescription": "MOBI/AZW 전자책 파일을 여기로 드래그하거나 클릭하여 선택하세요.",
+      "convertButton": "PDF로 변환",
+      "successMessage": "MOBI 파일이 PDF로 성공적으로 변환되었습니다!"
     }
   }
 }

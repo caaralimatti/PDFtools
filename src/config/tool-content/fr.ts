@@ -92,6 +92,33 @@ export const toolContentFr: Record<string, ToolContent> = {
     ],
   },
 
+  'grid-combine': {
+    title: 'Combiner PDF en Grille',
+    metaDescription: 'Combinez plusieurs fichiers PDF sur des pages uniques avec une mise en page en grille flexible. Organisez 2, 4, 6, 9 ou plus de PDF par page avec bordures et espacement.',
+    keywords: ['combiner grille', 'fusionner pdf grille', 'collage pdf', 'plusieurs pdf une page', 'pdf n-up', 'grille pdf'],
+    description: `
+      <p>L'outil Combiner en Grille offre une façon unique de fusionner plusieurs fichiers PDF séparés sur des pages uniques. Contrairement à l'outil standard "Fusionner PDF" qui ajoute simplement les pages, ou l'outil "N-Up" qui réorganise les pages d'un seul document, Combiner en Grille prend plusieurs fichiers d'entrée et les dispose côte à côte dans une mise en page en grille personnalisable.</p>
+      <p>Vous pouvez choisir parmi diverses configurations de grille telles que 2x1, 2x2, 3x3, etc. C'est parfait pour comparer plusieurs documents, créer des documents à distribuer à partir de différentes sources ou imprimer des versions compactes de plusieurs fichiers.</p>
+      <p>Personnalisez la sortie en contrôlant la taille de la page, l'orientation, les marges, l'espacement et les bordures. Tout le traitement se fait localement dans votre navigateur pour une confidentialité maximale.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Téléverser des fichiers PDF', description: 'Téléversez deux ou plusieurs fichiers PDF que vous souhaitez combiner. Vous pouvez les réorganiser dans l\'ordre souhaité.' },
+      { step: 2, title: 'Choisir la disposition en grille', description: 'Sélectionnez votre disposition de grille souhaitée (ex: 2x2 pour 4 fichiers par page, 3x3 pour 9 fichiers par page).' },
+      { step: 3, title: 'Personnaliser l\'apparence', description: 'Ajustez les paramètres tels que la taille de la page (A4, Lettre), l\'orientation, l\'espacement entre les éléments et les bordures.' },
+      { step: 4, title: 'Combiner et Télécharger', description: 'Cliquez sur "Combiner PDFs" pour générer votre nouveau document en grille et téléchargez le résultat.' },
+    ],
+    useCases: [
+      { title: 'Comparaison Visuelle', description: 'Placez différentes versions d\'un design ou d\'un document côte à côte sur une seule page pour une comparaison facile.', icon: 'layout-grid' },
+      { title: 'Imprimer des Documents', description: 'Combinez plusieurs documents courts ou diapositives sur une seule feuille pour économiser des coûts d\'impression.', icon: 'printer' },
+      { title: 'Création de Portfolio', description: 'Présentez plusieurs fichiers de projet dans un aperçu de grille propre et organisé.', icon: 'image' },
+    ],
+    faq: [
+      { question: 'Quelle est la différence avec N-Up ?', answer: 'N-Up prend les pages d\'UN SEUL PDF et les met sur une feuille. Combiner en Grille prend PLUSIEURS FICHIERS PDF DIFFÉRENTS et les met sur une feuille.' },
+      { question: 'Combien de fichiers puis-je combiner ?', answer: 'Vous pouvez combiner jusqu\'à 100 fichiers selon la mémoire de votre navigateur, mais les dispositions comme 4x4 accueillent jusqu\'à 16 fichiers par page.' },
+      { question: 'Puis-je ajouter des bordures ?', answer: 'Oui, vous pouvez ajouter des bordures autour de chaque fichier PDF et personnaliser la couleur de la bordure.' },
+    ],
+  },
+
   'compress-pdf': {
     title: 'Compresser PDF',
     metaDescription: 'Réduisez la taille des fichiers PDF tout en maintenant la qualité. Compresseur PDF en ligne gratuit pour des fichiers plus légers.',

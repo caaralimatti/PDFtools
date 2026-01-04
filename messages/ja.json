@@ -429,6 +429,13 @@
     "useCases": "Use Cases",
     "faq": "Frequently Asked Questions",
     "comingSoon": "This tool is coming soon.",
+    "quality": {
+      "title": "出力品質",
+      "low": "低",
+      "medium": "中",
+      "high": "高",
+      "hint": "高品質ほどファイルサイズが大きくなり、変換に時間がかかります。"
+    },
     "mergePdf": {
       "uploadLabel": "Upload PDF Files",
       "uploadDescription": "Drag and drop PDF files here, or click to browse. You can add multiple files.",
@@ -790,6 +797,41 @@
       "previewInfo": "{pages} pages will be arranged into {sheets} sheet(s) with {perSheet} pages per sheet.",
       "createButton": "Create N-Up PDF",
       "successMessage": "N-Up PDF created successfully! Click the download button to save your file."
+    },
+    "gridCombine": {
+      "uploadLabel": "PDFファイルをアップロード",
+      "uploadDescription": "複数のPDFファイルをここにドラッグ＆ドロップしてください。",
+      "filesTitle": "結合するファイル",
+      "reorderHint": "ドラッグ＆ドロップで並べ替え。",
+      "optionsTitle": "レイアウトオプション",
+      "gridLayout": "グリッドレイアウト",
+      "pageSize": "ページサイズ",
+      "orientation": "向き",
+      "spacing": "間隔",
+      "useMargins": "マージンを追加",
+      "addBorder": "枠線を追加",
+      "borderColor": "枠線の色",
+      "combineButton": "PDFを結合",
+      "successMessage": "PDFが正常に結合されました！ダウンロードボタンをクリックして保存してください。",
+      "layoutPreview": "レイアウトプレビュー",
+      "columns": "列",
+      "rows": "行",
+      "pageMode": "ページモード",
+      "firstPageOnly": "最初のページのみ",
+      "allPages": "すべてのページ",
+      "firstPageOnlyHint": "各PDFの最初のページのみを使用します。",
+      "allPagesHint": "各PDFのすべてのページをグリッドに含めます。",
+      "fillMode": "埋め込みモード",
+      "leaveEmpty": "セルを空のままにする",
+      "repeat": "最初から繰り返す",
+      "stretchLast": "最後のページを繰り返す",
+      "fillModeHint": "セルの数よりファイルが少ない場合の空セルの処理。",
+      "cells": "セル",
+      "page": "ページ",
+      "pages": "ページ",
+      "previewInfoAllPages": "{fileCount}個のPDF（合計{totalPages}ページ）が、{outputPages}ページの{layout}グリッドに配置されます。",
+      "previewInfoFirstPage": "{fileCount}個のPDFが、{outputPages}ページの{layout}グリッドに配置されます。",
+      "minFilesError": "結合するには少なくとも2つのPDFファイルを追加してください。"
     },
     "alternateMerge": {
       "uploadLabel": "Upload PDF Files",
@@ -1351,6 +1393,48 @@
       "uploadDescription": "Drag and drop a PDF file here, or click to browse.",
       "convertButton": "Convert to DOCX",
       "successMessage": "Your PDF has been successfully converted to DOCX! Click the download button to save your file."
+    },
+    "wordToPdf": {
+      "uploadLabel": "Word文書をアップロード",
+      "uploadDescription": "Word文書(.docx)をここにドラッグ＆ドロップするか、クリックして選択してください。",
+      "convertButton": "PDFに変換",
+      "successMessage": "Word文書がPDFに正常に変換されました！"
+    },
+    "excelToPdf": {
+      "uploadLabel": "Excelファイルをアップロード",
+      "uploadDescription": "Excelファイル(.xlsx)をここにドラッグ＆ドロップするか、クリックして選択してください。",
+      "convertButton": "PDFに変換",
+      "successMessage": "ExcelファイルがPDFに正常に変換されました！"
+    },
+    "pptxToPdf": {
+      "uploadLabel": "PowerPointファイルをアップロード",
+      "uploadDescription": "PowerPointファイル(.pptx)をここにドラッグ＆ドロップするか、クリックして選択してください。",
+      "convertButton": "PDFに変換",
+      "successMessage": "PowerPointファイルがPDFに正常に変換されました！"
+    },
+    "xpsToPdf": {
+      "uploadLabel": "XPSファイルをアップロード",
+      "uploadDescription": "XPSファイルをここにドラッグ＆ドロップするか、クリックして選択してください。",
+      "convertButton": "PDFに変換",
+      "successMessage": "XPSファイルがPDFに正常に変換されました！"
+    },
+    "rtfToPdf": {
+      "uploadLabel": "RTFファイルをアップロード",
+      "uploadDescription": "RTFファイルをここにドラッグ＆ドロップするか、クリックして選択してください。",
+      "convertButton": "PDFに変換",
+      "successMessage": "RTFファイルがPDFに正常に変換されました！"
+    },
+    "epubToPdf": {
+      "uploadLabel": "EPUBファイルをアップロード",
+      "uploadDescription": "EPUB電子書籍ファイルをここにドラッグ＆ドロップするか、クリックして選択してください。",
+      "convertButton": "PDFに変換",
+      "successMessage": "EPUBファイルがPDFに正常に変換されました！"
+    },
+    "mobiToPdf": {
+      "uploadLabel": "MOBIファイルをアップロード",
+      "uploadDescription": "MOBI/AZW電子書籍ファイルをここにドラッグ＆ドロップするか、クリックして選択してください。",
+      "convertButton": "PDFに変換",
+      "successMessage": "MOBIファイルがPDFに正常に変換されました！"
     }
   }
 }

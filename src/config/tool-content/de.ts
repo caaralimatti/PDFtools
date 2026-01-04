@@ -88,6 +88,33 @@ export const toolContentDe: Record<string, ToolContent> = {
     ],
   },
 
+  'grid-combine': {
+    title: 'Rasterkombination PDF',
+    metaDescription: 'Kombinieren Sie mehrere PDF-Dateien auf einzelnen Seiten mit einem flexiblen Rasterlayout. Ordnen Sie 2, 4, 6, 9 oder mehr PDFs pro Seite mit Rändern und Abständen an.',
+    keywords: ['raster kombinieren', 'pdf raster zusammenführen', 'pdf collage', 'mehrere pdfs eine seite', 'pdf n-up', 'pdf raster'],
+    description: `
+      <p>Das Rasterkombinations-Tool bietet eine einzigartige Möglichkeit, mehrere separate PDF-Dateien auf einzelnen Seiten zusammenzuführen. Im Gegensatz zum Standard-Tool "PDF zusammenführen", das einfach Seiten anhängt, oder dem "N-Up"-Tool, das Seiten aus einem einzelnen Dokument neu anordnet, nimmt Rasterkombination mehrere Eingabedateien und ordnet sie nebeneinander in einem anpassbaren Rasterlayout an.</p>
+      <p>Sie können aus verschiedenen Rasterkonfigurationen wie 2x1, 2x2, 3x3 usw. wählen. Dies ist perfekt für den Vergleich mehrerer Dokumente, das Erstellen von Handzetteln aus verschiedenen Quellen oder das Drucken kompakter Versionen mehrerer Dateien.</p>
+      <p>Passen Sie die Ausgabe an, indem Sie Seitengröße, Ausrichtung, Ränder, Abstände und Rahmen steuern. Die gesamte Verarbeitung erfolgt lokal in Ihrem Browser für maximale Privatsphäre.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'PDF-Dateien hochladen', description: 'Laden Sie zwei oder mehr PDF-Dateien hoch, die Sie kombinieren möchten. Sie können sie in der gewünschten Reihenfolge neu anordnen.' },
+      { step: 2, title: 'Rasterlayout wählen', description: 'Wählen Sie Ihr gewünschtes Rasterlayout (z.B. 2x2 für 4 Dateien pro Seite, 3x3 für 9 Dateien pro Seite).' },
+      { step: 3, title: 'Aussehen anpassen', description: 'Passen Sie Einstellungen wie Seitengröße (A4, Letter), Ausrichtung, Abstand zwischen Elementen und Ränder an.' },
+      { step: 4, title: 'Kombinieren und herunterladen', description: 'Klicken Sie auf "PDFs kombinieren", um Ihr neues Rasterlayout-Dokument zu generieren und das Ergebnis herunterzuladen.' },
+    ],
+    useCases: [
+      { title: 'Visueller Vergleich', description: 'Platzieren Sie verschiedene Versionen eines Designs oder Dokuments nebeneinander auf einer einzelnen Seite für einen einfachen Vergleich.', icon: 'layout-grid' },
+      { title: 'Handzettel drucken', description: 'Kombinieren Sie mehrere kurze Dokumente oder Folien auf einem Blatt Papier, um Druckkosten zu sparen.', icon: 'printer' },
+      { title: 'Portfolio-Erstellung', description: 'Präsentieren Sie mehrere Projektdateien in einer sauberen, organisierten Rasterübersicht.', icon: 'image' },
+    ],
+    faq: [
+      { question: 'Wie unterscheidet sich das von N-Up?', answer: 'N-Up nimmt Seiten aus EINEM PDF und setzt sie auf ein Blatt. Rasterkombination nimmt MEHRERE VERSCHIEDENE PDF-Dateien und setzt sie auf ein Blatt.' },
+      { question: 'Wie viele Dateien kann ich kombinieren?', answer: 'Sie können je nach Browserspeicher bis zu 100 Dateien kombinieren, aber Layouts wie 4x4 bieten Platz für bis zu 16 Dateien pro Seite.' },
+      { question: 'Kann ich Ränder hinzufügen?', answer: 'Ja, Sie können Ränder um jede PDF-Datei hinzufügen und die Rahmenfarbe anpassen.' },
+    ],
+  },
+
   'split-pdf': {
     title: 'PDF teilen',
     metaDescription: 'PDF-Dateien in mehrere Dokumente aufteilen. Extrahieren Sie einzelne Seiten oder teilen Sie nach Bereichen.',

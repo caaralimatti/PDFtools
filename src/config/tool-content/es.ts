@@ -80,6 +80,33 @@ export const toolContentEs: Record<string, ToolContent> = {
     ],
   },
 
+  'grid-combine': {
+    title: 'Combinar en Cuadrícula PDF',
+    metaDescription: 'Combinar múltiples archivos PDF en páginas individuales con un diseño de cuadrícula flexible. Organice 2, 4, 6, 9 o más PDF por página con bordes y espaciado.',
+    keywords: ['combinar cuadrícula', 'fusionar pdf cuadrícula', 'collage pdf', 'múltiples pdf una página', 'pdf n-up', 'cuadrícula pdf'],
+    description: `
+      <p>La herramienta Combinar en Cuadrícula ofrece una forma única de fusionar múltiples archivos PDF separados en páginas individuales. A diferencia de la herramienta estándar "Fusionar PDF" que simplemente añade páginas, o la herramienta "N-Up" que reorganiza páginas de un solo documento, Combinar en Cuadrícula toma múltiples archivos de entrada y los organiza uno al lado del otro en un diseño de cuadrícula personalizable.</p>
+      <p>Puede elegir entre varias configuraciones de cuadrícula como 2x1, 2x2, 3x3, etc. Esto es perfecto para comparar múltiples documentos, crear folletos de diferentes fuentes o imprimir versiones compactas de varios archivos.</p>
+      <p>Personalice la salida controlando el tamaño de página, la orientación, los márgenes, el espaciado y los bordes. Todo el procesamiento ocurre localmente en su navegador para máxima privacidad.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Subir Archivos PDF', description: 'Suba dos o más archivos PDF que desee combinar. Puede reorganizarlos en el orden deseado.' },
+      { step: 2, title: 'Elegir Diseño de Cuadrícula', description: 'Seleccione el diseño de cuadrícula deseado (ej: 2x2 para 4 archivos por página, 3x3 para 9 archivos por página).' },
+      { step: 3, title: 'Personalizar Apariencia', description: 'Ajuste configuraciones como tamaño de página (A4, Carta), orientación, espaciado entre elementos y bordes.' },
+      { step: 4, title: 'Combinar y Descargar', description: 'Haga clic en "Combinar PDFs" para generar su nuevo documento con diseño de cuadrícula y descargue el resultado.' },
+    ],
+    useCases: [
+      { title: 'Comparación Visual', description: 'Coloque diferentes versiones de un diseño o documento una al lado de la otra en una sola página para una fácil comparación.', icon: 'layout-grid' },
+      { title: 'Imprimir Folletos', description: 'Combine múltiples documentos cortos o diapositivas en una sola hoja para ahorrar costos de impresión.', icon: 'printer' },
+      { title: 'Creación de Portafolios', description: 'Muestre múltiples archivos de proyecto en una vista general de cuadrícula limpia y organizada.', icon: 'image' },
+    ],
+    faq: [
+      { question: '¿En qué se diferencia de N-Up?', answer: 'N-Up toma páginas de UN PDF y las pone en una hoja. Combinar en Cuadrícula toma MÚLTIPLES ARCHIVOS PDF DIFERENTES y los pone en una hoja.' },
+      { question: '¿Cuántos archivos puedo combinar?', answer: 'Puede combinar hasta 100 archivos dependiendo de la memoria de su navegador, pero los diseños como 4x4 acomodan hasta 16 archivos por página.' },
+      { question: '¿Puedo añadir bordes?', answer: 'Sí, puede añadir bordes alrededor de cada archivo PDF y personalizar el color del borde.' },
+    ],
+  },
+
   'split-pdf': {
     title: 'Dividir PDF',
     metaDescription: 'Divide archivos PDF en múltiples documentos. Extrae páginas específicas o divide por rangos.',

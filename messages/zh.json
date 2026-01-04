@@ -429,6 +429,13 @@
     "useCases": "使用场景",
     "faq": "常见问题",
     "comingSoon": "此工具即将推出。",
+    "quality": {
+      "title": "输出质量",
+      "low": "低",
+      "medium": "中",
+      "high": "高",
+      "hint": "更高的质量会产生更大的文件，转换时间更长。"
+    },
     "mergePdf": {
       "uploadLabel": "上传PDF文件",
       "uploadDescription": "拖放PDF文件到此处，或点击浏览。可以添加多个文件。",
@@ -438,6 +445,55 @@
       "preserveBookmarks": "保留书签（为每个文件创建书签）",
       "mergeButton": "合并PDF",
       "successMessage": "PDF合并成功！点击下载按钮保存文件。"
+    },
+    "gridCombine": {
+      "uploadLabel": "上传PDF文件",
+      "uploadDescription": "拖放多个PDF文件到此处。",
+      "filesTitle": "要合并的文件",
+      "reorderHint": "拖放以重新排序文件。",
+      "optionsTitle": "布局选项",
+      "gridLayout": "网格布局",
+      "pageSize": "页面尺寸",
+      "orientation": "方向",
+      "spacing": "间距",
+      "useMargins": "添加边距",
+      "addBorder": "添加边框",
+      "borderColor": "边框颜色",
+      "combineButton": "合并PDF",
+      "successMessage": "PDF合并成功！点击下载按钮保存文件。",
+      "layoutPreview": "布局预览",
+      "columns": "列",
+      "rows": "行",
+      "pageMode": "页面模式",
+      "firstPageOnly": "仅首页",
+      "allPages": "所有页面",
+      "firstPageOnlyHint": "仅使用每个PDF的第一页。",
+      "allPagesHint": "将每个PDF的所有页面都放入网格中。",
+      "fillMode": "填充模式",
+      "leaveEmpty": "留空",
+      "repeat": "循环填充",
+      "stretchLast": "重复最后一页",
+      "fillModeHint": "当文件数少于网格单元格时如何填充空位。",
+      "cells": "格",
+      "page": "页",
+      "pages": "页",
+      "previewInfoAllPages": "{fileCount} 个PDF文件共 {totalPages} 页将以 {layout} 网格排列到 {outputPages} 个输出页面。",
+      "previewInfoFirstPage": "{fileCount} 个PDF文件将以 {layout} 网格排列到 {outputPages} 个页面。",
+      "minFilesError": "请至少添加2个PDF文件进行合并。"
+    },
+    "nUpPdf": {
+      "uploadLabel": "上传PDF文件",
+      "uploadDescription": "拖放PDF文件到此处，或点击浏览。",
+      "optionsTitle": "N-Up 选项",
+      "pagesPerSheet": "每张纸的页数",
+      "pageSize": "输出页面尺寸",
+      "orientation": "方向",
+      "useMargins": "添加边距和装订线",
+      "addBorder": "添加页面边框",
+      "borderColor": "边框颜色",
+      "previewInfo": "{pages} 页将被排列到 {sheets} 张纸上，每张 {perSheet} 页。",
+      "createButton": "创建 {pages}-Up PDF",
+      "successMessage": "N-Up PDF 创建成功！点击下载按钮保存文件。"
     },
     "splitPdf": {
       "uploadLabel": "上传PDF文件",
@@ -762,21 +818,6 @@
       "infoDescription": "这将反转PDF中所有页面的顺序。最后一页将变成第一页，依此类推。",
       "reverseButton": "反转页面",
       "successMessage": "页面顺序反转成功！点击下载按钮保存文件。"
-    },
-    "nUpPdf": {
-      "uploadLabel": "上传PDF文件",
-      "uploadDescription": "拖放PDF文件到此处，或点击浏览。",
-      "optionsTitle": "N-Up选项",
-      "layout": "布局",
-      "pagesPerSheet": "每页显示页数",
-      "pageSize": "输出页面大小",
-      "orientation": "方向",
-      "useMargins": "添加边距和间距",
-      "addBorder": "为页面添加边框",
-      "borderColor": "边框颜色",
-      "previewInfo": "{pages} 页将被排列成 {sheets} 张纸，每张纸 {perSheet} 页。",
-      "createButton": "创建N-Up PDF",
-      "successMessage": "N-Up PDF创建成功！点击下载按钮保存文件。"
     },
     "alternateMerge": {
       "uploadLabel": "上传PDF文件",
@@ -1353,6 +1394,48 @@
       "uploadDescription": "拖放PDF文件到此处，或点击浏览。",
       "convertButton": "转换为DOCX",
       "successMessage": "您的PDF已成功转换为DOCX！点击下载按钮保存文件。"
+    },
+    "wordToPdf": {
+      "uploadLabel": "上传Word文档",
+      "uploadDescription": "拖放Word文档（.docx）到此处，或点击浏览。",
+      "convertButton": "转换为PDF",
+      "successMessage": "您的Word文档已成功转换为PDF！"
+    },
+    "excelToPdf": {
+      "uploadLabel": "上传Excel文件",
+      "uploadDescription": "拖放Excel文件（.xlsx）到此处，或点击浏览。",
+      "convertButton": "转换为PDF",
+      "successMessage": "您的Excel文件已成功转换为PDF！"
+    },
+    "pptxToPdf": {
+      "uploadLabel": "上传PowerPoint文件",
+      "uploadDescription": "拖放PowerPoint文件（.pptx）到此处，或点击浏览。",
+      "convertButton": "转换为PDF",
+      "successMessage": "您的PowerPoint文件已成功转换为PDF！"
+    },
+    "xpsToPdf": {
+      "uploadLabel": "上传XPS文件",
+      "uploadDescription": "拖放XPS文件到此处，或点击浏览。",
+      "convertButton": "转换为PDF",
+      "successMessage": "您的XPS文件已成功转换为PDF！"
+    },
+    "rtfToPdf": {
+      "uploadLabel": "上传RTF文件",
+      "uploadDescription": "拖放RTF文件到此处，或点击浏览。",
+      "convertButton": "转换为PDF",
+      "successMessage": "您的RTF文件已成功转换为PDF！"
+    },
+    "epubToPdf": {
+      "uploadLabel": "上传EPUB文件",
+      "uploadDescription": "拖放EPUB电子书文件到此处，或点击浏览。",
+      "convertButton": "转换为PDF",
+      "successMessage": "您的EPUB文件已成功转换为PDF！"
+    },
+    "mobiToPdf": {
+      "uploadLabel": "上传MOBI文件",
+      "uploadDescription": "拖放MOBI/AZW电子书文件到此处，或点击浏览。",
+      "convertButton": "转换为PDF",
+      "successMessage": "您的MOBI文件已成功转换为PDF！"
     }
   }
 }

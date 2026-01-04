@@ -19,6 +19,7 @@ export { RotatePDFTool, type RotatePDFToolProps } from './rotate';
 export { AddBlankPageTool, type AddBlankPageToolProps } from './add-blank-page';
 export { ReversePagesTool, type ReversePagesToolProps } from './reverse';
 export { NUpPDFTool, type NUpPDFToolProps } from './n-up';
+export { GridCombineTool, type GridCombineToolProps } from './grid-combine';
 export { AlternateMergeTool, type AlternateMergeToolProps } from './alternate-merge';
 export { DividePagesTool } from './divide';
 export { CombineSinglePageTool, type CombineSinglePageToolProps } from './combine-single-page';
