@@ -35,7 +35,7 @@ This project is built with modern web technologies to provide a slick, app-like 
 - **🎨 Modern UI**: Clean, accessible, and responsive design built with Tailwind CSS.
 - **🌐 Multi-language**: Supports English, Spanish, French, German, Portuguese, Japanese, Korean, and Chinese.
 
-## 🧰 Complete Tool List (72+ Tools)
+## 🧰 Complete Tool List (80+ Tools)
 
 ### 📁 Organize & Manage (24 tools)
 | Tool | Description |
@@ -63,8 +63,9 @@ This project is built with modern web technologies to provide a slick, app-like 
 | **PDF to ZIP** | Package multiple PDFs into a ZIP archive |
 | **Compare PDFs** | Compare two PDFs side-by-side with difference highlighting |
 | **Posterize PDF** | Split large pages into multiple printable sheets |
+| **Grid Combine** | Combine multiple PDFs into a grid layout with custom spacing |
 
-### ✏️ Edit & Annotate (17 tools)
+### ✏️ Edit & Annotate (16 tools)
 | Tool | Description |
 |------|-------------|
 | **Edit PDF** | Add text, images, annotations, highlights, and shapes |
@@ -84,7 +85,7 @@ This project is built with modern web technologies to provide a slick, app-like 
 | **Form Creator** | Add text fields, checkboxes, and dropdowns to create forms |
 | **Remove Blank Pages** | Auto-detect and remove empty pages |
 
-### 📤 Convert to PDF (12 tools)
+### 📤 Convert to PDF (18 tools)
 | Tool | Description |
 |------|-------------|
 | **Image to PDF** | Convert any image format to PDF |
@@ -98,8 +99,15 @@ This project is built with modern web technologies to provide a slick, app-like 
 | **TXT to PDF** | Convert plain text files to PDF |
 | **JSON to PDF** | Convert JSON data with syntax highlighting |
 | **PSD to PDF** | Convert Photoshop files to PDF |
+| **Word to PDF** | Convert Microsoft Word documents to PDF |
+| **Excel to PDF** | Convert Excel spreadsheets to PDF |
+| **PowerPoint to PDF** | Convert PowerPoint presentations to PDF |
+| **XPS to PDF** | Convert XPS documents to PDF |
+| **RTF to PDF** | Convert Rich Text Format files to PDF |
+| **EPUB to PDF** | Convert EPUB ebooks to PDF |
+| **MOBI to PDF** | Convert MOBI ebooks to PDF |
 
-### 📥 Convert from PDF (11 tools)
+### 📥 Convert from PDF (10 tools)
 | Tool | Description |
 |------|-------------|
 | **PDF to JPG** | Extract pages as JPEG images |
@@ -113,7 +121,7 @@ This project is built with modern web technologies to provide a slick, app-like 
 | **PDF to PowerPoint** | Convert PDF to editable slides |
 | **PDF to Excel** | Extract tables to spreadsheet format |
 
-### ⚡ Optimize & Repair (5 tools)
+### ⚡ Optimize & Repair (6 tools)
 | Tool | Description |
 |------|-------------|
 | **Compress PDF** | Reduce file size while maintaining quality |
