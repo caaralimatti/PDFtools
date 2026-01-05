@@ -198,6 +198,72 @@ To run this project locally, follow these steps:
 - `npm run lint`: Lints the code using ESLint.
 - `npm run test`: Runs tests using Vitest.
 
+## 🚀 Production Deployment Guide
+
+PDFCraft is configured for static export (`output: 'export'`), which means it can be deployed to any service that supports static website hosting without requiring a Node.js server.
+
+### 1. Build Project
+
+Before deploying, build the project to generate static files using the following command:
+
+```bash
+npm run build
+```
+
+After the build is complete, all static files will be located in the `out` directory.
+
+### 2. Deployment Options
+
+You can deploy the contents of the `out` directory to any of the following platforms:
+
+#### A. Vercel (Recommended)
+1. Install Vercel CLI: `npm i -g vercel`
+2. Run the `vercel` command.
+3. Follow the prompts to set the build command to `npm run build` and the output directory to `out`.
+4. Alternatively, connect directly to your GitHub repository, and Vercel will automatically detect Next.js and configure it.
+
+#### B. Nginx / Apache
+Copy the contents of the `out` directory to the root directory of your web server.
+
+**Nginx Configuration Example:**
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+    root /path/to/your/pdfcraft/out;
+    index index.html;
+
+    # Handle static files
+    location / {
+        try_files $uri $uri.html $uri/ =404;
+    }
+
+    # Enable gzip compression
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+}
+```
+
+#### C. GitHub Pages
+1. Push the `out` directory to the `gh-pages` branch of your repository.
+2. Enable GitHub Pages in your repository settings.
+3. Note: If you are not using a custom domain, you might need to modify `basePath` in `next.config.js`.
+
+#### D. Netlify
+1. Connect your repository to Netlify.
+2. Set build command: `npm run build`
+3. Set publish directory: `out`
+
+### 3. Important Notes
+- **Headers Configuration**: The `headers` configuration in `next.config.js` does not automatically take effect in static export mode. You need to configure HTTP headers separately depending on your hosting platform (e.g., `vercel.json` for Vercel or Nginx configuration).
+- **Image Optimization**: Since static export does not support Next.js's default image optimization server, the project is configured with `images: { unoptimized: true }`.
+
+### 4. Verify Deployment
+After deployment, please check the following features to ensure everything is working correctly:
+- Multi-language routing (e.g., `/en`, `/zh`)
+- Tool page loading
+- WebAssembly (PDF processing) functionality
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
