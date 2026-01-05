@@ -4,10 +4,10 @@
 export const siteConfig = {
   name: 'PDFCraft',
   description: 'Professional PDF Tools - Free, Private & Browser-Based. Merge, split, compress, convert, and edit PDF files online without uploading to servers.',
-  url: 'https://pdfcraft.app',
+  url: 'https://pdfcraft.devtoolcafe.com',
   ogImage: '/images/og-image.png',
   links: {
-    github: 'https://github.com/pdfcraft',
+    github: 'https://github.com/PDFCraftTool/pdfcraft',
     twitter: 'https://twitter.com/pdfcraft',
   },
   creator: 'PDFCraft Team',
