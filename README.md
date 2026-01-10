@@ -190,6 +190,34 @@ To run this project locally, follow these steps:
 4.  **Open your browser**
     Navigate to [http://localhost:3000](http://localhost:3000) to see the application running.
 
+### Docker Compose
+
+If you prefer running PDFCraft in containers, you can use the provided `docker-compose.yml`.
+
+#### Development (Next.js dev server)
+
+```bash
+docker compose --profile dev up
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+#### Static export + Nginx (production-like)
+
+This runs `next build` to generate the static export (`out/`), then serves it via Nginx using `nginx.conf`.
+
+```bash
+docker compose --profile prod up --build
+```
+
+Open [http://localhost:8080](http://localhost:8080).
+
+To stop and remove containers:
+
+```bash
+docker compose down
+```
+
 ## 📜 Scripts
 
 - `npm run dev`: Starts the development server with Turbopack.
