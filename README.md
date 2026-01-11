@@ -13,7 +13,7 @@
 
 <div align="center">
 
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fpdfcraft.gitu.net%2Fen%2F)](https://pdfcraft.gitu.net/en/)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fpdfcraft.devtoolcafe.com%2Fen%2F)](https://pdfcraft.devtoolcafe.com/en/)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)
 ![React](https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
@@ -31,7 +31,7 @@ This project is built with modern web technologies to provide a slick, app-like 
 
 - **🔒 100% Private**: All processing happens client-side. No file uploads to external servers.
 - **🚀 Fast & Responsive**: Powered by Next.js and WebAssembly for near-native performance.
-- **🛠️ Comprehensive Toolset**: Over 72+ tools to handle any PDF task.
+- **🛠️ Comprehensive Toolset**: Over 80+ tools to handle any PDF task.
 - **🎨 Modern UI**: Clean, accessible, and responsive design built with Tailwind CSS.
 - **🌐 Multi-language**: Supports English, Spanish, French, German, Portuguese, Japanese, Korean, and Chinese.
 
@@ -107,7 +107,7 @@ This project is built with modern web technologies to provide a slick, app-like 
 | **EPUB to PDF** | Convert EPUB ebooks to PDF |
 | **MOBI to PDF** | Convert MOBI ebooks to PDF |
 
-### 📥 Convert from PDF (10 tools)
+### 📥 Convert from PDF (11 tools)
 | Tool | Description |
 |------|-------------|
 | **PDF to JPG** | Extract pages as JPEG images |
@@ -120,6 +120,7 @@ This project is built with modern web technologies to provide a slick, app-like 
 | **PDF to DOCX** | Convert PDF to editable Word document |
 | **PDF to PowerPoint** | Convert PDF to editable slides |
 | **PDF to Excel** | Extract tables to spreadsheet format |
+| **Extract Images** | Extract all images embedded in a PDF file |
 
 ### ⚡ Optimize & Repair (6 tools)
 | Tool | Description |
