@@ -418,6 +418,19 @@
       "securePdf": "PDF Seguro"
     }
   },
+  "toolsPage": {
+    "title": "Professional PDF Tools",
+    "subtitle": "{count}+ free, secure, and easy-to-use tools for all your PDF needs.",
+    "filters": "Filters",
+    "allTools": "All Tools",
+    "clearAll": "Clear all",
+    "clearFilters": "Clear filters",
+    "showingAll": "Showing all {count} tools",
+    "showingFiltered": "Showing {filtered} of {total} tools",
+    "forQuery": "for \"{query}\"",
+    "inCategory": "in {category}",
+    "noToolsFound": "No tools found"
+  },
   "tools": {
     "search": {
       "placeholder": "Buscar herramientas...",
@@ -699,13 +712,29 @@
       "successMessage": "Pages divided successfully!"
     },
     "extractAttachments": {
-      "uploadLabel": "Upload PDF Files",
-      "uploadDescription": "Select PDF files to extract attachments from.",
-      "filesTitle": "Selected Files",
-      "extractButton": "Extract Attachments",
-      "extractedTitle": "Extracted Attachments",
-      "downloadAll": "Download All",
-      "successMessage": "Attachments extracted successfully!"
+      "uploadLabel": "Subir archivos PDF",
+      "uploadDescription": "Seleccione archivos PDF para extraer adjuntos.",
+      "filesTitle": "Archivos seleccionados",
+      "extractButton": "Extraer adjuntos",
+      "extractedTitle": "Adjuntos extraídos",
+      "downloadAll": "Descargar todo",
+      "successMessage": "¡Adjuntos extraídos correctamente!"
+    },
+    "extractImages": {
+      "uploadLabel": "Subir archivos PDF",
+      "uploadDescription": "Seleccione archivos PDF para extraer imágenes.",
+      "filesTitle": "Archivos seleccionados",
+      "filterTitle": "Opciones de filtro",
+      "filterDescription": "Filtrar imágenes pequeñas (iconos, decoraciones, etc.)",
+      "minWidth": "Ancho mín. (px)",
+      "minHeight": "Alto mín. (px)",
+      "minSizeKB": "Tamaño mín. (KB)",
+      "extractButton": "Extraer imágenes",
+      "extractedTitle": "Imágenes extraídas",
+      "downloadAll": "Descargar todo",
+      "downloadZip": "Descargar como ZIP",
+      "page": "Página",
+      "successMessage": "¡Imágenes extraídas correctamente! Haga clic para descargar imágenes individuales o use \"Descargar como ZIP\"."
     },
     "encryptPdf": {
       "uploadLabel": "Upload PDF File",
@@ -984,20 +1013,35 @@
       "successMessage": "JSON converted to PDF successfully!"
     },
     "pdfToImage": {
-      "uploadLabel": "Upload PDF File",
-      "uploadDescription": "Drag and drop a PDF file to convert.",
-      "optionsTitle": "Conversion Options",
-      "format": "Image Format",
-      "quality": "Quality",
-      "dpi": "Resolution (DPI)",
-      "resolution": "Resolution",
-      "pageRange": "Page Range",
-      "pageRangePlaceholder": "e.g., 1-3, 5, 7",
-      "pageRangeHint": "Leave empty for all pages",
-      "convertButton": "Convert to Images",
-      "downloadZip": "Download All as ZIP",
-      "previewTitle": "Converted Images",
-      "successMessage": "PDF converted to images successfully!"
+      "uploadLabel": "Subir archivo PDF",
+      "uploadDescription": "Arrastra y suelta un archivo PDF para convertir.",
+      "optionsTitle": "Opciones de conversión",
+      "format": "Formato de imagen",
+      "quality": "Calidad",
+      "dpi": "Resolución (DPI)",
+      "resolution": "Resolución",
+      "pageRange": "Rango de páginas",
+      "pageRangePlaceholder": "p. ej., 1-3, 5, 7",
+      "pageRangeHint": "Dejar vacío para todas las páginas",
+      "convertButton": "Convertir a imágenes",
+      "downloadZip": "Descargar todo como ZIP",
+      "previewTitle": "Imágenes convertidas",
+      "successMessage": "¡PDF convertido a imágenes con éxito!"
+    },
+    "pdfToSvg": {
+      "uploadLabel": "Subir archivo PDF",
+      "uploadDescription": "Arrastra y suelta un archivo PDF para convertirlo a SVG.",
+      "optionsTitle": "Opciones de conversión",
+      "resolution": "Resolución",
+      "resolutionHint": "Una mayor resolución produce archivos SVG más grandes y detallados.",
+      "pageRange": "Rango de páginas",
+      "pageRangePlaceholder": "p. ej., 1-3, 5, 7",
+      "pageRangeHint": "Dejar vacío para todas las páginas",
+      "convertButton": "Convertir a SVG",
+      "downloadZip": "Descargar todo como ZIP",
+      "previewTitle": "SVGs convertidos",
+      "previewPage": "Página",
+      "successMessage": "¡PDF convertido a SVG con éxito! Haz clic en las miniaturas para previsualizar o descargar archivos individuales."
     },
     "pdfToGreyscale": {
       "uploadLabel": "Upload PDF File",
@@ -1400,6 +1444,12 @@
       "convertButton": "Convertir a PDF",
       "successMessage": "¡Tu documento Word se ha convertido a PDF con éxito!"
     },
+    "psdToPdf": {
+      "uploadLabel": "Subir archivo PSD",
+      "uploadDescription": "Arrastre y suelte un archivo PSD (Photoshop) aquí, o haga clic para buscar.",
+      "convertButton": "Convertir a PDF",
+      "successMessage": "¡PSD convertido a PDF con éxito! Haga clic en el botón de descarga para guardar su archivo."
+    },
     "excelToPdf": {
       "uploadLabel": "Subir archivo Excel",
       "uploadDescription": "Arrastra un archivo Excel (.xlsx) aquí o haz clic para seleccionar.",
@@ -1435,6 +1485,12 @@
       "uploadDescription": "Arrastra un archivo MOBI/AZW de libro electrónico aquí o haz clic para seleccionar.",
       "convertButton": "Convertir a PDF",
       "successMessage": "¡Tu archivo MOBI se ha convertido a PDF con éxito!"
+    },
+    "fb2ToPdf": {
+      "uploadLabel": "Subir archivos FB2",
+      "uploadDescription": "Arrastra archivos FB2 de libros electrónicos aquí o haz clic para seleccionar. Admite múltiples archivos.",
+      "convertButton": "Convertir a PDF",
+      "successMessage": "¡Tu(s) archivo(s) FB2 se ha(n) convertido a PDF con éxito!"
     }
   }
 }

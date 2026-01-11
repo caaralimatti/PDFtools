@@ -1,19 +1,85 @@
 /**
  * RTF to PDF Worker (via Pyodide + PyMuPDF)
  * Uses PyMuPDF's Story feature to render RTF content
+ * 
+ * Improvements:
+ * 1. Enhanced CJK detection by scanning actual document content
+ * 2. Dynamic font loading support with multiple fallback sources
+ * 3. Support for Chinese/Japanese/Korean text in RTF files
  */
 
 import { loadPyodide } from '/pymupdf-wasm/pyodide.js';
 
 let pyodide = null;
 let initPromise = null;
+let cjkFontLoaded = false;
 
-async function init() {
-    if (pyodide) return pyodide;
+// CJK character detection
+function hasCJKCharacters(text) {
+    if (!text) return false;
+    // CJK Unicode ranges: Chinese, Japanese, Korean, CJK Extension A, Compatibility
+    const cjkRegex = /[\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3400-\u4DBF\uF900-\uFAFF]/g;
+    return cjkRegex.test(text);
+}
+
+// Download and load CJK font
+async function loadCJKFont() {
+    if (cjkFontLoaded) return true;
+
+    self.postMessage({ type: 'status', message: 'Downloading CJK fonts for Chinese/Japanese/Korean support...' });
+
+    // Font sources in priority order
+    const fontSources = [
+        'https://raw.githubusercontent.com/googlefonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf',
+        'https://cdn.jsdelivr.net/gh/googlefonts/noto-cjk@main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf',
+        'https://unpkg.com/@aspect-build/aspect-font@1.0.0/fonts/NotoSansSC-Regular.otf'
+    ];
+
+    for (const fontUrl of fontSources) {
+        try {
+            self.postMessage({ type: 'status', message: `Trying font source: ${new URL(fontUrl).hostname}...` });
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+            const response = await fetch(fontUrl, {
+                signal: controller.signal,
+                cache: 'force-cache'
+            });
+
+            clearTimeout(timeoutId);
+
+            if (response.ok) {
+                const fontData = await response.arrayBuffer();
+
+                if (fontData.byteLength > 1000000) {
+                    pyodide.FS.writeFile('custom_font.otf', new Uint8Array(fontData));
+                    cjkFontLoaded = true;
+                    self.postMessage({ type: 'status', message: 'CJK font loaded successfully!' });
+                    return true;
+                }
+            }
+        } catch (e) {
+            console.warn(`Font download failed from ${fontUrl}:`, e.message);
+        }
+    }
+
+    console.warn('All CJK font sources failed');
+    self.postMessage({ type: 'status', message: 'Warning: CJK font download failed.' });
+    return false;
+}
+
+async function init(needsCJKFont = false) {
+    if (pyodide) {
+        if (needsCJKFont && !cjkFontLoaded) {
+            await loadCJKFont();
+            await reinitializePythonConverter();
+        }
+        return pyodide;
+    }
 
     self.postMessage({ type: 'status', message: 'Loading Python environment...' });
 
-    // Initialize Pyodide
     pyodide = await loadPyodide({
         indexURL: '/pymupdf-wasm/',
         fullStdLib: false
@@ -26,18 +92,25 @@ async function init() {
     };
 
     const basePath = '/pymupdf-wasm/';
-
-    // Install PyMuPDF and dependencies
     await install(basePath + 'numpy-2.2.5-cp313-cp313-pyodide_2025_0_wasm32.whl');
     await install(basePath + 'pymupdf-1.26.3-cp313-none-pyodide_2025_0_wasm32.whl');
 
+    if (needsCJKFont) {
+        await loadCJKFont();
+    }
+
     self.postMessage({ type: 'status', message: 'Initializing converter script...' });
 
-    // Define the Python conversion script
-    // RTF is converted by extracting text and rendering to PDF
+    await initializePythonConverter();
+
+    return pyodide;
+}
+
+async function initializePythonConverter() {
     pyodide.runPython(`
 import pymupdf
 import re
+import os
 
 def strip_rtf(text):
     """Simple RTF to plain text converter"""
@@ -75,7 +148,13 @@ def convert_rtf_to_pdf(input_obj):
     page_height = 842
     margin = 72  # 1 inch margin
     
-    # Font settings
+    # Font setup
+    font_file = None
+    font_name = "helv"
+    if os.path.exists('custom_font.otf'):
+        font_file = 'custom_font.otf'
+        font_name = "custom"
+    
     fontsize = 11
     lineheight = fontsize * 1.5
     
@@ -102,7 +181,8 @@ def convert_rtf_to_pdf(input_obj):
                 (margin, y_position + fontsize),
                 line,
                 fontsize=fontsize,
-                fontname="helv"
+                fontname=font_name,
+                fontfile=font_file
             )
         
         y_position += lineheight
@@ -118,8 +198,22 @@ def convert_rtf_to_pdf(input_obj):
     
     return pdf_bytes
   `);
+}
 
-    return pyodide;
+async function reinitializePythonConverter() {
+    self.postMessage({ type: 'status', message: 'Reinitializing converter with CJK font support...' });
+    await initializePythonConverter();
+}
+
+// Detect CJK in RTF content
+async function detectCJKInRTF(arrayBuffer) {
+    try {
+        const textDecoder = new TextDecoder('utf-8', { fatal: false });
+        const text = textDecoder.decode(arrayBuffer);
+        return hasCJKCharacters(text);
+    } catch (e) {
+        return false;
+    }
 }
 
 self.onmessage = async (event) => {
@@ -134,18 +228,28 @@ self.onmessage = async (event) => {
         }
 
         if (type === 'convert') {
-            if (!pyodide) {
-                if (!initPromise) initPromise = init();
-                await initPromise;
-            }
-
             const { file } = data;
             const arrayBuffer = await file.arrayBuffer();
             const inputBytes = new Uint8Array(arrayBuffer);
 
+            // Enhanced CJK detection
+            self.postMessage({ type: 'status', message: 'Analyzing document content...' });
+            const needsCJK = await detectCJKInRTF(arrayBuffer);
+
+            if (needsCJK) {
+                self.postMessage({ type: 'status', message: 'Chinese/Japanese/Korean content detected, preparing fonts...' });
+            }
+
+            if (!pyodide) {
+                if (!initPromise) initPromise = init(needsCJK);
+                await initPromise;
+            } else if (needsCJK && !cjkFontLoaded) {
+                await loadCJKFont();
+                await reinitializePythonConverter();
+            }
+
             self.postMessage({ type: 'status', message: 'Converting RTF to PDF...' });
 
-            // Call Python function
             const convertFunc = pyodide.globals.get('convert_rtf_to_pdf');
             const resultProxy = convertFunc(inputBytes);
             const resultBytes = resultProxy.toJs();

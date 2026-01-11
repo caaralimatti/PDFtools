@@ -2,13 +2,13 @@
 
 import React, { useState, useCallback, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { Book, Trash2, RefreshCw, CheckCircle2, AlertCircle, Settings2 } from 'lucide-react';
+import { Book, Trash2, RefreshCw, CheckCircle2, AlertCircle } from 'lucide-react';
 import { FileUploader } from '../FileUploader';
 import { ProcessingProgress, ProcessingStatus } from '../ProcessingProgress';
 import { DownloadButton } from '../DownloadButton';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
-import { epubToPDF, type ConversionQuality } from '@/lib/pdf/processors/epub-to-pdf';
+import { epubToPDF } from '@/lib/pdf/processors/epub-to-pdf';
 import type { UploadedFile, ProcessOutput } from '@/types/pdf';
 
 function generateId(): string {
@@ -24,7 +24,6 @@ export function EPUBToPDFTool({ className = '' }: EPUBToPDFToolProps) {
     const tTools = useTranslations('tools');
 
     const [file, setFile] = useState<UploadedFile | null>(null);
-    const [quality, setQuality] = useState<ConversionQuality>('medium');
     const [status, setStatus] = useState<ProcessingStatus>('idle');
     const [progress, setProgress] = useState(0);
     const [progressMessage, setProgressMessage] = useState('');
@@ -74,7 +73,7 @@ export function EPUBToPDFTool({ className = '' }: EPUBToPDFToolProps) {
         try {
             const output: ProcessOutput = await epubToPDF(
                 file.file,
-                { quality },
+                {},
                 (prog, message) => {
                     if (!cancelledRef.current) {
                         setProgress(prog);
@@ -101,7 +100,7 @@ export function EPUBToPDFTool({ className = '' }: EPUBToPDFToolProps) {
                 setStatus('error');
             }
         }
-    }, [file, quality, t]);
+    }, [file, t]);
 
     const handleCancel = useCallback(() => {
         cancelledRef.current = true;
@@ -117,12 +116,6 @@ export function EPUBToPDFTool({ className = '' }: EPUBToPDFToolProps) {
 
     const isProcessing = status === 'processing' || status === 'uploading';
     const canConvert = file && !isProcessing;
-
-    const qualityOptions: { value: ConversionQuality; label: string; description: string }[] = [
-        { value: 'low', label: tTools('quality.low') || 'Low', description: '72 DPI' },
-        { value: 'medium', label: tTools('quality.medium') || 'Medium', description: '150 DPI' },
-        { value: 'high', label: tTools('quality.high') || 'High', description: '300 DPI' },
-    ];
 
     return (
         <div className={`space-y-8 ${className}`.trim()}>
@@ -163,37 +156,6 @@ export function EPUBToPDFTool({ className = '' }: EPUBToPDFToolProps) {
                     </div>
                 </Card>
             )}
-
-            {/* Quality Selection */}
-            <Card variant="outlined" size="lg" className="glass-card">
-                <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-[hsl(var(--color-foreground))]">
-                        <Settings2 className="w-5 h-5" />
-                        <h3 className="font-semibold">{tTools('quality.title') || 'Output Quality'}</h3>
-                    </div>
-                    <div className="grid grid-cols-3 gap-3">
-                        {qualityOptions.map((option) => (
-                            <button
-                                key={option.value}
-                                onClick={() => setQuality(option.value)}
-                                disabled={isProcessing}
-                                className={`p-4 rounded-xl border-2 transition-all text-center ${quality === option.value
-                                        ? 'border-[hsl(var(--color-primary))] bg-[hsl(var(--color-primary)/0.1)]'
-                                        : 'border-[hsl(var(--color-border))] hover:border-[hsl(var(--color-primary)/0.5)]'
-                                    } ${isProcessing ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-                            >
-                                <p className={`font-semibold ${quality === option.value ? 'text-[hsl(var(--color-primary))]' : 'text-[hsl(var(--color-foreground))]'}`}>
-                                    {option.label}
-                                </p>
-                                <p className="text-xs text-[hsl(var(--color-muted-foreground))] mt-1">{option.description}</p>
-                            </button>
-                        ))}
-                    </div>
-                    <p className="text-xs text-[hsl(var(--color-muted-foreground))]">
-                        {tTools('quality.hint') || 'Higher quality produces larger files and takes longer to convert.'}
-                    </p>
-                </div>
-            </Card>
 
             {isProcessing && (
                 <ProcessingProgress progress={progress} status={status} message={progressMessage} onCancel={handleCancel} showPercentage />

@@ -1,18 +1,82 @@
 /**
  * PowerPoint to PDF Worker (via Pyodide + PyMuPDF)
- * Improvements:
- * 1. Downloads and uses Noto Sans CJK for international text support
- * 2. Parsers relationships to extract and render images
- * 3. Improves text extraction from shapes
+ * 
+ * Enhanced Features:
+ * 1. Fixed CJK text width calculation
+ * 2. Proper text wrapping with textbox
+ * 3. Better slide layout
+ * 4. CJK font support
  */
 
 import { loadPyodide } from '/pymupdf-wasm/pyodide.js';
 
 let pyodide = null;
 let initPromise = null;
+let cjkFontLoaded = false;
 
-async function init() {
-    if (pyodide) return pyodide;
+function hasCJKCharacters(text) {
+    if (!text) return false;
+    const cjkRegex = /[\u4E00-\u9FFF\u3040-\u309F\u30A0-\u30FF\uAC00-\uD7AF\u3400-\u4DBF\uF900-\uFAFF]/g;
+    return cjkRegex.test(text);
+}
+
+async function extractTextFromPPTX(arrayBuffer) {
+    try {
+        const textDecoder = new TextDecoder('utf-8', { fatal: false });
+        const fullText = textDecoder.decode(arrayBuffer);
+        const textMatches = fullText.match(/<a:t[^>]*>([^<]*)<\/a:t>/gi) || [];
+        let extractedText = '';
+        for (const match of textMatches) {
+            extractedText += match.replace(/<[^>]+>/g, '') + ' ';
+        }
+        return extractedText;
+    } catch (e) {
+        return '';
+    }
+}
+
+async function loadCJKFont() {
+    if (cjkFontLoaded) return true;
+
+    self.postMessage({ type: 'status', message: 'Downloading CJK fonts...' });
+
+    const fontSources = [
+        'https://raw.githubusercontent.com/googlefonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf',
+        'https://cdn.jsdelivr.net/gh/googlefonts/noto-cjk@main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf',
+        'https://unpkg.com/@aspect-build/aspect-font@1.0.0/fonts/NotoSansSC-Regular.otf'
+    ];
+
+    for (const fontUrl of fontSources) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
+            const response = await fetch(fontUrl, { signal: controller.signal, cache: 'force-cache' });
+            clearTimeout(timeoutId);
+
+            if (response.ok) {
+                const fontData = await response.arrayBuffer();
+                if (fontData.byteLength > 1000000) {
+                    pyodide.FS.writeFile('custom_font.otf', new Uint8Array(fontData));
+                    cjkFontLoaded = true;
+                    self.postMessage({ type: 'status', message: 'CJK font loaded!' });
+                    return true;
+                }
+            }
+        } catch (e) {
+            console.warn(`Font download failed from ${fontUrl}`);
+        }
+    }
+    return false;
+}
+
+async function init(needsCJKFont = false) {
+    if (pyodide) {
+        if (needsCJKFont && !cjkFontLoaded) {
+            await loadCJKFont();
+            await initializePythonConverter();
+        }
+        return pyodide;
+    }
 
     self.postMessage({ type: 'status', message: 'Loading Python environment...' });
 
@@ -23,33 +87,22 @@ async function init() {
 
     self.postMessage({ type: 'status', message: 'Installing dependencies...' });
 
-    const install = async (url) => {
-        await pyodide.loadPackage(url);
-    };
-
     const basePath = '/pymupdf-wasm/';
-    await install(basePath + 'numpy-2.2.5-cp313-cp313-pyodide_2025_0_wasm32.whl');
-    await install(basePath + 'lxml-5.4.0-cp313-cp313-pyodide_2025_0_wasm32.whl');
-    await install(basePath + 'pymupdf-1.26.3-cp313-none-pyodide_2025_0_wasm32.whl');
+    await pyodide.loadPackage(basePath + 'numpy-2.2.5-cp313-cp313-pyodide_2025_0_wasm32.whl');
+    await pyodide.loadPackage(basePath + 'lxml-5.4.0-cp313-cp313-pyodide_2025_0_wasm32.whl');
+    await pyodide.loadPackage(basePath + 'pymupdf-1.26.3-cp313-none-pyodide_2025_0_wasm32.whl');
 
-    // Download Font
-    self.postMessage({ type: 'status', message: 'Downloading fonts...' });
-    try {
-        // Use a smaller font if possible, but for CJK we need a large one.
-        // Using the URL from text-to-pdf.ts. Note: This is ~16MB.
-        const response = await fetch('https://raw.githack.com/googlefonts/noto-cjk/main/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf');
-        if (response.ok) {
-            const fontData = await response.arrayBuffer();
-            pyodide.FS.writeFile('custom_font.otf', new Uint8Array(fontData));
-        } else {
-            console.warn('Font download failed, falling back to Helvetica');
-        }
-    } catch (e) {
-        console.warn('Font download error:', e);
+    if (needsCJKFont) {
+        await loadCJKFont();
     }
 
     self.postMessage({ type: 'status', message: 'Initializing converter...' });
+    await initializePythonConverter();
 
+    return pyodide;
+}
+
+async function initializePythonConverter() {
     pyodide.runPython(`
 import pymupdf
 import zipfile
@@ -71,17 +124,22 @@ def convert_pptx_to_pdf(input_obj):
     
     pdf = pymupdf.open()
     
-    # Page setup
-    page_width = 842
-    page_height = 595
-    margin = 40
+    # Slide dimensions (16:9 landscape, similar to standard PPTX)
+    page_width = 960
+    page_height = 540
+    margin = 20
     
-    # Check for custom font
-    font_file = None
-    font_name = "helv"
-    if os.path.exists('custom_font.otf'):
-        font_file = 'custom_font.otf'
-        font_name = "custom"
+    # PPTX uses EMUs: 914400 EMUs = 1 inch = 72 points
+    # Standard slide: 9144000 x 6858000 EMUs = 720 x 540 points
+    # We use 960x540 for better text readability
+    pptx_width_emu = 9144000
+    pptx_height_emu = 6858000
+    scale_x = (page_width - 2 * margin) / (pptx_width_emu / 12700)
+    scale_y = (page_height - 2 * margin) / (pptx_height_emu / 12700)
+    
+    # Font setup
+    font_file = 'custom_font.otf' if os.path.exists('custom_font.otf') else None
+    base_font = "custom" if font_file else "helv"
     
     # Namespaces
     ns = {
@@ -101,7 +159,6 @@ def convert_pptx_to_pdf(input_obj):
         return files
 
     def get_relationships(slide_filename):
-        # ppt/slides/slide1.xml -> ppt/slides/_rels/slide1.xml.rels
         dirname = os.path.dirname(slide_filename)
         basename = os.path.basename(slide_filename)
         rels_path = f"{dirname}/_rels/{basename}.rels"
@@ -114,40 +171,159 @@ def convert_pptx_to_pdf(input_obj):
                 for rel in root.iter('{http://schemas.openxmlformats.org/package/2006/relationships}Relationship'):
                     rid = rel.get('Id')
                     target = rel.get('Target')
-                    # Resolve relative path
-                    # Target is usually like "../media/image1.png"
-                    # Base is "ppt/slides/"
-                    # Resolved: "ppt/media/image1.png"
                     if target.startswith('../'):
                         target = 'ppt/' + target[3:]
+                    elif not target.startswith('ppt/'):
+                        target = 'ppt/slides/' + target
                     rels[rid] = target
-            except Exception as e:
-                print(f"Error parsing rels: {e}")
+            except:
+                pass
         return rels
 
-    def parser_color(color_elem):
-        # Basic color mapping - placeholder
-        return (0, 0, 0)
-
-    # EMU to Point conversion (1 inch = 914400 EMUs, 72 pt = 1 inch)
     def emu_to_pt(emu):
-        if emu is None: return 0
-        return int(emu) / 12700
+        if emu is None:
+            return 0
+        try:
+            return int(emu) / 12700
+        except:
+            return 0
+
+    def parse_color(elem, ns):
+        """Parse color from DrawingML"""
+        if elem is None:
+            return None
+        
+        srgbClr = elem.find('.//a:srgbClr', ns)
+        if srgbClr is not None:
+            val = srgbClr.get('val')
+            if val and len(val) == 6:
+                try:
+                    return (int(val[0:2], 16)/255, int(val[2:4], 16)/255, int(val[4:6], 16)/255)
+                except:
+                    pass
+        
+        schemeClr = elem.find('.//a:schemeClr', ns)
+        if schemeClr is not None:
+            val = schemeClr.get('val')
+            colors = {
+                'tx1': (0, 0, 0), 'tx2': (0.3, 0.3, 0.3),
+                'bg1': (1, 1, 1), 'bg2': (0.95, 0.95, 0.95),
+                'accent1': (0.2, 0.4, 0.8), 'accent2': (0.8, 0.3, 0.2),
+                'dk1': (0, 0, 0), 'dk2': (0.2, 0.2, 0.2),
+                'lt1': (1, 1, 1), 'lt2': (0.9, 0.9, 0.9),
+            }
+            return colors.get(val, (0, 0, 0))
+        
+        return None
+
+    def render_textbox(page, x, y, width, height, text, fontsize, color, align=0):
+        """Render text in a textbox with automatic wrapping"""
+        if not text or not text.strip():
+            return
+        
+        # Ensure minimum dimensions
+        width = max(width, 50)
+        height = max(height, fontsize * 2)
+        
+        # Create text rectangle
+        rect = pymupdf.Rect(x, y, x + width, y + height)
+        
+        # Use insert_textbox for automatic text wrapping
+        page.insert_textbox(
+            rect,
+            text,
+            fontsize=fontsize,
+            fontname=base_font,
+            fontfile=font_file,
+            color=color if color else (0, 0, 0),
+            align=align  # 0=left, 1=center, 2=right, 3=justify
+        )
+
+    def process_shape_text(shape, ns):
+        """Extract all text from a shape with formatting"""
+        txBody = shape.find('.//p:txBody', ns)
+        if txBody is None:
+            txBody = shape.find('.//a:txBody', ns)
+        if txBody is None:
+            return []
+        
+        paragraphs = []
+        
+        for para in txBody.findall('a:p', ns):
+            para_text = ""
+            para_fontsize = 18
+            para_color = (0, 0, 0)
+            para_align = 0
+            para_bullet = ""
+            
+            # Paragraph properties
+            pPr = para.find('a:pPr', ns)
+            if pPr is not None:
+                algn = pPr.get('algn')
+                if algn == 'ctr':
+                    para_align = 1
+                elif algn == 'r':
+                    para_align = 2
+                elif algn == 'just':
+                    para_align = 3
+                
+                # Level for indentation
+                lvl = pPr.get('lvl')
+                indent = int(lvl) if lvl else 0
+                
+                # Bullet
+                buChar = pPr.find('.//a:buChar', ns)
+                if buChar is not None:
+                    para_bullet = "  " * indent + buChar.get('char', '•') + " "
+                buAutoNum = pPr.find('.//a:buAutoNum', ns)
+                if buAutoNum is not None:
+                    para_bullet = "  " * indent + "• "
+            
+            # Collect text runs
+            for run in para.findall('a:r', ns):
+                rPr = run.find('a:rPr', ns)
+                if rPr is not None:
+                    sz = rPr.get('sz')
+                    if sz:
+                        try:
+                            para_fontsize = int(sz) / 100
+                        except:
+                            pass
+                    
+                    solidFill = rPr.find('a:solidFill', ns)
+                    if solidFill is not None:
+                        c = parse_color(solidFill, ns)
+                        if c:
+                            para_color = c
+                
+                t = run.find('a:t', ns)
+                if t is not None and t.text:
+                    para_text += t.text
+            
+            # Also check for field text (like slide numbers)
+            for fld in para.findall('a:fld', ns):
+                t = fld.find('a:t', ns)
+                if t is not None and t.text:
+                    para_text += t.text
+            
+            if para_text or para_bullet:
+                paragraphs.append({
+                    'text': para_bullet + para_text,
+                    'fontsize': para_fontsize,
+                    'color': para_color,
+                    'align': para_align
+                })
+        
+        return paragraphs
 
     slide_files = get_slide_files()
     
     for slide_idx, (slide_num, slide_path) in enumerate(slide_files):
         page = pdf.new_page(width=page_width, height=page_height)
         
-        # Draw slide number
-        page.insert_text(
-            (page_width - margin - 30, page_height - 20),
-            f"{slide_idx + 1}",
-            fontsize=10,
-            fontname=font_name,
-            fontfile=font_file,
-            color=(0.5, 0.5, 0.5)
-        )
+        # White background
+        page.draw_rect(pymupdf.Rect(0, 0, page_width, page_height), 
+                      color=(1, 1, 1), fill=(1, 1, 1))
         
         relationships = get_relationships(slide_path)
         
@@ -155,126 +331,151 @@ def convert_pptx_to_pdf(input_obj):
             content = pptx_zip.read(slide_path)
             root = etree.fromstring(content)
             
-            # Use simple y-flow for text if no strict layout
-            flow_y = margin
-            
-            # Iterate over Shape Tree
             spTree = root.find('.//p:spTree', ns)
-            if spTree is not None:
-                for child in spTree:
-                    tag = child.tag
-                    
-                    # 1. Pictures <p:pic>
-                    if tag.endswith('pic'):
-                        try:
-                            blip = child.find('.//a:blip', ns)
-                            if blip is not None:
-                                embed_id = blip.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed')
-                                if embed_id and embed_id in relationships:
-                                    img_path = relationships[embed_id]
-                                    if img_path in pptx_zip.namelist():
-                                        img_data = pptx_zip.read(img_path)
-                                        
-                                        # Get transformation
-                                        xfrm = child.find('.//a:xfrm', ns)
+            if spTree is None:
+                continue
+            
+            for child in spTree:
+                tag = child.tag
+                
+                # Pictures
+                if tag.endswith('pic'):
+                    try:
+                        blip = child.find('.//a:blip', ns)
+                        if blip is not None:
+                            embed_id = blip.get('{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed')
+                            if embed_id and embed_id in relationships:
+                                img_path = relationships[embed_id]
+                                if img_path in pptx_zip.namelist():
+                                    img_data = pptx_zip.read(img_path)
+                                    
+                                    xfrm = child.find('.//a:xfrm', ns)
+                                    if xfrm is not None:
                                         off = xfrm.find('a:off', ns)
                                         ext = xfrm.find('a:ext', ns)
                                         
-                                        x = emu_to_pt(off.get('x'))
-                                        y = emu_to_pt(off.get('y'))
-                                        w = emu_to_pt(ext.get('cx'))
-                                        h = emu_to_pt(ext.get('cy'))
-                                        
-                                        # Simple bounds check/scaling to page
-                                        scale = 1.0
-                                        # (Complex layout logic omitted for brevity, just insert)
-                                        # If coordinates are very large or negative, we might clamp or ignore
-                                        # For now, let's try to map typical slide size (9144000 EMUs width) to PDF width
-                                        # If x,y seem reasonable (within slide), use them.
-                                        # Note: Default slide size is often 10x7.5 inches or 13.33x7.5
-                                        
-                                        # Scale coordinates to fit our PDF page
-                                        # Assuming standard 16:9 slide (10" wide) -> our 842pt page
-                                        # 10 inches = 720 pt. 842pt is ~A4 landscape.
-                                        # Let's map directly for now, assuming standard sizes.
-                                        
-                                        # Many PPTX use a coordinate system that matches points roughly if converted
-                                        # But let's apply a scaling factor if needed.
-                                        
-                                        rect = pymupdf.Rect(x, y, x + w, y + h)
-                                        
-                                        # Clip to page roughly
-                                        if rect.width > 0 and rect.height > 0:
-                                           page.insert_image(rect, stream=img_data)
-                        except Exception as e:
-                            print(f"Error parse pic: {e}")
+                                        if off is not None and ext is not None:
+                                            x = emu_to_pt(off.get('x')) * scale_x + margin
+                                            y = emu_to_pt(off.get('y')) * scale_y + margin
+                                            w = emu_to_pt(ext.get('cx')) * scale_x
+                                            h = emu_to_pt(ext.get('cy')) * scale_y
+                                            
+                                            # Clamp to page bounds
+                                            x = max(margin, min(x, page_width - margin - 10))
+                                            y = max(margin, min(y, page_height - margin - 10))
+                                            w = min(w, page_width - x - margin)
+                                            h = min(h, page_height - y - margin)
+                                            
+                                            if w > 5 and h > 5:
+                                                rect = pymupdf.Rect(x, y, x + w, y + h)
+                                                page.insert_image(rect, stream=img_data)
+                    except Exception as e:
+                        pass
+                
+                # Shapes (text boxes, etc.)
+                elif tag.endswith('sp'):
+                    # Get shape position and size
+                    spPr = child.find('p:spPr', ns)
+                    x = margin
+                    y = margin
+                    width = page_width - 2 * margin
+                    height = 100
                     
-                    # 2. Text Shapes <p:sp>
-                    elif tag.endswith('sp'):
-                        # Check for text
-                        txBody = child.find('p:txBody', ns)
-                        if txBody is not None:
-                            text_content = []
-                            for p in txBody.iter('{http://schemas.openxmlformats.org/drawingml/2006/main}p'):
-                                p_text = ""
-                                for t in p.iter('{http://schemas.openxmlformats.org/drawingml/2006/main}t'):
-                                    if t.text:
-                                        p_text += t.text
-                                if p_text:
-                                    text_content.append(p_text)
+                    if spPr is not None:
+                        xfrm = spPr.find('a:xfrm', ns)
+                        if xfrm is not None:
+                            off = xfrm.find('a:off', ns)
+                            ext = xfrm.find('a:ext', ns)
                             
-                            if text_content:
-                                # Try to get position (xfrm)
-                                spPr = child.find('p:spPr', ns)
-                                x = margin
-                                y = flow_y
-                                w = page_width - 2*margin
-                                fontsize = 14
-                                
-                                has_coords = False
-                                if spPr is not None:
-                                    xfrm = spPr.find('a:xfrm', ns)
-                                    if xfrm is not None:
-                                        off = xfrm.find('a:off', ns)
-                                        if off is not None:
-                                            x = emu_to_pt(off.get('x'))
-                                            y = emu_to_pt(off.get('y'))
-                                            has_coords = True
-                                        
-                                # Render text
-                                for line in text_content:
-                                    # Very basic text insertion
-                                    # If we have coords, use textwriter or textbox
-                                    if has_coords:
-                                        # Use text box to auto-wrap
-                                        rect = pymupdf.Rect(x, y, x + 500, y + 500) # Arbitrary width
-                                        
-                                        # Heuristic for title vs body
-                                        if y < 100: fontsize = 24
-                                        else: fontsize = 14
-                                        
-                                        page.insert_textbox(rect, line, fontsize=fontsize, fontname=font_name, fontfile=font_file)
-                                        y += fontsize * 1.5
-                                    else:
-                                        # Fallback flow
-                                        page.insert_text((margin, flow_y), line, fontsize=12, fontname=font_name, fontfile=font_file)
-                                        flow_y += 18
-                                        
+                            if off is not None:
+                                x = emu_to_pt(off.get('x')) * scale_x + margin
+                                y = emu_to_pt(off.get('y')) * scale_y + margin
+                            
+                            if ext is not None:
+                                width = emu_to_pt(ext.get('cx')) * scale_x
+                                height = emu_to_pt(ext.get('cy')) * scale_y
+                        
+                        # Shape fill (background)
+                        solidFill = spPr.find('a:solidFill', ns)
+                        if solidFill is not None:
+                            fill_color = parse_color(solidFill, ns)
+                            if fill_color and fill_color != (1, 1, 1):
+                                rect = pymupdf.Rect(x, y, x + width, y + height)
+                                page.draw_rect(rect, color=fill_color, fill=fill_color)
+                    
+                    # Clamp position to page
+                    x = max(margin, min(x, page_width - margin - 50))
+                    y = max(margin, min(y, page_height - margin - 20))
+                    width = min(width, page_width - x - margin)
+                    height = min(height, page_height - y - margin)
+                    
+                    # Get paragraphs
+                    paragraphs = process_shape_text(child, ns)
+                    
+                    if paragraphs:
+                        current_y = y
+                        for para in paragraphs:
+                            text = para['text']
+                            fontsize = min(para['fontsize'] * 0.8, 28)  # Scale down and cap
+                            color = para['color']
+                            align = para['align']
+                            
+                            if not text.strip():
+                                current_y += fontsize * 0.5
+                                continue
+                            
+                            # Calculate required height for this paragraph
+                            # Estimate: chars per line based on font size and width
+                            chars_per_line = max(1, int(width / (fontsize * 0.6)))
+                            num_lines = max(1, (len(text) + chars_per_line - 1) // chars_per_line)
+                            para_height = num_lines * fontsize * 1.3 + 5
+                            
+                            # Don't overflow page
+                            if current_y + para_height > page_height - margin:
+                                break
+                            
+                            render_textbox(
+                                page, x, current_y, width, para_height,
+                                text, fontsize, color, align
+                            )
+                            
+                            current_y += para_height
+            
+            # Slide number (bottom right)
+            page.insert_text(
+                (page_width - margin - 25, page_height - 12),
+                str(slide_idx + 1),
+                fontsize=10,
+                fontname=base_font,
+                fontfile=font_file,
+                color=(0.5, 0.5, 0.5)
+            )
+            
         except Exception as e:
-            page.insert_text((margin, margin), f"Error: {e}", color=(1,0,0))
-
+            page.insert_text((margin, margin + 20), f"Error: {str(e)[:60]}", 
+                           fontsize=10, color=(1, 0, 0))
+    
     if len(pdf) == 0:
-        pdf.new_page()
+        pdf.new_page(width=page_width, height=page_height)
     
     pptx_zip.close()
-    return pdf.tobytes()
+    return pdf.tobytes(garbage=4, deflate=True, clean=True)
     `);
+}
 
-    return pyodide;
+async function detectCJKInPPTX(arrayBuffer) {
+    try {
+        const extractedText = await extractTextFromPPTX(arrayBuffer);
+        if (hasCJKCharacters(extractedText)) return true;
+        const textDecoder = new TextDecoder('utf-8', { fatal: false });
+        const rawText = textDecoder.decode(arrayBuffer);
+        return hasCJKCharacters(rawText);
+    } catch (e) {
+        return false;
+    }
 }
 
 self.onmessage = async (event) => {
-    // ... (standard message handling same as before)
     const { type, id, data } = event.data;
     try {
         if (type === 'init') {
@@ -284,10 +485,25 @@ self.onmessage = async (event) => {
             return;
         }
         if (type === 'convert') {
-            if (!pyodide) { if (!initPromise) initPromise = init(); await initPromise; }
             const { file } = data;
             const arrayBuffer = await file.arrayBuffer();
             const inputBytes = new Uint8Array(arrayBuffer);
+
+            self.postMessage({ type: 'status', message: 'Analyzing presentation...' });
+            const needsCJK = await detectCJKInPPTX(arrayBuffer);
+
+            if (needsCJK) {
+                self.postMessage({ type: 'status', message: 'CJK content detected, preparing fonts...' });
+            }
+
+            if (!pyodide) {
+                if (!initPromise) initPromise = init(needsCJK);
+                await initPromise;
+            } else if (needsCJK && !cjkFontLoaded) {
+                await loadCJKFont();
+                await initializePythonConverter();
+            }
+
             self.postMessage({ type: 'status', message: 'Converting PowerPoint to PDF...' });
 
             const convertFunc = pyodide.globals.get('convert_pptx_to_pdf');

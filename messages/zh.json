@@ -125,6 +125,19 @@
       "landscape": "横向"
     }
   },
+  "toolsPage": {
+    "title": "专业 PDF 工具",
+    "subtitle": "{count}+ 款免费、安全且易于使用的工具，满足您所有的 PDF 需求。",
+    "filters": "筛选",
+    "allTools": "所有工具",
+    "clearAll": "清除全部",
+    "clearFilters": "清除筛选",
+    "showingAll": "显示全部 {count} 个工具",
+    "showingFiltered": "显示 {filtered} / {total} 个工具",
+    "forQuery": "搜索 \"{query}\"",
+    "inCategory": "分类：{category}",
+    "noToolsFound": "未找到工具"
+  },
   "faqPage": {
     "title": "常见问题",
     "subtitle": "查找有关 {brand} 的常见问题解答",
@@ -756,6 +769,22 @@
       "downloadAll": "全部下载",
       "successMessage": "附件提取成功！"
     },
+    "extractImages": {
+      "uploadLabel": "上传PDF文件",
+      "uploadDescription": "选择PDF文件以提取其中的图片。",
+      "filesTitle": "已选文件",
+      "filterTitle": "过滤选项",
+      "filterDescription": "过滤掉小尺寸图片（如图标、装饰图案等）",
+      "minWidth": "最小宽度（像素）",
+      "minHeight": "最小高度（像素）",
+      "minSizeKB": "最小大小（KB）",
+      "extractButton": "提取图片",
+      "extractedTitle": "已提取的图片",
+      "downloadAll": "全部下载",
+      "downloadZip": "下载为ZIP",
+      "page": "页面",
+      "successMessage": "图片提取成功！点击下载单个图片或使用\"下载为ZIP\"。"
+    },
     "encryptPdf": {
       "uploadLabel": "上传PDF文件",
       "uploadDescription": "拖放PDF文件到此处，或点击浏览。",
@@ -899,6 +928,21 @@
       "previewTitle": "转换后的图片",
       "successMessage": "PDF已成功转换为图片！"
     },
+    "pdfToSvg": {
+      "uploadLabel": "上传PDF文件",
+      "uploadDescription": "拖放PDF文件到此处转换为SVG。",
+      "optionsTitle": "转换选项",
+      "resolution": "分辨率",
+      "resolutionHint": "更高分辨率会生成更大、更详细的SVG文件。",
+      "pageRange": "页面范围",
+      "pageRangePlaceholder": "例如：1-3, 5, 7",
+      "pageRangeHint": "留空表示所有页面",
+      "convertButton": "转换为SVG",
+      "downloadZip": "全部下载为ZIP",
+      "previewTitle": "转换后的SVG",
+      "previewPage": "页面",
+      "successMessage": "PDF已成功转换为SVG！点击缩略图预览或下载单个文件。"
+    },
     "pdfToGreyscale": {
       "uploadLabel": "上传PDF文件",
       "uploadDescription": "拖放PDF文件到此处转换为灰度。",
@@ -940,16 +984,14 @@
     },
     "bookmark": {
       "uploadLabel": "上传PDF文件",
-      "uploadDescription": "拖放PDF文件到此处。",
-      "optionsTitle": "书签选项",
-      "addButton": "添加书签",
-      "successMessage": "书签添加成功！",
-      "pdfPreview": "PDF Preview",
-      "bookmarksTitle": "Bookmarks",
-      "addBookmark": "Add Bookmark",
-      "noBookmarks": "No bookmarks yet. Click 'Add Bookmark' to create one.",
-      "hint": "Click a bookmark to preview its page. Use +/✎/× to add child, edit, or delete.",
-      "saveButton": "Save Bookmarks"
+      "uploadDescription": "拖放PDF文件到此处以编辑书签。",
+      "pdfPreview": "PDF预览",
+      "bookmarksTitle": "书签",
+      "addBookmark": "添加书签",
+      "noBookmarks": "暂无书签。点击「添加书签」创建一个。",
+      "hint": "点击书签预览其页面。使用 +/✎/× 添加子书签、编辑或删除。",
+      "saveButton": "保存书签",
+      "successMessage": "书签保存成功！"
     },
     "pageNumbers": {
       "uploadLabel": "上传PDF文件",
@@ -1401,6 +1443,12 @@
       "convertButton": "转换为PDF",
       "successMessage": "您的Word文档已成功转换为PDF！"
     },
+    "psdToPdf": {
+      "uploadLabel": "上传 PSD 文件",
+      "uploadDescription": "将 PSD (Photoshop) 文件拖放到此处，或点击浏览。",
+      "convertButton": "转换为 PDF",
+      "successMessage": "PSD 已成功转换为 PDF！点击下载按钮保存文件。"
+    },
     "excelToPdf": {
       "uploadLabel": "上传Excel文件",
       "uploadDescription": "拖放Excel文件（.xlsx）到此处，或点击浏览。",
@@ -1436,6 +1484,12 @@
       "uploadDescription": "拖放MOBI/AZW电子书文件到此处，或点击浏览。",
       "convertButton": "转换为PDF",
       "successMessage": "您的MOBI文件已成功转换为PDF！"
+    },
+    "fb2ToPdf": {
+      "uploadLabel": "上传FB2文件",
+      "uploadDescription": "拖放FB2电子书文件到此处，或点击浏览。支持多个文件。",
+      "convertButton": "转换为PDF",
+      "successMessage": "您的FB2文件已成功转换为PDF！"
     }
   }
 }

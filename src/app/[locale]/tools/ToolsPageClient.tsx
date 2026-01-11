@@ -62,9 +62,11 @@ export default function ToolsPageClient({ locale, localizedToolContent }: ToolsP
       tools = getToolsByCategory(selectedCategory);
     }
 
-    // Filter by search query
+    // Filter by search query (supports current language search)
     if (searchQuery.trim()) {
-      tools = tools.filter(tool => toolMatchesQuery(tool, searchQuery));
+      tools = tools.filter(tool =>
+        toolMatchesQuery(tool, searchQuery, localizedToolContent?.[tool.id])
+      );
     }
 
     return tools;
@@ -72,7 +74,7 @@ export default function ToolsPageClient({ locale, localizedToolContent }: ToolsP
 
   // Category options
   const categories: { value: CategoryFilter; label: string }[] = [
-    { value: 'all', label: 'All Tools' },
+    { value: 'all', label: t('toolsPage.allTools') },
     { value: 'edit-annotate', label: t('home.categories.editAnnotate') },
     { value: 'convert-to-pdf', label: t('home.categories.convertToPdf') },
     { value: 'convert-from-pdf', label: t('home.categories.convertFromPdf') },
@@ -106,10 +108,10 @@ export default function ToolsPageClient({ locale, localizedToolContent }: ToolsP
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-[hsl(var(--color-foreground))] mb-6">
-                <span className="text-gradient">Professional PDF Tools</span>
+                <span className="text-gradient">{t('toolsPage.title')}</span>
               </h1>
               <p className="text-lg text-[hsl(var(--color-muted-foreground))] mb-10 leading-relaxed">
-                {allTools.length}+ free, secure, and easy-to-use tools for all your PDF needs.
+                {t('toolsPage.subtitle', { count: allTools.length })}
               </p>
 
               {/* Search Bar */}
@@ -153,7 +155,7 @@ export default function ToolsPageClient({ locale, localizedToolContent }: ToolsP
                 aria-controls="category-filters"
               >
                 <Filter className="h-4 w-4 mr-2" aria-hidden="true" />
-                Filters
+                {t('toolsPage.filters')}
               </Button>
 
               {/* Category Filters */}
@@ -193,7 +195,7 @@ export default function ToolsPageClient({ locale, localizedToolContent }: ToolsP
                   onClick={handleClearFilters}
                   className="ml-auto text-sm text-[hsl(var(--color-muted-foreground))]"
                 >
-                  Clear all
+                  {t('toolsPage.clearAll')}
                 </Button>
               )}
             </div>
@@ -202,10 +204,10 @@ export default function ToolsPageClient({ locale, localizedToolContent }: ToolsP
             <div className="mb-6 px-2">
               <p className="text-sm text-[hsl(var(--color-muted-foreground))]">
                 {filteredTools.length === allTools.length
-                  ? `Showing all ${allTools.length} tools`
-                  : `Showing ${filteredTools.length} of ${allTools.length} tools`}
-                {searchQuery && ` for "${searchQuery}"`}
-                {selectedCategory !== 'all' && ` in ${t(`home.categories.${categoryTranslationKeys[selectedCategory]}`)}`}
+                  ? t('toolsPage.showingAll', { count: allTools.length })
+                  : t('toolsPage.showingFiltered', { filtered: filteredTools.length, total: allTools.length })}
+                {searchQuery && ` ${t('toolsPage.forQuery', { query: searchQuery })}`}
+                {selectedCategory !== 'all' && ` ${t('toolsPage.inCategory', { category: t(`home.categories.${categoryTranslationKeys[selectedCategory]}`) })}`}
               </p>
             </div>
 
@@ -235,13 +237,13 @@ export default function ToolsPageClient({ locale, localizedToolContent }: ToolsP
                     <Search className="h-10 w-10 text-[hsl(var(--color-muted-foreground))]" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-bold text-[hsl(var(--color-foreground))] mb-2">
-                    No tools found
+                    {t('toolsPage.noToolsFound')}
                   </h3>
                   <p className="text-[hsl(var(--color-muted-foreground))] mb-8">
                     {t('tools.search.noResults', { query: searchQuery })}
                   </p>
                   <Button variant="outline" onClick={handleClearFilters} className="px-8">
-                    Clear filters
+                    {t('toolsPage.clearFilters')}
                   </Button>
                 </div>
               </Card>

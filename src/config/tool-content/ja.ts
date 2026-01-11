@@ -1643,4 +1643,229 @@ export const toolContentJa: Record<string, ToolContent> = {
       { question: '復元はできますか？', answer: '削除後のファイルからメタデータを復元することはできません。' },
     ],
   },
+
+  'psd-to-pdf': {
+    title: 'PSDをPDFに変換',
+    metaDescription: 'PhotoshopのPSDファイルをPDFに変換します。レイヤーが統合された高品質なPDFを作成。',
+    keywords: ['psd pdf 変換', 'photoshop pdf 変換', 'psd 閲覧', 'psd 変換 フリー'],
+    description: `
+      <p>PSDをPDFに変換ツールは、Adobe Photoshopファイルを高品質なPDFドキュメントに変換します。デザインの確認用や印刷用として、PSDを汎用性の高いPDF形式に素早く出力できます。</p>
+      <p>Photoshopを持っていない人でもデザインを確認できるようになり、配布や共有が容易になります。</p>
+      <p>WebAssembly技術によりブラウザ内で高速に処理されるため、大きなファイルでも安全に変換可能です。</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'PSDをアップロード', description: '変換したいPSDファイルをアップロードします。' },
+      { step: 2, title: '変換', description: 'PSDをPDF形式にレンダリングします。' },
+      { step: 3, title: 'ダウンロード', description: '変換されたPDFファイルを保存します。' },
+    ],
+    useCases: [
+      { title: 'デザインの共有', description: 'Photoshopを持っていないクライアントやチームメンバーにデザインを確認してもらうためにPDF化します。', icon: 'share-2' },
+      { title: '印刷用出力', description: '入稿データや資料として、PSDを扱いやすいPDF形式に変換します。', icon: 'printer' },
+      { title: 'プレビュー作成', description: '複数のPSDファイルをPDFにまとめて、カタログやポートフォリオを作成します。', icon: 'image' },
+    ],
+    faq: [
+      { question: 'レイヤーは保持されますか？', answer: 'このツールは表示されているレイヤーを結合してPDFを作成します。レイヤー構造そのものを維持するものではありません。' },
+      { question: 'ファイルサイズの制限はありますか？', answer: 'お使いのブラウザのメモリに依存しますが、一般的なデザイン用PSDであれば問題なく変換できます。' },
+      { question: '画質は保たれますか？', answer: 'はい、元のPSDの解像度を維持したまま、高品質なPDFとして出力されます。' },
+    ],
+  },
+  'excel-to-pdf': {
+    title: 'ExcelをPDFに変換',
+    metaDescription: 'Excelスプレッドシート（XLSX）をPDFに変換します。表やグラフを綺麗に保存。',
+    keywords: ['excel pdf 変換', 'xlsx pdf 変換', 'エクセル pdf 保存', 'excel pdf 変換 フリー'],
+    description: `
+      <p>ExcelをPDFに変換ツールは、Microsoft Excelファイルを読みやすいPDF形式に変換します。セルの書式、グラフ、数式の結果をそのまま固定されたレイアウトで出力します。</p>
+      <p>請求書、名簿、集計結果など、改ざんを防ぎたい書類の配布に最適です。</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'ファイルをアップロード', description: 'XLSXファイルをアップロードします。' },
+      { step: 2, title: '設定', description: '必要に応じて、出力されるPDFのページ設定を確認します。' },
+      { step: 3, title: '変換と保存', description: 'PDFに変換してダウンロードします。' },
+    ],
+    useCases: [
+      { title: '請求書の送付', description: 'Excelで作成した請求書をPDF化して、取引先に安全に送付します。', icon: 'file-text' },
+      { title: 'レポートの共有', description: 'グラフや表を含むレポートを、レイアウトが崩れないPDF形式で共有します。', icon: 'bar-chart' },
+      { title: '記録のアーカイブ', description: '計算結果を固定した状態で保存し、将来の参照用に保管します。', icon: 'archive' },
+    ],
+    faq: [
+      { question: '全てのワークシートが変換されますか？', answer: '基本的には、現在アクティブなシート、または全てのデータが含まれる範囲が変換対象となります。' },
+      { question: 'グラフも正しく表示されますか？', answer: 'はい、Excel内で挿入された標準的なグラフや図形はPDFにも反映されます。' },
+      { question: 'マクロは動作しますか？', answer: 'いいえ、PDFは静的なファイルであるため、VBAマクロなどは動作しません。数値の結果のみが保存されます。' },
+    ],
+  },
+  'pptx-to-pdf': {
+    title: 'PowerPointをPDFに変換',
+    metaDescription: 'PowerPointプレゼンテーション（PPTX）をPDFに変換します。スライドの見た目を維持。',
+    keywords: ['pptx pdf 変換', 'powerpoint pdf 変換', 'パワポ pdf 保存'],
+    description: `
+      <p>PowerPointをPDFに変換ツールは、PPTXスライドを汎用的なPDF形式に変換します。フォントの置き換えによる崩れを防ぎ、どのデバイスでも意図した通りに表示されるようになります。</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'ファイルをアップロード', description: 'PPTXファイルをアップロードします。' },
+      { step: 2, title: '変換開始', description: 'スライドをPDFページとしてレンダリングします。' },
+      { step: 3, title: 'ダウンロード', description: '完成したPDFを保存します。' },
+    ],
+    useCases: [
+      { title: 'プレゼン資料の配布', description: '発表後に参加者へ配布するための資料としてPDF化します。', icon: 'presentation' },
+      { title: '印刷用データ作成', description: 'スライドを配布資料として印刷するために、ページ順を固定したPDFにします。', icon: 'printer' },
+      { title: 'タブレットでの閲覧', description: '外出先での確認用に、Officeアプリがなくても見られるPDFに変換します。', icon: 'tablet' },
+    ],
+    faq: [
+      { question: 'アニメーションは保持されますか？', answer: 'いいえ、PDFは静止画の集まりであるため、アニメーションや動画、音声は含まれません。' },
+      { question: 'スライドノートは含まれますか？', answer: 'デフォルトではスライド画面のみが変換されます。' },
+      { question: 'フォントは埋め込まれますか？', answer: 'はい、環境によらず正しく表示されるよう、フォント情報を埋め込んだPDFを出力します。' },
+    ],
+  },
+  'word-to-pdf': {
+    title: 'WordをPDFに変換',
+    metaDescription: 'Word文書（DOCX）をPDFに迅速かつ正確に変換します。',
+    keywords: ['word pdf 変換', 'docx pdf 変換', 'ワード pdf 保存'],
+    description: `
+      <p>WordをPDFに変換ツールは、Microsoft Wordドキュメントを読み取り専用のPDF形式に変換します。公式な書類、課題、電子書籍の作成に最適です。</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'アップロード', description: 'DOCXファイルをアップロードします。' },
+      { step: 2, title: '処理', description: 'ドキュメントをPDFに変換します。' },
+      { step: 3, title: '保存', description: 'PDFをダウンロードします。' },
+    ],
+    useCases: [
+      { title: '公的書類の提出', description: '変更不可な状態にして書類を提出します。', icon: 'file-check' },
+      { title: 'レポートの最終化', description: '完成したレポートを配布用にPDF化します。', icon: 'check-circle' },
+    ],
+    faq: [
+      { question: '古い形式（.doc）は使えますか？', answer: '現在は最新の.docx形式を推奨しています。' },
+    ],
+  },
+  'xps-to-pdf': {
+    title: 'XPSをPDFに変換',
+    metaDescription: 'Microsoft XPSドキュメントをPDFに変換します。',
+    keywords: ['xps pdf 変換', 'oxps pdf 変換'],
+    description: `<p>XPSファイルをより一般的なPDF形式に変換し、閲覧しやすくします。</p>`,
+    howToUse: [
+      { step: 1, title: 'アップロード', description: 'XPSファイルをアップロードします。' },
+      { step: 3, title: 'ダウンロード', description: 'PDFを保存します。' },
+    ],
+    useCases: [
+      { title: 'XPSファイルの閲覧', description: '専用ビューアがない環境で中身を確認します。', icon: 'eye' },
+    ],
+    faq: [
+      { question: 'OXPSにも対応していますか？', answer: 'はい、OXPS形式もサポートしています。' },
+    ],
+  },
+  'rtf-to-pdf': {
+    title: 'RTFをPDFに変換',
+    metaDescription: 'リッチテキスト（RTF）をPDFに変換します。',
+    keywords: ['rtf pdf 変換'],
+    description: `<p>RTFファイルをPDFに変換し、どのデバイスでも同じように表示できるようにします。</p>`,
+    howToUse: [
+      { step: 1, title: 'アップロード', description: 'RTFファイルをアップロードします。' },
+      { step: 3, title: '保存', description: 'PDFをダウンロードします。' },
+    ],
+    useCases: [
+      { title: '互換性の向上', description: '古いテキストファイルを現代のPDF形式に更新します。', icon: 'refresh-ccw' },
+    ],
+    faq: [
+      { question: '画像も変換されますか？', answer: 'はい、RTF内に埋め込まれた画像もPDFに保持されます。' },
+    ],
+  },
+  'epub-to-pdf': {
+    title: 'EPUBをPDFに変換',
+    metaDescription: '電子書籍（EPUB）をPDFに変換します。印刷や注釈付けに便利。',
+    keywords: ['epub pdf 変換', '電子書籍 変換'],
+    description: `<p>EPUB形式の電子書籍を、レイアウトを固定したPDFに変換します。これにより、PDF対応のリーダーで注釈を付けたり、印刷したりすることが可能になります。</p>`,
+    howToUse: [
+      { step: 1, title: 'アップロード', description: 'EPUBファイルをアップロードします。' },
+      { step: 3, title: 'ダウンロード', description: 'PDFを保存します。' },
+    ],
+    useCases: [
+      { title: '電子書籍の印刷', description: '読みたい電子書籍を紙に印刷して読みます。', icon: 'printer' },
+      { title: '注釈の追加', description: 'PDFとして保存し、学習や研究のために書き込みを行います。', icon: 'edit-3' },
+    ],
+    faq: [
+      { question: 'DRM保護されたファイルは使えますか？', answer: 'いいえ、著作権保護（DRM）がかかったファイルは変換できません。' },
+    ],
+  },
+  'mobi-to-pdf': {
+    title: 'MOBIをPDFに変換',
+    metaDescription: 'Kindle形式（MOBI/AZW）をPDFに変換します。',
+    keywords: ['mobi pdf 変換', 'kindle pdf 変換'],
+    description: `<p>MOBIまたはAZW形式のKindle本をPDFに変換して、他のデバイスで読めるようにします。</p>`,
+    howToUse: [
+      { step: 1, title: 'アップロード', description: 'MOBIファイルをアップロードします。' },
+      { step: 3, title: 'ダウンロード', description: 'PDFを保存します。' },
+    ],
+    useCases: [
+      { title: 'デバイス間共有', description: 'Kindle以外のリーダーで書籍を読みます。', icon: 'smartphone' },
+    ],
+    faq: [
+      { question: 'AZW3にも対応していますか？', answer: 'はい、最新のAZW3形式もサポートしています。' },
+    ],
+  },
+  'pdf-to-excel': {
+    title: 'PDFをExcelに変換',
+    metaDescription: 'PDFの表を編集可能なExcel（XLSX）に変換。',
+    keywords: ['pdf excel 変換', 'pdf 表 抽出'],
+    description: `<p>PDF内の表を検出し、その構造を維持したままExcelファイルに出力します。</p>`,
+    howToUse: [
+      { step: 1, title: 'アップロード', description: 'PDFをアップロードします。' },
+      { step: 3, title: '保存', description: 'Excelをダウンロードします。' },
+    ],
+    useCases: [
+      { title: 'データ分析', description: 'PDFレポートの数値をExcelで再集計します。', icon: 'table' },
+    ],
+    faq: [
+      { question: '複雑な表も大丈夫ですか？', answer: '罫線がはっきりしている表ほど正確に抽出されます。' },
+    ],
+  },
+  'pdf-to-pptx': {
+    title: 'PDFをPowerPointに変換',
+    metaDescription: 'PDFを編集可能なPowerPointスライドに変換。',
+    keywords: ['pdf powerpoint 変換', 'pdf pptx 変換'],
+    description: `<p>PDFの各ページをPowerPointのスライドに変換し、図形やテキストを編集可能な状態で出力します。</p>`,
+    howToUse: [
+      { step: 1, title: 'アップロード', description: 'PDFをアップロードします。' },
+      { step: 3, title: '保存', description: 'PPTXをダウンロードします。' },
+    ],
+    useCases: [
+      { title: 'プレゼンの修正', description: 'PDFしかない資料をPowerPointに戻して修正します。', icon: 'presentation' },
+    ],
+    faq: [
+      { question: 'フォントは変わりますか？', answer: '可能な限り近いフォントを割り当てますが、システムにない場合は代替フォントになります。' },
+    ],
+  },
+  'pdf-to-svg': {
+    title: 'PDFをSVGに変換',
+    metaDescription: 'PDFのページをベクター画像（SVG）に変換。',
+    keywords: ['pdf svg 変換', 'ベクター 変換'],
+    description: `<p>PDFを高品質なベクター画像形式であるSVGに変換します。拡大してもぼやけないため、Web素材やロゴの抽出に最適です。</p>`,
+    howToUse: [
+      { step: 1, title: 'アップロード', description: 'PDFをアップロードします。' },
+      { step: 3, title: '保存', description: 'SVGを保存します。' },
+    ],
+    useCases: [
+      { title: 'Webデザイン', description: 'PDFの中の図形をWebサイトで利用可能なベクター画像にします。', icon: 'layout' },
+    ],
+    faq: [
+      { question: 'パスは保持されますか？', answer: 'はい、パスデータはそのまま保持されます。' },
+    ],
+  },
+  'extract-images': {
+    title: 'PDFから画像を抽出',
+    metaDescription: 'PDF内の全画像を高品質で抽出・保存。一括ダウンロード可能。',
+    keywords: ['pdf 画像 抽出', 'pdf 画像 保存', 'pdf 写真 取り出し'],
+    description: `
+      <p>PDF内の画像を自動検出し、個別の画像ファイルとして取り出します。高解像度の写真をそのままの品質で抽出できます。</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'アップロード', description: 'PDFをアップロードします。' },
+      { step: 2, title: 'フィルタリング', description: '抽出する画像の最小サイズなどを指定します。' },
+      { step: 3, title: '保存', description: '個別に、またはZIPでまとめて保存します。' },
+    ],
+    useCases: [
+      { title: '写真素材の回収', description: 'PDF資料に使われている写真を、別の場所で使うために取り出します。', icon: 'camera' },
+    ],
+    faq: [
+      { question: '画質は劣化しますか？', answer: 'いいえ、PDF内に埋め込まれているオリジナルデータをそのまま取り出すため、劣化はありません。' },
+    ],
+  },
 };

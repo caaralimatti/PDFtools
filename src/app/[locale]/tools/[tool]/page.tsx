@@ -18,6 +18,7 @@ import { PosterizePDFTool } from '@/components/tools/posterize';
 import { PDFMultiTool } from '@/components/tools/pdf-multi-tool';
 import { AddAttachmentsTool } from '@/components/tools/add-attachments';
 import { ExtractAttachmentsTool } from '@/components/tools/extract-attachments';
+import { ExtractImagesTool } from '@/components/tools/extract-images';
 import { EditAttachmentsTool } from '@/components/tools/edit-attachments';
 import { ViewMetadataTool } from '@/components/tools/view-metadata';
 import { EditMetadataTool } from '@/components/tools/edit-metadata';
@@ -72,6 +73,8 @@ import { XPSToPDFTool } from '@/components/tools/xps-to-pdf';
 import { RTFToPDFTool } from '@/components/tools/rtf-to-pdf';
 import { EPUBToPDFTool } from '@/components/tools/epub-to-pdf';
 import { MOBIToPDFTool } from '@/components/tools/mobi-to-pdf';
+import { FB2ToPDFTool } from '@/components/tools/fb2-to-pdf';
+import { PDFToSVGTool } from '@/components/tools/pdf-to-svg';
 import { generateToolMetadata } from '@/lib/seo/metadata';
 import { JsonLd } from '@/components/seo/JsonLd';
 import {
@@ -227,6 +230,8 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
         return <AddAttachmentsTool />;
       case 'extract-attachments':
         return <ExtractAttachmentsTool />;
+      case 'extract-images':
+        return <ExtractImagesTool />;
       case 'edit-attachments':
         return <EditAttachmentsTool />;
       case 'view-metadata':
@@ -311,6 +316,8 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
         return <PDFToImageTool outputFormat="bmp" />;
       case 'pdf-to-tiff':
         return <PDFToImageTool outputFormat="tiff" />;
+      case 'pdf-to-svg':
+        return <PDFToSVGTool />;
       case 'pdf-to-greyscale':
         return <PDFToGreyscaleTool />;
       case 'pdf-to-json':
@@ -358,6 +365,8 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
         return <EPUBToPDFTool />;
       case 'mobi-to-pdf':
         return <MOBIToPDFTool />;
+      case 'fb2-to-pdf':
+        return <FB2ToPDFTool />;
       // Add more tool cases here as they are implemented
       default:
         return (

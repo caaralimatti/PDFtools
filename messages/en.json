@@ -125,6 +125,19 @@
       "landscape": "Landscape"
     }
   },
+  "toolsPage": {
+    "title": "Professional PDF Tools",
+    "subtitle": "{count}+ free, secure, and easy-to-use tools for all your PDF needs.",
+    "filters": "Filters",
+    "allTools": "All Tools",
+    "clearAll": "Clear all",
+    "clearFilters": "Clear filters",
+    "showingAll": "Showing all {count} tools",
+    "showingFiltered": "Showing {filtered} of {total} tools",
+    "forQuery": "for \"{query}\"",
+    "inCategory": "in {category}",
+    "noToolsFound": "No tools found"
+  },
   "faqPage": {
     "title": "Frequently Asked Questions",
     "subtitle": "Find answers to common questions about {brand}",
@@ -756,6 +769,22 @@
       "downloadAll": "Download All",
       "successMessage": "Attachments extracted successfully!"
     },
+    "extractImages": {
+      "uploadLabel": "Upload PDF Files",
+      "uploadDescription": "Select PDF files to extract images from.",
+      "filesTitle": "Selected Files",
+      "filterTitle": "Filter Options",
+      "filterDescription": "Filter out small images (icons, decorations, etc.)",
+      "minWidth": "Min Width (px)",
+      "minHeight": "Min Height (px)",
+      "minSizeKB": "Min Size (KB)",
+      "extractButton": "Extract Images",
+      "extractedTitle": "Extracted Images",
+      "downloadAll": "Download All",
+      "downloadZip": "Download as ZIP",
+      "page": "Page",
+      "successMessage": "Images extracted successfully! Click to download individual images or use \"Download as ZIP\"."
+    },
     "encryptPdf": {
       "uploadLabel": "Upload PDF File",
       "uploadDescription": "Drag and drop a PDF file here, or click to browse.",
@@ -997,6 +1026,21 @@
       "downloadZip": "Download All as ZIP",
       "previewTitle": "Converted Images",
       "successMessage": "PDF converted to images successfully!"
+    },
+    "pdfToSvg": {
+      "uploadLabel": "Upload PDF File",
+      "uploadDescription": "Drag and drop a PDF file to convert to SVG.",
+      "optionsTitle": "Conversion Options",
+      "resolution": "Resolution",
+      "resolutionHint": "Higher resolution produces larger, more detailed SVG files.",
+      "pageRange": "Page Range",
+      "pageRangePlaceholder": "e.g., 1-3, 5, 7",
+      "pageRangeHint": "Leave empty for all pages",
+      "convertButton": "Convert to SVG",
+      "downloadZip": "Download All as ZIP",
+      "previewTitle": "Converted SVGs",
+      "previewPage": "Page",
+      "successMessage": "PDF converted to SVG successfully! Click on thumbnails to preview or download individual files."
     },
     "pdfToGreyscale": {
       "uploadLabel": "Upload PDF File",
@@ -1399,6 +1443,12 @@
       "convertButton": "Convert to PDF",
       "successMessage": "Your Word document has been successfully converted to PDF!"
     },
+    "psdToPdf": {
+      "uploadLabel": "Upload PSD File",
+      "uploadDescription": "Drag and drop a PSD (Photoshop) file here, or click to browse.",
+      "convertButton": "Convert to PDF",
+      "successMessage": "PSD converted to PDF successfully! Click the download button to save your file."
+    },
     "excelToPdf": {
       "uploadLabel": "Upload Excel File",
       "uploadDescription": "Drag and drop an Excel file (.xlsx) here, or click to browse.",
@@ -1434,6 +1484,12 @@
       "uploadDescription": "Drag and drop a MOBI/AZW e-book file here, or click to browse.",
       "convertButton": "Convert to PDF",
       "successMessage": "Your MOBI file has been successfully converted to PDF!"
+    },
+    "fb2ToPdf": {
+      "uploadLabel": "Upload FB2 Files",
+      "uploadDescription": "Drag and drop FB2 e-book files here, or click to browse. Supports multiple files.",
+      "convertButton": "Convert to PDF",
+      "successMessage": "Your FB2 file(s) have been successfully converted to PDF!"
     }
   }
 }

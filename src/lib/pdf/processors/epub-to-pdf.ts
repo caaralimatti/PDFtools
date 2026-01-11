@@ -2,7 +2,12 @@
  * EPUB to PDF Processor
  * 
  * Converts EPUB files to PDF documents.
- * Uses Pyodide via a Web Worker with PyMuPDF's native EPUB support.
+ * Uses PyMuPDF's native convert_to_pdf() for optimal file size and text preservation.
+ * 
+ * Benefits:
+ * - Much smaller file sizes (text is vector, not images)
+ * - Searchable/selectable text in output PDF
+ * - Better quality at any zoom level
  */
 
 import type {
@@ -14,16 +19,10 @@ import { PDFErrorCode } from '@/types/pdf';
 import { BasePDFProcessor } from '../processor';
 
 /**
- * Quality level for conversion
- */
-export type ConversionQuality = 'low' | 'medium' | 'high';
-
-/**
  * EPUB to PDF options
  */
 export interface EPUBToPDFOptions {
-    /** Conversion quality: 'low' (72 DPI), 'medium' (150 DPI), 'high' (300 DPI) */
-    quality?: ConversionQuality;
+    // Reserved for future options
 }
 
 /**
@@ -189,13 +188,11 @@ export class EPUBToPDFProcessor extends BasePDFProcessor {
                 this.worker.addEventListener('message', handleMessage);
                 this.worker.addEventListener('error', handleError);
 
-                const options = input.options as EPUBToPDFOptions || {};
                 this.worker.postMessage({
                     type: 'convert',
                     id: msgId,
                     data: {
-                        file: file,
-                        quality: options.quality || 'medium'
+                        file: file
                     }
                 });
             });

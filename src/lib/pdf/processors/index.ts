@@ -321,6 +321,15 @@ export {
   type ImageFormat,
 } from './pdf-to-image';
 
+// PDF to SVG processor
+export {
+  PDFToSVGProcessor,
+  createPDFToSVGProcessor,
+  pdfToSVG,
+  type PDFToSVGOptions,
+  type SVGResult,
+} from './pdf-to-svg';
+
 // PDF to Greyscale processor
 export {
   PDFToGreyscaleProcessor,
@@ -501,6 +510,14 @@ export {
   type EPUBToPDFOptions,
 } from './epub-to-pdf';
 
+// FB2 to PDF processor
+export {
+  FB2ToPDFProcessor,
+  createFB2ToPDFProcessor,
+  fb2ToPDF,
+  type FB2ToPDFOptions,
+} from './fb2-to-pdf';
+
 // MOBI to PDF processor
 export {
   MOBIToPDFProcessor,
@@ -517,5 +534,12 @@ export {
   type GridCombineOptions,
 } from './grid-combine';
 
-
+// Extract Images from PDF processor
+export {
+  ExtractImagesPDFProcessor,
+  createExtractImagesProcessor,
+  extractImages,
+  type ExtractedImage,
+  type ExtractImagesOptions,
+} from './extract-images';
 

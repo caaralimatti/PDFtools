@@ -171,8 +171,13 @@ export function getSearchSuggestions(query: string, limit: number = 5): string[]
 /**
  * Check if a tool matches a search query
  * Used for filtering tools in UI
+ * Supports localized content for searching in current language
  */
-export function toolMatchesQuery(tool: Tool, query: string): boolean {
+export function toolMatchesQuery(
+  tool: Tool,
+  query: string,
+  localizedContent?: { title: string; description: string }
+): boolean {
   const normalizedQuery = query.toLowerCase().trim();
 
   if (!normalizedQuery) {
@@ -183,7 +188,22 @@ export function toolMatchesQuery(tool: Tool, query: string): boolean {
   const slug = tool.slug.replace(/-/g, ' ').toLowerCase();
   const features = tool.features.map((f) => f.replace(/-/g, ' ').toLowerCase());
 
-  // Check if query matches name, slug, or any feature
+  // Check localized title and description first (for current language search)
+  if (localizedContent) {
+    const localizedTitle = localizedContent.title.toLowerCase();
+    const localizedDescription = localizedContent.description.toLowerCase();
+
+    if (localizedTitle.includes(normalizedQuery) || localizedDescription.includes(normalizedQuery)) {
+      return true;
+    }
+
+    // Fuzzy match on localized title
+    if (fuzzyMatch(normalizedQuery, localizedTitle) >= 0.3) {
+      return true;
+    }
+  }
+
+  // Check if query matches name, slug, or any feature (English fallback)
   if (toolName.includes(normalizedQuery) || slug.includes(normalizedQuery)) {
     return true;
   }
@@ -194,6 +214,6 @@ export function toolMatchesQuery(tool: Tool, query: string): boolean {
     }
   }
 
-  // Check fuzzy match
+  // Check fuzzy match on English name
   return fuzzyMatch(normalizedQuery, toolName) >= 0.3;
 }

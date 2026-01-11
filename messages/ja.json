@@ -418,6 +418,19 @@
       "securePdf": "PDFセキュリティ"
     }
   },
+  "toolsPage": {
+    "title": "Professional PDF Tools",
+    "subtitle": "{count}+ free, secure, and easy-to-use tools for all your PDF needs.",
+    "filters": "Filters",
+    "allTools": "All Tools",
+    "clearAll": "Clear all",
+    "clearFilters": "Clear filters",
+    "showingAll": "Showing all {count} tools",
+    "showingFiltered": "Showing {filtered} of {total} tools",
+    "forQuery": "for \"{query}\"",
+    "inCategory": "in {category}",
+    "noToolsFound": "No tools found"
+  },
   "tools": {
     "search": {
       "placeholder": "ツールを検索...",
@@ -699,13 +712,29 @@
       "successMessage": "Pages divided successfully!"
     },
     "extractAttachments": {
-      "uploadLabel": "Upload PDF Files",
-      "uploadDescription": "Select PDF files to extract attachments from.",
-      "filesTitle": "Selected Files",
-      "extractButton": "Extract Attachments",
-      "extractedTitle": "Extracted Attachments",
-      "downloadAll": "Download All",
-      "successMessage": "Attachments extracted successfully!"
+      "uploadLabel": "PDFファイルをアップロード",
+      "uploadDescription": "添付ファイルを抽出するPDFファイルを選択してください。",
+      "filesTitle": "選択されたファイル",
+      "extractButton": "添付ファイルを抽出",
+      "extractedTitle": "抽出された添付ファイル",
+      "downloadAll": "すべてダウンロード",
+      "successMessage": "添付ファイルの抽出に成功しました！"
+    },
+    "extractImages": {
+      "uploadLabel": "PDFファイルをアップロード",
+      "uploadDescription": "画像を抽出するPDFファイルを選択してください。",
+      "filesTitle": "選択されたファイル",
+      "filterTitle": "フィルターオプション",
+      "filterDescription": "小さな画像をフィルター（アイコン、装飾など）",
+      "minWidth": "最小幅 (px)",
+      "minHeight": "最小高さ (px)",
+      "minSizeKB": "最小サイズ (KB)",
+      "extractButton": "画像を抽出",
+      "extractedTitle": "抽出された画像",
+      "downloadAll": "すべてダウンロード",
+      "downloadZip": "ZIPでダウンロード",
+      "page": "ページ",
+      "successMessage": "画像の抽出に成功しました！個別の画像をクリックしてダウンロードするか、「ZIPでダウンロード」を使用してください。"
     },
     "encryptPdf": {
       "uploadLabel": "Upload PDF File",
@@ -984,20 +1013,35 @@
       "successMessage": "JSON converted to PDF successfully!"
     },
     "pdfToImage": {
-      "uploadLabel": "Upload PDF File",
-      "uploadDescription": "Drag and drop a PDF file to convert.",
-      "optionsTitle": "Conversion Options",
-      "format": "Image Format",
-      "quality": "Quality",
-      "dpi": "Resolution (DPI)",
-      "resolution": "Resolution",
-      "pageRange": "Page Range",
-      "pageRangePlaceholder": "e.g., 1-3, 5, 7",
-      "pageRangeHint": "Leave empty for all pages",
-      "convertButton": "Convert to Images",
-      "downloadZip": "Download All as ZIP",
-      "previewTitle": "Converted Images",
-      "successMessage": "PDF converted to images successfully!"
+      "uploadLabel": "PDFファイルをアップロード",
+      "uploadDescription": "変換するPDFファイルをドラッグ＆ドロップしてください。",
+      "optionsTitle": "変換オプション",
+      "format": "画像形式",
+      "quality": "品質",
+      "dpi": "解像度 (DPI)",
+      "resolution": "解像度",
+      "pageRange": "ページ範囲",
+      "pageRangePlaceholder": "例: 1-3, 5, 7",
+      "pageRangeHint": "すべてのページの場合は空のままにします",
+      "convertButton": "画像に変換",
+      "downloadZip": "ZIPとしてすべてダウンロード",
+      "previewTitle": "変換された画像",
+      "successMessage": "PDFが正常に画像に変換されました！"
+    },
+    "pdfToSvg": {
+      "uploadLabel": "PDFファイルをアップロード",
+      "uploadDescription": "PDFファイルをドラッグ＆ドロップしてSVGに変換します。",
+      "optionsTitle": "変換オプション",
+      "resolution": "解像度",
+      "resolutionHint": "解像度が高いほど、SVGファイルのサイズが大きくなり、詳細になります。",
+      "pageRange": "ページ範囲",
+      "pageRangePlaceholder": "例: 1-3, 5, 7",
+      "pageRangeHint": "すべてのページの場合は空のままにします",
+      "convertButton": "SVGに変換",
+      "downloadZip": "ZIPとしてすべてダウンロード",
+      "previewTitle": "変換されたSVG",
+      "previewPage": "ページ",
+      "successMessage": "PDFが正常にSVGに変換されました！サムネイルをクリックしてプレビューするか、個別のファイルをダウンロードしてください。"
     },
     "pdfToGreyscale": {
       "uploadLabel": "Upload PDF File",
@@ -1400,6 +1444,12 @@
       "convertButton": "PDFに変換",
       "successMessage": "Word文書がPDFに正常に変換されました！"
     },
+    "psdToPdf": {
+      "uploadLabel": "PSDファイルをアップロード",
+      "uploadDescription": "PSD（Photoshop）ファイルをここにドラッグ＆ドロップするか、クリックして参照してください。",
+      "convertButton": "PDFに変換",
+      "successMessage": "PSDが正常にPDFに変換されました！ダウンロードボタンをクリックして保存してください。"
+    },
     "excelToPdf": {
       "uploadLabel": "Excelファイルをアップロード",
       "uploadDescription": "Excelファイル(.xlsx)をここにドラッグ＆ドロップするか、クリックして選択してください。",
@@ -1435,6 +1485,12 @@
       "uploadDescription": "MOBI/AZW電子書籍ファイルをここにドラッグ＆ドロップするか、クリックして選択してください。",
       "convertButton": "PDFに変換",
       "successMessage": "MOBIファイルがPDFに正常に変換されました！"
+    },
+    "fb2ToPdf": {
+      "uploadLabel": "FB2ファイルをアップロード",
+      "uploadDescription": "FB2電子書籍ファイルをここにドラッグ＆ドロップするか、クリックして選択してください。複数ファイル対応。",
+      "convertButton": "PDFに変換",
+      "successMessage": "FB2ファイルがPDFに正常に変換されました！"
     }
   }
 }

@@ -56,7 +56,19 @@ import {
     Key,
     FileKey,
     FileLock,
-    LucideIcon
+    LucideIcon,
+    // 新增文件格式图标
+    FileSpreadsheet,
+    Presentation,
+    FileBox,
+    FileType2,
+    BookOpen,
+    BookMarked,
+    RefreshCcw,
+    ImageDown,
+    Table,
+    LayoutDashboard,
+    TabletSmartphone
 } from 'lucide-react';
 
 export const ICON_MAP: Record<string, LucideIcon> = {
@@ -119,7 +131,19 @@ export const ICON_MAP: Record<string, LucideIcon> = {
     'shield-check': ShieldCheck,
     'key': Key,
     'file-key': FileKey,
-    'file-lock': FileLock
+    'file-lock': FileLock,
+    // 文件格式专用图标
+    'file-spreadsheet': FileSpreadsheet,
+    'presentation': Presentation,
+    'file-box': FileBox,
+    'file-type': FileType2,
+    'book-open': BookOpen,
+    'book-marked': BookMarked,
+    'refresh-ccw': RefreshCcw,
+    'image-down': ImageDown,
+    'table': Table,
+    'layout-dashboard': LayoutDashboard,
+    'tablet-smartphone': TabletSmartphone
 };
 
 export const getToolIcon = (iconName: string): LucideIcon => {

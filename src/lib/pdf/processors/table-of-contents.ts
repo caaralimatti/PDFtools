@@ -1,6 +1,7 @@
 /**
  * PDF Table of Contents Processor
- * Uses coherentpdf worker to generate clickable TOC from PDF bookmarks
+ * Uses PyMuPDF worker to generate clickable TOC from PDF bookmarks
+ * Supports CJK (Chinese, Japanese, Korean) and other non-ASCII characters
  * Requirements: 5.1
  */
 
@@ -11,7 +12,7 @@ import { BasePDFProcessor } from '../processor';
 export interface TOCOptions {
   title?: string;
   fontSize?: number;
-  fontFamily?: number; // 0=Times, 1=Helvetica, 2=Courier
+  fontFamily?: string; // Standard PDF font codes (e.g. 'helv', 'tiit', etc.)
   addBookmark?: boolean;
 }
 
@@ -40,9 +41,16 @@ export class TableOfContentsProcessor extends BasePDFProcessor {
         arrayBuffer,
         tocOptions.title || 'Table of Contents',
         tocOptions.fontSize || 12,
-        tocOptions.fontFamily ?? 1, // Default to Helvetica
+        tocOptions.fontFamily ?? 'helv', // Default to Helvetica
         tocOptions.addBookmark ?? true
       );
+
+      console.log('[TOC Processor] Worker returned result:', {
+        status: result.status,
+        hasPdfBytes: 'pdfBytes' in result,
+        pdfBytesType: (result as any).pdfBytes ? (result as any).pdfBytes.constructor.name : 'N/A',
+        byteLength: (result as any).pdfBytes ? (result as any).pdfBytes.byteLength : 0
+      });
 
       if (result.status === 'error') {
         return this.createErrorOutput(
@@ -51,11 +59,28 @@ export class TableOfContentsProcessor extends BasePDFProcessor {
         );
       }
 
+      const blobResult = (result as any).pdfBlob;
+      const bytesResult = (result as any).pdfBytes;
+
+      let finalBlob: Blob;
+
+      if (blobResult instanceof Blob) {
+        finalBlob = blobResult;
+      } else if (bytesResult && bytesResult.byteLength > 0) {
+        finalBlob = new Blob([new Uint8Array(bytesResult)], { type: 'application/pdf' });
+      } else {
+        console.error('[TOC Processor] Critical: Received empty data from worker');
+        return this.createErrorOutput(
+          PDFErrorCode.PROCESSING_FAILED,
+          'Internal Error: Generated PDF data was empty.'
+        );
+      }
+
       this.updateProgress(90, 'Saving PDF...');
-      const blob = new Blob([new Uint8Array(result.pdfBytes)], { type: 'application/pdf' });
+      console.log('[TOC Processor] Final Blob size:', finalBlob.size);
 
       this.updateProgress(100, 'Complete!');
-      return this.createSuccessOutput(blob, file.name.replace('.pdf', '_with_toc.pdf'), {});
+      return this.createSuccessOutput(finalBlob, file.name.replace('.pdf', '_with_toc.pdf'), {});
 
     } catch (error) {
       return this.createErrorOutput(
@@ -72,14 +97,21 @@ export class TableOfContentsProcessor extends BasePDFProcessor {
     pdfData: ArrayBuffer,
     title: string,
     fontSize: number,
-    fontFamily: number,
+    fontFamily: string,
     addBookmark: boolean
   ): Promise<{ status: 'success'; pdfBytes: ArrayBuffer } | { status: 'error'; message: string }> {
     return new Promise((resolve) => {
-      this.worker = new Worker('/workers/table-of-contents.worker.js');
+      // Use V2 worker to bypass cache and use robust byte handling
+      this.worker = new Worker('/workers/table-of-contents-v2.worker.js', { type: 'module' });
 
       this.worker.onmessage = (e) => {
-        resolve(e.data);
+        const data = e.data;
+        // Only resolve on final success or error messages
+        // Ignore intermediate status messages like { type: 'status', message: '...' }
+        if (data.status === 'success' || data.status === 'error') {
+          resolve(data);
+        }
+        // Intermediate status messages are ignored (they could be used for progress updates)
       };
 
       this.worker.onerror = (error) => {

@@ -1110,6 +1110,32 @@ export const toolContentZh: Record<string, ToolContent> = {
     ],
   },
 
+  'fb2-to-pdf': {
+    title: 'FB2转PDF',
+    metaDescription: '将FictionBook (FB2)电子书转换为PDF。支持多个文件的高质量渲染。',
+    keywords: ['fb2转pdf', '转换fb2', 'fictionbook转pdf', 'fb2转换器', 'fb2.zip转pdf'],
+    description: `
+      <p>FB2转PDF将FictionBook (FB2)电子书文件转换为高质量的PDF文档。FB2是一种流行的基于XML的电子书格式，在俄罗斯和东欧广泛使用。</p>
+      <p>此工具支持.fb2和.fb2.zip文件，并可一次处理多个文件。它保留电子书的文本格式、图片和章节结构。</p>
+      <p>所有转换都在您的浏览器本地进行，使用先进的渲染技术，确保您的书籍保持私密，转换速度快。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传FB2文件', description: '拖放一个或多个.fb2或.fb2.zip文件，或点击从设备中选择。' },
+      { step: 2, title: '选择质量', description: '选择输出质量：低（72 DPI）、中（150 DPI）或高（300 DPI）。' },
+      { step: 3, title: '转换并下载', description: '点击转换为PDF并下载转换后的文档。' },
+    ],
+    useCases: [
+      { title: '打印电子书', description: '将FB2电子书转换为PDF以便物理打印。', icon: 'printer' },
+      { title: '批量转换', description: '一次将多个FB2文件转换为PDF。', icon: 'layers' },
+      { title: '通用格式', description: '以适用于任何设备的PDF格式分享电子书。', icon: 'share-2' },
+    ],
+    faq: [
+      { question: '可以一次转换多个FB2文件吗？', answer: '可以！此工具支持同时批量转换最多20个FB2文件。' },
+      { question: '支持.fb2.zip文件吗？', answer: '支持，该工具会自动从.fb2.zip压缩包中提取并转换FB2文件。' },
+      { question: '格式会保留吗？', answer: '是的！该工具使用原生FB2渲染，以高保真度保留文本格式、图片和章节结构。' },
+    ],
+  },
+
   // ==================== 从PDF转换 ====================
 
   'pdf-to-jpg': {
@@ -1242,6 +1268,35 @@ export const toolContentZh: Record<string, ToolContent> = {
     ],
   },
 
+  'pdf-to-svg': {
+    title: 'PDF转SVG',
+    metaDescription: '将PDF页面转换为SVG矢量图形。任意尺寸完美缩放，支持单独导出每页。',
+    keywords: ['pdf转svg', '转换pdf为svg', '矢量图形', '可缩放pdf', 'svg转换器'],
+    description: `
+      <p>PDF转SVG将您的PDF文档的每一页转换为可缩放矢量图形（SVG）。SVG是一种矢量格式，在任何缩放级别或打印尺寸下都能保持完美质量。</p>
+      <p>与光栅格式（JPG、PNG）不同，SVG图形在缩放时永远不会变得模糊。这使其非常适合标志、图表、技术图纸以及任何需要以不同尺寸显示的内容。</p>
+      <p>预览每个转换后的页面，可以单独下载或作为ZIP文件下载。所有处理都在您的浏览器本地进行，确保您的文档完全隐私。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传PDF文件', description: '拖放您的PDF文件或点击浏览选择。' },
+      { step: 2, title: '配置选项', description: '设置分辨率质量，可选择指定页面范围。' },
+      { step: 3, title: '预览和转换', description: '点击转换进行处理。点击缩略图预览每个页面。' },
+      { step: 4, title: '下载', description: '下载单个SVG文件或将所有页面打包为ZIP压缩包。' },
+    ],
+    useCases: [
+      { title: '标志和图形', description: '从PDF中提取标志和矢量图形，用于设计软件。', icon: 'pen-tool' },
+      { title: '技术图纸', description: '将技术图纸和图表转换为可缩放的SVG格式。', icon: 'ruler' },
+      { title: '网页开发', description: '从PDF内容创建网页友好的SVG文件，用于响应式网站。', icon: 'globe' },
+      { title: '任意尺寸打印', description: '生成可以任意尺寸完美打印的矢量图形。', icon: 'printer' },
+    ],
+    faq: [
+      { question: '什么是SVG格式？', answer: 'SVG（可缩放矢量图形）是一种可以缩放到任意尺寸而不损失质量的矢量图像格式。它广泛用于标志、图标和网页图形。' },
+      { question: 'SVG是真正的矢量吗？', answer: 'SVG包含PDF页面的高分辨率渲染。对于具有矢量内容的PDF，您可以在任何缩放级别获得清晰的输出。' },
+      { question: '可以在下载前预览吗？', answer: '可以！点击任何缩略图查看SVG的完整尺寸预览。您可以下载单个页面或全部下载。' },
+      { question: '应该选择什么分辨率？', answer: '更高的分辨率（216或288 DPI）会产生更大、更详细的SVG。使用较低设置可以加快处理速度并获得更小的文件。' },
+    ],
+  },
+
   'pdf-to-greyscale': {
     title: 'PDF转灰度',
     metaDescription: '将彩色PDF转换为灰度。减小文件大小并准备黑白打印。',
@@ -1343,6 +1398,32 @@ export const toolContentZh: Record<string, ToolContent> = {
       { question: '如何处理表格？', answer: '每页的表格提取到对应的Excel工作表中。' },
       { question: '如果没有表格？', answer: '将创建一个提示信息工作表。' },
       { question: '保留格式吗？', answer: '数据保留，视觉格式可能简化。' },
+    ],
+  },
+
+  'psd-to-pdf': {
+    title: 'PSD转PDF',
+    metaDescription: '将Adobe Photoshop (PSD)文件转换为PDF。保留图层和高质量。',
+    keywords: ['psd转pdf', '转换psd', 'photoshop转pdf', 'adobe psd转pdf'],
+    description: `
+      <p>直接在浏览器中将Adobe Photoshop (PSD)文件转换为PDF格式。此工具处理复杂的PSD文件，并在转换过程中保持高质量的视觉效果。</p>
+      <p>非常适合设计师和艺术家与没有安装Photoshop的客户或同事分享他们的作品。转换生成干净、可视化的PDF文档。</p>
+      <p>所有处理都在本地完成，确保您的设计和作品保留在设备上，保持私密和安全。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传PSD文件', description: '将PSD文件拖放到上传区域。支持大文件。' },
+      { step: 2, title: '处理', description: '工具将读取PSD数据并将其转换为PDF格式。' },
+      { step: 3, title: '下载', description: '立即下载转换后的PDF文件。' },
+    ],
+    useCases: [
+      { title: '客户预览', description: '以通用的PDF格式向客户发送设计稿。', icon: 'image' },
+      { title: '作品集创建', description: '将Photoshop作品编译成PDF作品集以供求职申请。', icon: 'briefcase' },
+      { title: '打印准备', description: '将PSD设计转换为PDF，以便打印服务更好地处理。', icon: 'printer' },
+    ],
+    faq: [
+      { question: '需要安装Photoshop吗？', answer: '不需要，此工具完全在浏览器中运行，无需Adobe Photoshop。' },
+      { question: '图层会保留吗？', answer: '生成的PDF是用于查看的PSD扁平化版本。' },
+      { question: '有文件大小限制吗？', answer: '我们支持大文件，但非常大的高分辨率PSD可能需要更长的处理时间。' },
     ],
   },
 
@@ -2073,7 +2154,8 @@ export const toolContentZh: Record<string, ToolContent> = {
       { question: '权限可以删除吗？', answer: '是的，使用所有者密码或删除限制工具。' },
       { question: '所有PDF阅读器都兼容吗？', answer: '大多数PDF阅读器尊重权限，但有些可能不强制执行。' },
     ],
-  }, 'pdf-to-docx': {
+  },
+  'pdf-to-docx': {
     title: 'PDF转Word',
     metaDescription: '将PDF转换为可编辑的Word文档（DOCX）。保留原始布局、格式和图像。',
     keywords: ['pdf转word', 'pdf转docx', 'pdf转可编辑文档', 'pdf转换器'],
@@ -2173,6 +2255,33 @@ export const toolContentZh: Record<string, ToolContent> = {
       { question: '转换后的网页支持响应式吗？', answer: '是的，我们生成的代码能适应手机、平板和桌面设备。' },
       { question: '图片能保留吗？', answer: '可以，PDF中的所有插图和照片都会被优化并保存为网页适用的图像格式。' },
       { question: 'HTML文件里会有乱码吗？', answer: '不会。系统会正确映射编码，确保转换后的文字内容准确无误。' },
+    ],
+  },
+
+  'extract-images': {
+    title: '从PDF提取图片',
+    metaDescription: '从PDF文件中提取所有嵌入的图片。支持单独下载或打包成ZIP下载。自动过滤小尺寸图片。',
+    keywords: ['提取pdf图片', 'pdf图片提取', '从pdf获取图片', '下载pdf图片', 'pdf转图片'],
+    description: `
+      <p>从PDF提取图片工具可以从您的PDF文档中检索所有嵌入的图片。您可以单独下载高质量图片，也可以将所有图片打包成ZIP压缩包一次性下载。</p>
+      <p>该工具会根据可自定义的尺寸阈值自动过滤掉小图片（如图标和装饰图案）。支持批量处理多个PDF文件，高效便捷。</p>
+      <p>所有提取过程都在您的浏览器中进行，确保您的文档保持私密和安全。</p>
+    `,
+    howToUse: [
+      { step: 1, title: '上传PDF文件', description: '拖放一个或多个PDF文件，或点击从设备中选择文件。' },
+      { step: 2, title: '设置过滤选项', description: '调整最小宽度、高度和文件大小，过滤掉不需要的小图片。' },
+      { step: 3, title: '提取图片', description: '点击提取按钮，查找PDF中所有嵌入的图片。' },
+      { step: 4, title: '下载', description: '单独下载每张图片，或将所有图片打包成ZIP压缩包下载。' },
+    ],
+    useCases: [
+      { title: '图片恢复', description: '从PDF文档中提取照片和图片，用于重复使用或存档。', icon: 'image' },
+      { title: '素材收集', description: '收集PDF报告、演示文稿或宣传册中的所有图形和图片。', icon: 'folder' },
+      { title: '内容再利用', description: '从PDF中提取图片，用于其他文档、网站或演示文稿。', icon: 'refresh-cw' },
+    ],
+    faq: [
+      { question: '提取的图片是什么格式？', answer: '图片会尽可能保持原始格式（JPEG、PNG等）提取，原始像素数据会转换为PNG格式。' },
+      { question: '为什么有些图片没有提取出来？', answer: '小于设定尺寸阈值的图片会被过滤掉。调整过滤设置可以提取更小的图片。' },
+      { question: '可以从扫描的PDF中提取图片吗？', answer: '扫描的PDF通常每页包含一张大图片。如需逐页转换，请使用"PDF转图片"工具。' },
     ],
   },
 };

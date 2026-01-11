@@ -26,6 +26,7 @@ export { CombineSinglePageTool, type CombineSinglePageToolProps } from './combin
 export { PDFMultiTool, type PDFMultiToolProps } from './pdf-multi-tool';
 export { AddAttachmentsTool, type AddAttachmentsToolProps } from './add-attachments';
 export { ExtractAttachmentsTool, type ExtractAttachmentsToolProps } from './extract-attachments';
+export { ExtractImagesTool, type ExtractImagesToolProps } from './extract-images';
 export { EditAttachmentsTool, type EditAttachmentsToolProps } from './edit-attachments';
 export { ViewMetadataTool, type ViewMetadataToolProps, type PDFMetadata } from './view-metadata';
 export { EditMetadataTool, type EditMetadataToolProps } from './edit-metadata';
@@ -64,6 +65,7 @@ export { PDFToJSONTool, type PDFToJSONToolProps } from './pdf-to-json';
 export { OCRPDFTool, type OCRPDFToolProps } from './ocr';
 export { PDFToPptxTool, type PDFToPptxToolProps } from './pdf-to-pptx';
 export { PDFToExcelTool, type PDFToExcelToolProps } from './pdf-to-excel';
+export { PDFToSVGTool, type PDFToSVGToolProps } from './pdf-to-svg';
 
 // Optimize & Repair Tools
 export { CompressPDFTool, type CompressPDFToolProps } from './compress';

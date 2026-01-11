@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { FileUploader } from '../FileUploader';
 import { ProcessingProgress, ProcessingStatus } from '../ProcessingProgress';
@@ -22,13 +22,29 @@ export function TableOfContentsTool({ className = '' }: TableOfContentsToolProps
   const [progress, setProgress] = useState(0);
   const [result, setResult] = useState<Blob | null>(null);
   const [error, setError] = useState<string | null>(null);
-  
+
   // TOC options
   const [title, setTitle] = useState('Table of Contents');
   const [fontSize, setFontSize] = useState(12);
-  const [fontFamily, setFontFamily] = useState(4); // 4=Helvetica
+  const [fontFamily, setFontFamily] = useState('helv');
+  const [fontOptions] = useState([
+    { label: 'Times Roman', value: 'times' },
+    { label: 'Times Bold', value: 'tibo' },
+    { label: 'Times Italic', value: 'tiit' },
+    { label: 'Times Bold Italic', value: 'tibi' },
+    { label: 'Helvetica', value: 'helv' },
+    { label: 'Helvetica Bold', value: 'hebo' },
+    { label: 'Helvetica Oblique', value: 'heit' },
+    { label: 'Helvetica Bold Oblique', value: 'hebi' },
+    { label: 'Courier', value: 'cour' },
+    { label: 'Courier Bold', value: 'cobo' },
+    { label: 'Courier Oblique', value: 'coit' },
+    { label: 'Courier Bold Oblique', value: 'cobi' },
+  ]);
+
+
   const [addBookmark, setAddBookmark] = useState(true);
-  
+
   const cancelledRef = useRef(false);
 
   const handleFilesSelected = useCallback((files: File[]) => {
@@ -51,14 +67,14 @@ export function TableOfContentsTool({ className = '' }: TableOfContentsToolProps
       const options: TOCOptions = {
         title,
         fontSize,
-        fontFamily,
+        fontFamily, // Pass current selection
         addBookmark,
       };
-      
+
       const output: ProcessOutput = await generateTableOfContents(file, options, (prog) => {
         if (!cancelledRef.current) setProgress(prog);
       });
-      
+
       if (output.success && output.result) {
         setResult(output.result as Blob);
         setStatus('complete');
@@ -120,7 +136,7 @@ export function TableOfContentsTool({ className = '' }: TableOfContentsToolProps
             <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
               {tTools('options')}
             </h3>
-            
+
             <div className="space-y-4">
               {/* TOC Title */}
               <div>
@@ -158,29 +174,22 @@ export function TableOfContentsTool({ className = '' }: TableOfContentsToolProps
                 </select>
               </div>
 
-              {/* Font Family */}
+              {/* Font Family - Dynamic based on OS */}
               <div>
                 <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
                   {tTools('fontFamily')}
                 </label>
                 <select
                   value={fontFamily}
-                  onChange={(e) => setFontFamily(parseInt(e.target.value, 10))}
+                  onChange={(e) => setFontFamily(e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
                   disabled={isProcessing}
                 >
-                  <option value={0}>Times Roman</option>
-                  <option value={1}>Times Bold</option>
-                  <option value={2}>Times Italic</option>
-                  <option value={3}>Times Bold Italic</option>
-                  <option value={4}>Helvetica</option>
-                  <option value={5}>Helvetica Bold</option>
-                  <option value={6}>Helvetica Oblique</option>
-                  <option value={7}>Helvetica Bold Oblique</option>
-                  <option value={8}>Courier</option>
-                  <option value={9}>Courier Bold</option>
-                  <option value={10}>Courier Oblique</option>
-                  <option value={11}>Courier Bold Oblique</option>
+                  {fontOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
