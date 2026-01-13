@@ -634,6 +634,10 @@
       "svgQualityHigh": "High (3x - better quality)",
       "svgQualityVeryHigh": "Very High (4x - best quality)",
       "svgQualityHint": "Higher quality produces sharper images but larger file sizes.",
+      "batchMode": "Diviser en plusieurs PDFs",
+      "imagesPerPdf": "Images par PDF",
+      "batchModeHint": "{pdfCount} fichier(s) PDF seront créés, regroupés dans une archive ZIP.",
+      "batchSuccessMessage": "Création réussie de {pdfCount} fichiers PDF à partir de {imageCount} images ! Cliquez sur le bouton de téléchargement pour enregistrer votre archive ZIP.",
       "successMessage": "Images converted to PDF successfully! Click the download button to save your file."
     },
     "compressPdf": {

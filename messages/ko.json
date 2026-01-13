@@ -634,6 +634,10 @@
       "svgQualityHigh": "High (3x - better quality)",
       "svgQualityVeryHigh": "Very High (4x - best quality)",
       "svgQualityHint": "Higher quality produces sharper images but larger file sizes.",
+      "batchMode": "여러 PDF로 분할",
+      "imagesPerPdf": "PDF당 이미지 수",
+      "batchModeHint": "{pdfCount}개의 PDF 파일이 생성되어 ZIP 아카이브로 패키징됩니다.",
+      "batchSuccessMessage": "{imageCount}개의 이미지에서 {pdfCount}개의 PDF 파일을 성공적으로 생성했습니다! 다운로드 버튼을 클릭하여 ZIP 아카이브를 저장하세요.",
       "successMessage": "Images converted to PDF successfully! Click the download button to save your file."
     },
     "compressPdf": {

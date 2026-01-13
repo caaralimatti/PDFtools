@@ -702,6 +702,10 @@
       "svgQualityHigh": "高（3x - 质量更好）",
       "svgQualityVeryHigh": "最高（4x - 最佳质量）",
       "svgQualityHint": "更高的质量会产生更清晰的图像，但文件更大。",
+      "batchMode": "拆分为多个PDF",
+      "imagesPerPdf": "每个PDF的图片数",
+      "batchModeHint": "将创建 {pdfCount} 个PDF文件，打包为ZIP压缩包。",
+      "batchSuccessMessage": "已成功从 {imageCount} 张图片创建 {pdfCount} 个PDF文件！点击下载按钮保存ZIP压缩包。",
       "successMessage": "图片已成功转换为PDF！点击下载按钮保存文件。"
     },
     "compressPdf": {

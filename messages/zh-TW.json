@@ -702,6 +702,10 @@
       "svgQualityHigh": "高（3x - 質量更好）",
       "svgQualityVeryHigh": "最高（4x - 最佳質量）",
       "svgQualityHint": "更高的質量會產生更清晰的影象，但檔案更大。",
+      "batchMode": "拆分為多個PDF",
+      "imagesPerPdf": "每個PDF的圖片數",
+      "batchModeHint": "將創建 {pdfCount} 個PDF檔案，打包為ZIP壓縮檔。",
+      "batchSuccessMessage": "已成功從 {imageCount} 張圖片創建 {pdfCount} 個PDF檔案！點擊下載按鈕保存ZIP壓縮檔。",
       "successMessage": "圖片已成功轉換為PDF！點選下載按鈕儲存檔案。"
     },
     "compressPdf": {
