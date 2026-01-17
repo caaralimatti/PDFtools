@@ -26,7 +26,15 @@
 **PDFCraft** is a comprehensive suite of PDF tools designed for privacy and performance. Unlike many online converters, PDFCraft processes your files entirely within your browser using WebAssembly technology. Your documents **never** leave your device, ensuring maximum security for your sensitive data.
 
 This project is built with modern web technologies to provide a slick, app-like experience directly in the browser.
+## Acknowledgements & Attribution
 
+> **Note:** This project is a Next.js port derived from the [BentoPDF](https://github.com/alam00000/bentopdf) project.
+
+We strictly adhere to the **AGPLv3** license in accordance with the upstream project.
+* **Core Logic:** Powered by [BentoPDF](https://github.com/alam00000/bentopdf).
+* **Underlying Engine:** Uses [PyMuPDF](https://github.com/pymupdf/PyMuPDF).
+
+Special thanks to the maintainers of BentoPDF for their open-source contributions.
 ## ✨ Key Features
 
 - **🔒 100% Private**: All processing happens client-side. No file uploads to external servers.
