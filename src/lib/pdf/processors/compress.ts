@@ -27,10 +27,6 @@ export interface CompressPDFOptions {
   quality: CompressionQuality;
   /** Remove metadata to reduce size */
   removeMetadata: boolean;
-  /** Optimize images in the PDF */
-  optimizeImages: boolean;
-  /** Remove unused objects */
-  removeUnusedObjects: boolean;
 }
 
 /**
@@ -39,8 +35,6 @@ export interface CompressPDFOptions {
 const DEFAULT_COMPRESS_OPTIONS: CompressPDFOptions = {
   quality: 'medium',
   removeMetadata: false,
-  optimizeImages: true,
-  removeUnusedObjects: true,
 };
 
 /**

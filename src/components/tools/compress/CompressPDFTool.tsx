@@ -30,7 +30,6 @@ export function CompressPDFTool({ className = '' }: CompressPDFToolProps) {
   // Options
   const [quality, setQuality] = useState<CompressionQuality>('medium');
   const [removeMetadata, setRemoveMetadata] = useState(false);
-  const [optimizeImages, setOptimizeImages] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // Batch processing hook
@@ -77,8 +76,6 @@ export function CompressPDFTool({ className = '' }: CompressPDFToolProps) {
     const options: CompressPDFOptions = {
       quality,
       removeMetadata,
-      optimizeImages,
-      removeUnusedObjects: true,
     };
 
     const output = await compressPDF(
@@ -92,7 +89,7 @@ export function CompressPDFTool({ className = '' }: CompressPDFToolProps) {
     }
 
     throw new Error(output.error?.message || 'Failed to compress PDF file.');
-  }, [quality, removeMetadata, optimizeImages]);
+  }, [quality, removeMetadata]);
 
   /**
    * Handle compress operation
@@ -293,19 +290,6 @@ export function CompressPDFTool({ className = '' }: CompressPDFToolProps) {
 
             {/* Additional Options */}
             <div className="space-y-3">
-              <label className="flex items-center gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={optimizeImages}
-                  onChange={(e) => setOptimizeImages(e.target.checked)}
-                  disabled={isProcessing}
-                  className="w-4 h-4 rounded border-[hsl(var(--color-border))] text-[hsl(var(--color-primary))] focus:ring-[hsl(var(--color-primary))]"
-                />
-                <span className="text-sm text-[hsl(var(--color-foreground))]">
-                  {tTools('compressPdf.optimizeImages') || 'Optimize embedded images'}
-                </span>
-              </label>
-
               <label className="flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
