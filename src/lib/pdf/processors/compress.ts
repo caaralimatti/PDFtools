@@ -166,7 +166,7 @@ export class CompressPDFProcessor extends BasePDFProcessor {
   ): Promise<{ pdfBytes: ArrayBuffer; compressedSize: number }> {
     return new Promise((resolve, reject) => {
       try {
-        this.worker = new Worker('/workers/compress.worker.js');
+        this.worker = new Worker('/workers/compress.worker.js', { type: 'module' });
 
         this.worker.onmessage = (e: MessageEvent<WorkerMessage>) => {
           const data = e.data;

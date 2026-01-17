@@ -1,12 +1,11 @@
 /**
  * Compress PDF Worker (via Pyodide + PyMuPDF)
- * Uses PyMuPDF for advanced PDF compression with image optimization
+ * Uses PyMuPDF for PDF compression optimized for browser WASM environment
  *
  * Compression strategy:
- * - Image downsampling: Reduce DPI for color/grayscale images
- * - Image recompression: Higher JPEG quality settings
  * - Deflate compression: Compress all streams
  * - Garbage collection: Remove unused objects
+ * - Metadata removal: Optional metadata stripping
  * - Linearization: Optimize for web viewing
  */
 
@@ -44,7 +43,7 @@ from typing import Dict, Any
 
 def compress_pdf_with_pymupdf(input_bytes, options: Dict[str, Any]):
     """
-    Compress PDF using PyMuPDF with comprehensive optimization.
+    Compress PDF using PyMuPDF with optimization.
 
     Args:
         input_bytes: PDF file bytes
@@ -69,92 +68,39 @@ def compress_pdf_with_pymupdf(input_bytes, options: Dict[str, Any]):
             pass
 
     # Define compression settings based on quality level
-    # Image downsampling settings (DPI)
+    # Note: In WASM environment, we use basic compression options
+    # that don't require rendering capabilities
     if quality == 'low':
-        # Maximum compression: aggressive downsampling
-        image_dpi = 72  # Screen quality
-        image_quality = 25  # Low JPEG quality
+        # Maximum compression
+        garbage_level = 4  # Maximum garbage collection
+        deflate = True
+        clean = True
+        linear = True  # Linearize for fast web view
     elif quality == 'medium':
         # Balanced compression
-        image_dpi = 144  # Good quality
-        image_quality = 50  # Medium JPEG quality
+        garbage_level = 3
+        deflate = True
+        clean = True
+        linear = True
     elif quality == 'high':
         # Light compression
-        image_dpi = 200  # High quality
-        image_quality = 75  # Good JPEG quality
+        garbage_level = 2
+        deflate = True
+        clean = True
+        linear = False
     else:  # maximum
         # Minimal compression: preserve quality
-        image_dpi = 300
-        image_quality = 90
-
-    # Downsample and recompress images
-    for page_num in range(len(doc)):
-        page = doc[page_num]
-
-        # Get all images on the page
-        image_list = page.get_images(full=True)
-
-        for img_info in image_list:
-            xref = img_info[0]
-
-            try:
-                # Extract the image
-                base_image = doc.extract_image(xref)
-                if not base_image:
-                    continue
-
-                image_bytes = base_image["image"]
-                ext = base_image["ext"]
-                width = base_image["width"]
-                height = base_image["height"]
-
-                # Skip very small images (icons, etc.)
-                if width < 50 or height < 50:
-                    continue
-
-                # Calculate current DPI (approximate)
-                # Default PDF assumes 72 DPI
-                current_dpi = 72
-
-                # Skip if already lower quality than target
-                if current_dpi <= image_dpi and quality != 'low':
-                    continue
-
-                # Downsample if needed
-                if current_dpi > image_dpi:
-                    scale_factor = image_dpi / current_dpi
-                    new_width = int(width * scale_factor)
-                    new_height = int(height * scale_factor)
-
-                    # Recreate image with new dimensions and quality
-                    # PyMuPDF will handle the recompression during save
-                    if ext in ['jpeg', 'jpg']:
-                        # Recompress JPEG with new quality
-                        try:
-                            # Use PIL-like image processing if available
-                            # Otherwise, PyMuPDF will handle during save
-                            pass
-                        except:
-                            pass
-
-            except Exception as e:
-                # If image processing fails, skip this image
-                print(f"Warning: Could not process image {xref}: {e}")
-                continue
+        garbage_level = 1
+        deflate = True
+        clean = True
+        linear = False
 
     # Save with compression settings
-    # garbage: 0-4, level of garbage collection (4 = maximum)
-    # deflate: compress stream objects
-    # clean: remove unused objects
-    # linear: create linearized PDF (fast web view)
-
-    garbage_level = 4  # Maximum garbage collection for all quality levels
-
     save_options = {
         'garbage': garbage_level,
-        'deflate': True,
-        'clean': True,
-        'linear': quality in ['low', 'medium'],  # Linearize for faster web viewing on low/medium
+        'deflate': deflate,
+        'clean': clean,
+        'linear': linear,
     }
 
     # Convert to compressed PDF
