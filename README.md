@@ -31,7 +31,7 @@ This project is built with modern web technologies to provide a slick, app-like 
 > **Note:** This project is a Next.js port derived from the [BentoPDF](https://github.com/alam00000/bentopdf) project.
 
 We strictly adhere to the **AGPLv3** license in accordance with the upstream project.
-* **Core Logic:** Powered by [BentoPDF](https://github.com/alam00000/bentopdf).
+* **Core Logic:** Powered by [pymupdf-wasm](https://github.com/alam00000/bentopdf-pymupdf-wasm).
 * **Underlying Engine:** Uses [PyMuPDF](https://github.com/pymupdf/PyMuPDF).
 
 Special thanks to the maintainers of BentoPDF for their open-source contributions.
