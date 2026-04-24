@@ -8,6 +8,8 @@ node_modules
 out
 build
 !public/pdfjs-annotation-viewer/build
+public/pdfjs-annotation-viewer/web/viewer/
+public/pdfjs-viewer/viewer/
 dist
 
 # Testing
