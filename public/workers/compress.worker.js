@@ -6,7 +6,7 @@
  * - Deflate compression: Compress all streams
  * - Garbage collection: Remove unused objects
  * - Metadata removal: Optional metadata stripping
- * - Linearization: Optimize for web viewing
+ * - Image/font stream deflation: Reduce size without unsupported linearization
  */
 
 import { loadPyodide } from '/pymupdf-wasm/pyodide.js';
@@ -71,36 +71,41 @@ def compress_pdf_with_pymupdf(input_bytes, options: Dict[str, Any]):
     # Note: In WASM environment, we use basic compression options
     # that don't require rendering capabilities
     if quality == 'low':
-        # Maximum compression
+        # Maximum compression with supported save flags only
         garbage_level = 4  # Maximum garbage collection
         deflate = True
+        deflate_images = True
+        deflate_fonts = True
         clean = True
-        linear = True  # Linearize for fast web view
     elif quality == 'medium':
         # Balanced compression
         garbage_level = 3
         deflate = True
+        deflate_images = True
+        deflate_fonts = True
         clean = True
-        linear = True
     elif quality == 'high':
         # Light compression
         garbage_level = 2
         deflate = True
+        deflate_images = True
+        deflate_fonts = True
         clean = True
-        linear = False
     else:  # maximum
         # Minimal compression: preserve quality
         garbage_level = 1
         deflate = True
+        deflate_images = False
+        deflate_fonts = False
         clean = True
-        linear = False
 
     # Save with compression settings
     save_options = {
         'garbage': garbage_level,
         'deflate': deflate,
+        'deflate_images': deflate_images,
+        'deflate_fonts': deflate_fonts,
         'clean': clean,
-        'linear': linear,
     }
 
     # Convert to compressed PDF
