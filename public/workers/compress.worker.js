@@ -128,22 +128,28 @@ self.onmessage = async (event) => {
 
     self.postMessage({ status: 'progress', progress: 20 });
 
-    // Convert ArrayBuffer to bytes for Python
-    const uint8Array = new Uint8Array(pdfData);
-    const inputBytes = pyodide.toPy(uint8Array);
+    // Pass binary data and options through globals. Interpolating PyProxy
+    // objects into Python source creates invalid syntax like "<memory at ...>".
+    pyodide.globals.set('input_pdf_data', new Uint8Array(pdfData));
+    pyodide.globals.set('compression_options', pyodide.toPy(options));
 
     self.postMessage({ status: 'progress', progress: 30 });
 
     // Call the compression function
     const compressedBytes = pyodide.runPython(`
-compressed_pdf = compress_pdf_with_pymupdf(${inputBytes}, ${pyodide.toPy(options)})
+compressed_pdf = compress_pdf_with_pymupdf(bytes(input_pdf_data), compression_options)
 compressed_pdf
 `);
 
     self.postMessage({ status: 'progress', progress: 90 });
 
     // Convert result back to JavaScript
-    const resultBuffer = compressedBytes.getBuffer();
+    const resultBuffer = compressedBytes.getBuffer
+      ? compressedBytes.getBuffer()
+      : new Uint8Array(compressedBytes);
+
+    pyodide.globals.delete('input_pdf_data');
+    pyodide.globals.delete('compression_options');
 
     self.postMessage({ status: 'progress', progress: 100 });
 
@@ -159,6 +165,15 @@ compressed_pdf
     );
   } catch (error) {
     console.error('Compression error:', error);
+
+    if (pyodide) {
+      try {
+        pyodide.globals.delete('input_pdf_data');
+        pyodide.globals.delete('compression_options');
+      } catch {
+        // Ignore cleanup errors after a failed Python call.
+      }
+    }
 
     // Check for encryption error
     if (error.message && error.message.includes('encrypt')) {
