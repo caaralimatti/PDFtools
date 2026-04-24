@@ -148,10 +148,20 @@ compressed_pdf
 
     self.postMessage({ status: 'progress', progress: 90 });
 
-    // Convert result back to JavaScript
-    const resultBuffer = compressedBytes.getBuffer
-      ? compressedBytes.getBuffer()
-      : new Uint8Array(compressedBytes);
+    // Convert result back to a plain transferable ArrayBuffer.
+    const rawBytes = compressedBytes.toJs ? compressedBytes.toJs() : compressedBytes;
+    const resultBytes = rawBytes instanceof Uint8Array
+      ? rawBytes
+      : ArrayBuffer.isView(rawBytes)
+        ? new Uint8Array(rawBytes.buffer.slice(rawBytes.byteOffset, rawBytes.byteOffset + rawBytes.byteLength))
+        : rawBytes instanceof ArrayBuffer
+          ? new Uint8Array(rawBytes)
+          : new Uint8Array(rawBytes);
+    const transferableBuffer = resultBytes.slice().buffer;
+
+    if (compressedBytes.destroy) {
+      compressedBytes.destroy();
+    }
 
     pyodide.globals.delete('input_pdf_data');
     pyodide.globals.delete('compression_options');
@@ -162,11 +172,11 @@ compressed_pdf
     self.postMessage(
       {
         status: 'success',
-        pdfBytes: resultBuffer.buffer,
+        pdfBytes: transferableBuffer,
         originalSize: pdfData.byteLength,
-        compressedSize: resultBuffer.byteLength,
+        compressedSize: resultBytes.byteLength,
       },
-      [resultBuffer.buffer]
+      [transferableBuffer]
     );
   } catch (error) {
     console.error('Compression error:', error);
