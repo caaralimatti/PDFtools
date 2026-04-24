@@ -8,8 +8,8 @@ node_modules
 out
 build
 !public/pdfjs-annotation-viewer/build
-public/pdfjs-annotation-viewer/web/viewer/
-public/pdfjs-viewer/viewer/
+public/pdfjs-annotation-viewer/web/vercel-viewer/
+public/pdfjs-viewer/vercel-viewer/
 dist
 
 # Testing

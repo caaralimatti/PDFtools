@@ -4,12 +4,12 @@ import { dirname, join } from 'node:path';
 const indexes = [
   {
     source: 'public/pdfjs-annotation-viewer/web/viewer.html',
-    target: 'public/pdfjs-annotation-viewer/web/viewer/index.html',
+    target: 'public/pdfjs-annotation-viewer/web/vercel-viewer/index.html',
     base: '/pdfjs-annotation-viewer/web/',
   },
   {
     source: 'public/pdfjs-viewer/viewer.html',
-    target: 'public/pdfjs-viewer/viewer/index.html',
+    target: 'public/pdfjs-viewer/vercel-viewer/index.html',
     base: '/pdfjs-viewer/',
   },
 ];

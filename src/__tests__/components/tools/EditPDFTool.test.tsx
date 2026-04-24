@@ -165,7 +165,7 @@ describe('EditPDFTool', () => {
         const iframe = screen.getByTitle('PDF Editor');
         expect(iframe).toBeInTheDocument();
         expect(iframe).toHaveAttribute('src');
-        expect(iframe.getAttribute('src')).toContain('/pdfjs-annotation-viewer/web/viewer/?file=');
+        expect(iframe.getAttribute('src')).toContain('/pdfjs-annotation-viewer/web/vercel-viewer/?file=');
       });
     });
 

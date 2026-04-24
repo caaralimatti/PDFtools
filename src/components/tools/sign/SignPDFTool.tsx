@@ -210,7 +210,7 @@ export function SignPDFTool({ className = '' }: SignPDFToolProps) {
   }, [signState.blobUrl]);
 
   const viewerUrl = signState.blobUrl
-    ? `/pdfjs-viewer/viewer/?file=${encodeURIComponent(signState.blobUrl)}`
+    ? `/pdfjs-viewer/vercel-viewer/?file=${encodeURIComponent(signState.blobUrl)}`
     : null;
 
   return (
