@@ -9,6 +9,30 @@ export type ToolCategory =
   | 'optimize-repair'
   | 'secure-pdf';
 
+export type ToolSubcategory =
+  | 'editor-workbench'
+  | 'page-layout'
+  | 'page-organization'
+  | 'file-assembly'
+  | 'conversion'
+  | 'extraction'
+  | 'optimization'
+  | 'security'
+  | 'metadata'
+  | 'forms'
+  | 'signatures'
+  | 'review'
+  | 'images';
+
+export type ToolWorkbench =
+  | 'standard'
+  | 'guided-editor'
+  | 'signature-review'
+  | 'visual-layout'
+  | 'batch-processor';
+
+export type ToolStatus = 'stable' | 'beta' | 'new';
+
 /**
  * All valid tool categories as an array for validation
  */
@@ -85,6 +109,8 @@ export interface Tool {
   icon: string;
   /** Primary tool category */
   category: ToolCategory;
+  /** More specific grouping for search and navigation */
+  subcategory?: ToolSubcategory;
   /** Accepted input file formats */
   acceptedFormats: string[];
   /** Output file format */
@@ -97,6 +123,16 @@ export interface Tool {
   features: string[];
   /** Related tool IDs (minimum 2 required per Requirements 6.5) */
   relatedTools: string[];
+  /** Search synonyms and SEO-friendly aliases */
+  synonyms?: string[];
+  /** Extra search keywords and capability tags */
+  keywords?: string[];
+  /** Whether the tool is suitable for the workflow builder */
+  supportsWorkflow?: boolean;
+  /** UI mode used by the tool page */
+  workbench?: ToolWorkbench;
+  /** Release state for badges/search ranking */
+  status?: ToolStatus;
 }
 
 /**

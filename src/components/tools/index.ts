@@ -33,6 +33,14 @@ export { EditMetadataTool, type EditMetadataToolProps } from './edit-metadata';
 export { PDFsToZipTool, type PDFsToZipToolProps } from './pdf-to-zip';
 export { ComparePDFsTool, type ComparePDFsToolProps } from './compare-pdfs';
 export { EditPDFTool, type EditPDFToolProps } from './edit-pdf';
+export { PDFTextEditorTool, type PDFTextEditorToolProps } from './pdf-text-editor';
+export { AddTextTool, type AddTextToolProps } from './add-text';
+export { AddImageTool, type AddImageToolProps } from './add-image';
+export { RemoveImageTool, type RemoveImageToolProps } from './remove-image';
+export { RedactPDFTool, type RedactPDFToolProps } from './redact-pdf';
+export { OverlayPDFsTool, type OverlayPDFsToolProps } from './overlay-pdfs';
+export { ScannerImageSplitTool, type ScannerImageSplitToolProps } from './scanner-image-split';
+export { ValidateSignatureTool, type ValidateSignatureToolProps } from './validate-signature';
 export { PosterizePDFTool, type PosterizePDFToolProps } from './posterize';
 
 // Edit & Annotate Tools

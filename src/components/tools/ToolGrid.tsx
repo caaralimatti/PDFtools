@@ -70,7 +70,17 @@ export function ToolGrid({
 
         const toolName = tool.id.replace(/-/g, ' ').toLowerCase();
         const features = tool.features.map(f => f.replace(/-/g, ' ').toLowerCase()).join(' ');
-        return toolName.includes(query) || features.includes(query);
+        const taxonomy = [
+          ...(tool.synonyms ?? []),
+          ...(tool.keywords ?? []),
+          tool.subcategory ?? '',
+          tool.workbench ?? '',
+        ]
+          .join(' ')
+          .replace(/-/g, ' ')
+          .toLowerCase();
+
+        return toolName.includes(query) || features.includes(query) || taxonomy.includes(query);
       });
     }
 

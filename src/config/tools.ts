@@ -4,7 +4,7 @@
  * Migrated from BentoPDF and enhanced for PDFCraft
  */
 
-import { Tool, ToolCategory } from '@/types/tool';
+import { Tool, ToolCategory, ToolSubcategory, ToolWorkbench, ToolStatus } from '@/types/tool';
 
 /**
  * Default file size limits - No restrictions
@@ -19,7 +19,7 @@ const LARGE_FILE_SIZE = Infinity; // No limit
  * - Exactly one category from the 6 defined categories
  * - At least 2 related tools
  */
-export const tools: Tool[] = [
+const BASE_TOOLS: Tool[] = [
   // ==================== ORGANIZE & MANAGE ====================
   {
     id: 'pdf-multi-tool',
@@ -1037,46 +1037,269 @@ export const tools: Tool[] = [
   },
 ];
 
+type ToolMetadata = {
+  subcategory?: ToolSubcategory;
+  synonyms?: string[];
+  keywords?: string[];
+  supportsWorkflow?: boolean;
+  workbench?: ToolWorkbench;
+  status?: ToolStatus;
+};
+
+const TOOL_METADATA: Record<string, ToolMetadata> = {
+  'pdf-multi-tool': {
+    subcategory: 'editor-workbench',
+    supportsWorkflow: false,
+    workbench: 'visual-layout',
+    keywords: ['all-in-one', 'page editor', 'workbench'],
+  },
+  'edit-pdf': {
+    subcategory: 'editor-workbench',
+    synonyms: ['pdf editor', 'annotate pdf', 'text edit mode'],
+    keywords: ['annotation', 'free text', 'highlight', 'markup'],
+    supportsWorkflow: false,
+    workbench: 'guided-editor',
+    status: 'stable',
+  },
+  'sign-pdf': {
+    subcategory: 'signatures',
+    synonyms: ['pdf signature', 'esign pdf'],
+    keywords: ['signature', 'signing', 'stamp'],
+    supportsWorkflow: false,
+    workbench: 'guided-editor',
+  },
+  'compress-pdf': {
+    subcategory: 'optimization',
+    synonyms: ['reduce pdf size'],
+    keywords: ['compression', 'target size', 'optimize images'],
+    supportsWorkflow: true,
+  },
+  'merge-pdf': {
+    subcategory: 'file-assembly',
+    supportsWorkflow: true,
+    keywords: ['combine pdfs', 'join files'],
+  },
+  'split-pdf': {
+    subcategory: 'page-organization',
+    supportsWorkflow: true,
+    keywords: ['split document', 'extract ranges'],
+  },
+  'overlay-pdfs': {
+    subcategory: 'page-layout',
+    synonyms: ['stamp one pdf over another', 'pdf overlay'],
+    keywords: ['overlay', 'background pdf', 'foreground pdf'],
+    supportsWorkflow: true,
+    workbench: 'visual-layout',
+    status: 'new',
+  },
+  'scanner-image-split': {
+    subcategory: 'images',
+    synonyms: ['split scanned images', 'scan cleanup'],
+    keywords: ['scanner split', 'crop scans', 'page detection'],
+    supportsWorkflow: true,
+    workbench: 'batch-processor',
+    status: 'new',
+  },
+  'pdf-text-editor': {
+    subcategory: 'editor-workbench',
+    synonyms: ['pdf text editor', 'text edit pdf'],
+    keywords: ['text mode', 'edit text', 'review edits'],
+    supportsWorkflow: false,
+    workbench: 'guided-editor',
+    status: 'new',
+  },
+  'validate-signature': {
+    subcategory: 'signatures',
+    synonyms: ['verify signature', 'check signed pdf'],
+    keywords: ['signature validation', 'trust report', 'byte range'],
+    supportsWorkflow: false,
+    workbench: 'signature-review',
+    status: 'new',
+  },
+  'redact-pdf': {
+    subcategory: 'review',
+    synonyms: ['blackout text', 'hide sensitive data'],
+    keywords: ['redact', 'manual redact', 'review'],
+    supportsWorkflow: false,
+    workbench: 'guided-editor',
+    status: 'new',
+  },
+  'add-text': {
+    subcategory: 'editor-workbench',
+    synonyms: ['insert text', 'type on pdf'],
+    keywords: ['free text', 'label', 'caption'],
+    supportsWorkflow: false,
+    workbench: 'guided-editor',
+    status: 'new',
+  },
+  'add-image': {
+    subcategory: 'editor-workbench',
+    synonyms: ['place image on pdf', 'insert image'],
+    keywords: ['image overlay', 'logo', 'stamp image'],
+    supportsWorkflow: false,
+    workbench: 'guided-editor',
+    status: 'new',
+  },
+  'remove-image': {
+    subcategory: 'review',
+    synonyms: ['mask image', 'cover image'],
+    keywords: ['image removal', 'image cleanup', 'cover object'],
+    supportsWorkflow: false,
+    workbench: 'guided-editor',
+    status: 'beta',
+  },
+};
+
+const ADDITIONAL_TOOLS: Tool[] = [
+  {
+    id: 'overlay-pdfs',
+    slug: 'overlay-pdfs',
+    icon: 'layers',
+    category: 'edit-annotate',
+    acceptedFormats: ['.pdf'],
+    outputFormat: 'pdf',
+    maxFileSize: LARGE_FILE_SIZE,
+    maxFiles: 2,
+    features: ['overlay-pages', 'repeat-shorter-document', 'align-content'],
+    relatedTools: ['merge-pdf', 'compare-pdfs', 'add-watermark'],
+  },
+  {
+    id: 'scanner-image-split',
+    slug: 'scanner-image-split',
+    icon: 'scan-text',
+    category: 'optimize-repair',
+    acceptedFormats: ['.jpg', '.jpeg', '.png', '.webp', '.bmp'],
+    outputFormat: 'zip',
+    maxFileSize: LARGE_FILE_SIZE,
+    maxFiles: 20,
+    features: ['detect-scans', 'split-cards', 'export-zip'],
+    relatedTools: ['image-to-pdf', 'ocr-pdf', 'extract-images'],
+  },
+  {
+    id: 'pdf-text-editor',
+    slug: 'pdf-text-editor',
+    icon: 'file-pen',
+    category: 'edit-annotate',
+    acceptedFormats: ['.pdf'],
+    outputFormat: 'pdf',
+    maxFileSize: DEFAULT_MAX_FILE_SIZE,
+    maxFiles: 1,
+    features: ['text-edit-mode', 'review-notes', 'guided-export'],
+    relatedTools: ['edit-pdf', 'add-text', 'redact-pdf'],
+  },
+  {
+    id: 'validate-signature',
+    slug: 'validate-signature',
+    icon: 'shield-check',
+    category: 'secure-pdf',
+    acceptedFormats: ['.pdf'],
+    outputFormat: 'report',
+    maxFileSize: DEFAULT_MAX_FILE_SIZE,
+    maxFiles: 1,
+    features: ['signature-fields', 'byte-range-report', 'trust-summary'],
+    relatedTools: ['sign-pdf', 'view-metadata', 'sanitize-pdf'],
+  },
+  {
+    id: 'redact-pdf',
+    slug: 'redact-pdf',
+    icon: 'eraser',
+    category: 'edit-annotate',
+    acceptedFormats: ['.pdf'],
+    outputFormat: 'pdf',
+    maxFileSize: DEFAULT_MAX_FILE_SIZE,
+    maxFiles: 1,
+    features: ['manual-redaction', 'toolbar-focus', 'guided-export'],
+    relatedTools: ['edit-pdf', 'remove-annotations', 'sanitize-pdf'],
+  },
+  {
+    id: 'add-text',
+    slug: 'add-text',
+    icon: 'type',
+    category: 'edit-annotate',
+    acceptedFormats: ['.pdf'],
+    outputFormat: 'pdf',
+    maxFileSize: DEFAULT_MAX_FILE_SIZE,
+    maxFiles: 1,
+    features: ['free-text', 'labels', 'notes'],
+    relatedTools: ['edit-pdf', 'header-footer', 'page-numbers'],
+  },
+  {
+    id: 'add-image',
+    slug: 'add-image',
+    icon: 'image',
+    category: 'edit-annotate',
+    acceptedFormats: ['.pdf'],
+    outputFormat: 'pdf',
+    maxFileSize: DEFAULT_MAX_FILE_SIZE,
+    maxFiles: 1,
+    features: ['image-placement', 'logos', 'stickers'],
+    relatedTools: ['edit-pdf', 'add-stamps', 'add-watermark'],
+  },
+  {
+    id: 'remove-image',
+    slug: 'remove-image',
+    icon: 'image-down',
+    category: 'edit-annotate',
+    acceptedFormats: ['.pdf'],
+    outputFormat: 'pdf',
+    maxFileSize: DEFAULT_MAX_FILE_SIZE,
+    maxFiles: 1,
+    features: ['cover-images', 'mask-graphics', 'guided-export'],
+    relatedTools: ['redact-pdf', 'edit-pdf', 'sanitize-pdf'],
+  },
+];
+
+const ALL_TOOLS: Tool[] = [...BASE_TOOLS, ...ADDITIONAL_TOOLS].map((tool) => ({
+  ...tool,
+  ...TOOL_METADATA[tool.id],
+}));
+
+export const tools: Tool[] = ALL_TOOLS;
+
 /**
  * Get all tools
  */
 export function getAllTools(): Tool[] {
-  return tools;
+  return ALL_TOOLS;
 }
 
 /**
  * Get tool by ID
  */
 export function getToolById(id: string): Tool | undefined {
-  return tools.find((tool) => tool.id === id);
+  return ALL_TOOLS.find((tool) => tool.id === id || tool.slug === id);
 }
 
 /**
  * Get tool by slug
  */
 export function getToolBySlug(slug: string): Tool | undefined {
-  return tools.find((tool) => tool.slug === slug);
+  return ALL_TOOLS.find((tool) => tool.slug === slug);
 }
 
 /**
  * Get tools by category
  */
 export function getToolsByCategory(category: ToolCategory): Tool[] {
-  return tools.filter((tool) => tool.category === category);
+  return ALL_TOOLS.filter((tool) => tool.category === category);
+}
+
+export function getToolsBySubcategory(subcategory: ToolSubcategory): Tool[] {
+  return ALL_TOOLS.filter((tool) => tool.subcategory === subcategory);
 }
 
 /**
  * Get all tool IDs
  */
 export function getAllToolIds(): string[] {
-  return tools.map((tool) => tool.id);
+  return ALL_TOOLS.map((tool) => tool.id);
 }
 
 /**
  * Check if a tool ID exists
  */
 export function toolExists(id: string): boolean {
-  return tools.some((tool) => tool.id === id);
+  return ALL_TOOLS.some((tool) => tool.id === id || tool.slug === id);
 }
 
 /**

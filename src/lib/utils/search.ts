@@ -12,7 +12,7 @@ import { tools } from '@/config/tools';
 export interface SearchResult {
   tool: Tool;
   score: number;
-  matchedField: 'name' | 'description' | 'features';
+  matchedField: 'name' | 'description' | 'features' | 'taxonomy';
 }
 
 /**
@@ -123,9 +123,22 @@ export function searchTools(
       featuresScore = Math.max(featuresScore, featureScore);
     }
 
+    let taxonomyScore = 0;
+    const taxonomyTerms = [
+      ...(tool.synonyms ?? []),
+      ...(tool.keywords ?? []),
+      tool.subcategory ?? '',
+      tool.workbench ?? '',
+      tool.status ?? '',
+    ].filter(Boolean);
+
+    for (const term of taxonomyTerms) {
+      taxonomyScore = Math.max(taxonomyScore, fuzzyMatch(normalizedQuery, term.replace(/-/g, ' ')));
+    }
+
     // Get the best score and determine which field matched
     let bestScore = nameScore;
-    let matchedField: 'name' | 'description' | 'features' = 'name';
+    let matchedField: 'name' | 'description' | 'features' | 'taxonomy' = 'name';
 
     if (slugScore > bestScore) {
       bestScore = slugScore;
@@ -140,6 +153,11 @@ export function searchTools(
     if (featuresScore > bestScore) {
       bestScore = featuresScore;
       matchedField = 'features';
+    }
+
+    if (taxonomyScore > bestScore) {
+      bestScore = taxonomyScore;
+      matchedField = 'taxonomy';
     }
 
     // Only include results with a minimum score threshold
@@ -187,6 +205,15 @@ export function toolMatchesQuery(
   const toolName = tool.id.replace(/-/g, ' ').toLowerCase();
   const slug = tool.slug.replace(/-/g, ' ').toLowerCase();
   const features = tool.features.map((f) => f.replace(/-/g, ' ').toLowerCase());
+  const taxonomyTerms = [
+    ...(tool.synonyms ?? []),
+    ...(tool.keywords ?? []),
+    tool.subcategory ?? '',
+    tool.workbench ?? '',
+    tool.status ?? '',
+  ]
+    .map((value) => value.replace(/-/g, ' ').toLowerCase())
+    .filter(Boolean);
 
   // Check localized title and description first (for current language search)
   if (localizedContent) {
@@ -210,6 +237,12 @@ export function toolMatchesQuery(
 
   for (const feature of features) {
     if (feature.includes(normalizedQuery)) {
+      return true;
+    }
+  }
+
+  for (const term of taxonomyTerms) {
+    if (term.includes(normalizedQuery)) {
       return true;
     }
   }

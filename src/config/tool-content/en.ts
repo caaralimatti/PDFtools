@@ -2187,4 +2187,212 @@ export const toolContentEn: Record<string, ToolContent> = {
       { question: 'Is it compatible with Word?', answer: 'Yes, the output is a standard .docx file compatible with Microsoft Word and Google Docs.' },
     ],
   },
+
+  'overlay-pdfs': {
+    title: 'Overlay PDFs',
+    metaDescription: 'Overlay one PDF on top of another. Add letterheads, backgrounds, stamps, or repeated form layers in the browser.',
+    keywords: ['overlay pdfs', 'pdf overlay', 'letterhead pdf', 'background pdf'],
+    description: `
+      <p>Overlay PDFs places pages from one PDF on top of another. Use it for letterheads, pre-printed forms, approval stamps, or background templates.</p>
+      <p>You can repeat overlay pages across the entire base document and control how the overlay fits the target page.</p>
+      <p>All overlay processing runs locally in your browser with no server upload.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload Both PDFs', description: 'Choose the base PDF and the overlay PDF.' },
+      { step: 2, title: 'Adjust Overlay Settings', description: 'Choose fit mode, opacity, and whether overlay pages should repeat.' },
+      { step: 3, title: 'Generate and Download', description: 'Create the combined document and download the new PDF.' },
+    ],
+    useCases: [
+      { title: 'Letterheads', description: 'Apply a corporate letterhead to every page of a report.', icon: 'file-text' },
+      { title: 'Approval Layers', description: 'Stamp review or approval graphics across an existing PDF.', icon: 'stamp' },
+      { title: 'Reusable Forms', description: 'Overlay a blank form shell on top of generated content.', icon: 'layers' },
+    ],
+    faq: [
+      { question: 'Can I repeat a one-page overlay?', answer: 'Yes. Enable repeat overlay to reuse shorter overlay documents across the full base PDF.' },
+      { question: 'Will the original pages be resized?', answer: 'No. The base pages remain intact and the overlay is drawn onto them.' },
+      { question: 'Does this work offline?', answer: 'Yes, as long as the page is already loaded in your browser.' },
+    ],
+  },
+
+  'scanner-image-split': {
+    title: 'Scanner Image Split',
+    metaDescription: 'Split scanned images containing multiple receipts, cards, or page halves into separate image files.',
+    keywords: ['scanner image split', 'split scanned images', 'receipt cropper', 'scan cleanup'],
+    description: `
+      <p>Scanner Image Split detects separate content bands inside a scanned image and exports each one as its own file.</p>
+      <p>This is useful for flatbed scans that contain two receipts, multiple cards, or several small documents on one canvas.</p>
+      <p>You can fine-tune direction, margin, and whitespace sensitivity directly in the browser.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload Scan Images', description: 'Add one or more JPG, PNG, WebP, or BMP scans.' },
+      { step: 2, title: 'Tune Detection', description: 'Choose auto, vertical, or horizontal splitting and adjust the whitespace threshold if needed.' },
+      { step: 3, title: 'Download ZIP', description: 'Export each detected segment as its own PNG image inside a ZIP file.' },
+    ],
+    useCases: [
+      { title: 'Receipt Cleanup', description: 'Separate multiple receipts scanned together on one page.', icon: 'receipt' },
+      { title: 'Card Archiving', description: 'Split scanned IDs or business cards into individual images.', icon: 'credit-card' },
+      { title: 'Scan Preparation', description: 'Prepare clean images for OCR or image-to-PDF workflows.', icon: 'scan' },
+    ],
+    faq: [
+      { question: 'Does it support PDFs?', answer: 'This first version focuses on image scans such as JPG and PNG files.' },
+      { question: 'What if detection misses one segment?', answer: 'Adjust split direction, threshold, or margin and run the split again.' },
+      { question: 'What format is exported?', answer: 'The tool exports PNG files inside a ZIP archive.' },
+    ],
+  },
+
+  'pdf-text-editor': {
+    title: 'PDF Text Editor',
+    metaDescription: 'Open a text-focused PDF editing workbench for corrections, callouts, and review overlays.',
+    keywords: ['pdf text editor', 'edit text in pdf', 'text overlay pdf'],
+    description: `
+      <p>PDF Text Editor gives you a focused workspace for text corrections, reviewer notes, and text overlays.</p>
+      <p>It is optimized for review-driven editing where you need to place new text accurately on top of an existing PDF.</p>
+      <p>The editor runs entirely in the browser and keeps the document on your device.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload a PDF', description: 'Select the document you want to review or correct.' },
+      { step: 2, title: 'Place Text Overlays', description: 'Click on the page to add text boxes and reviewer notes.' },
+      { step: 3, title: 'Export', description: 'Use the viewer export action to save the edited PDF.' },
+    ],
+    useCases: [
+      { title: 'Corrections', description: 'Add corrected wording or reviewer notes to an existing PDF.', icon: 'file-edit' },
+      { title: 'Review Markup', description: 'Prepare draft review copies with text comments and overlays.', icon: 'message-square' },
+      { title: 'Lightweight Edits', description: 'Make practical wording updates without leaving the browser.', icon: 'type' },
+    ],
+    faq: [
+      { question: 'Does it rewrite native PDF text objects?', answer: 'This workbench focuses on accurate text overlays and review edits inside the browser.' },
+      { question: 'Can I add multiple notes?', answer: 'Yes, you can place multiple text boxes throughout the document.' },
+      { question: 'Is the PDF uploaded anywhere?', answer: 'No. Editing happens locally in your browser.' },
+    ],
+  },
+
+  'validate-signature': {
+    title: 'Validate Signature',
+    metaDescription: 'Inspect PDF signature fields, embedded signature markers, and byte-range indicators locally in the browser.',
+    keywords: ['validate pdf signature', 'verify signed pdf', 'signature report pdf'],
+    description: `
+      <p>Validate Signature inspects a PDF for embedded signature fields and structural signature markers such as byte ranges and signature contents.</p>
+      <p>It is useful for checking whether a document appears to contain digital signature data before handing it to a desktop verifier or compliance workflow.</p>
+      <p>The report is generated locally in your browser.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload a PDF', description: 'Choose the signed or potentially signed PDF.' },
+      { step: 2, title: 'Run Validation', description: 'Generate a structural report about signature fields and markers.' },
+      { step: 3, title: 'Review the Findings', description: 'Check the field list, byte-range markers, and summary output.' },
+    ],
+    useCases: [
+      { title: 'Preflight Checks', description: 'Quickly inspect a document before forwarding it for full verification.', icon: 'shield' },
+      { title: 'Audit Review', description: 'Review whether signature fields and payload markers are present.', icon: 'search' },
+      { title: 'Document Intake', description: 'Sort signed and unsigned PDFs during document collection.', icon: 'inbox' },
+    ],
+    faq: [
+      { question: 'Is this the same as Adobe trust validation?', answer: 'No. This is a browser-side structural inspection, not a full trust-chain validator.' },
+      { question: 'Can it detect empty signature fields?', answer: 'Yes, it reports signature fields even when they do not appear to contain a value.' },
+      { question: 'Are files uploaded to a server?', answer: 'No. The inspection runs entirely in your browser.' },
+    ],
+  },
+
+  'redact-pdf': {
+    title: 'Redact PDF',
+    metaDescription: 'Open a focused redaction workbench to cover sensitive regions and export a review-ready PDF copy.',
+    keywords: ['redact pdf', 'cover sensitive text', 'pdf blackout tool'],
+    description: `
+      <p>Redact PDF provides a focused editing workspace for covering sensitive details before you export a reviewed copy.</p>
+      <p>Use it to prepare internal review versions, mask names, account details, or image regions, and confirm the visual result before sharing.</p>
+      <p>All work stays local to your browser session.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload the PDF', description: 'Choose the file you want to review and cover.' },
+      { step: 2, title: 'Mark Sensitive Areas', description: 'Use the focused editor tools to cover text or graphics.' },
+      { step: 3, title: 'Export a Clean Copy', description: 'Save the reviewed document after confirming the covered areas.' },
+    ],
+    useCases: [
+      { title: 'Internal Reviews', description: 'Prepare redacted review copies before sending documents outside your team.', icon: 'eye-off' },
+      { title: 'Privacy Cleanup', description: 'Mask names, addresses, and image regions in shared PDFs.', icon: 'shield' },
+      { title: 'Draft Sharing', description: 'Share draft PDFs without exposing source details.', icon: 'share-2' },
+    ],
+    faq: [
+      { question: 'Does this run in the browser?', answer: 'Yes. The workbench and export flow stay inside your browser.' },
+      { question: 'Can I cover images too?', answer: 'Yes. Use the guided workbench to cover or mask image areas as part of your review pass.' },
+      { question: 'Should I verify the output?', answer: 'Yes. Always review the exported PDF to confirm sensitive content is no longer visible.' },
+    ],
+  },
+
+  'add-text': {
+    title: 'Add Text to PDF',
+    metaDescription: 'Place text labels, callouts, and corrections onto PDF pages with a focused free-text workbench.',
+    keywords: ['add text to pdf', 'type on pdf', 'pdf labels'],
+    description: `
+      <p>Add Text to PDF opens a focused free-text editor so you can place labels, short corrections, and reviewer notes on top of your document.</p>
+      <p>It is ideal for quick document annotations without navigating a full multipurpose editor.</p>
+      <p>Your file remains local to your device throughout the process.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload a PDF', description: 'Choose the document you want to annotate.' },
+      { step: 2, title: 'Place Text Boxes', description: 'Click on the page and type the new text you want to add.' },
+      { step: 3, title: 'Export the PDF', description: 'Use the viewer export action when the text placement is complete.' },
+    ],
+    useCases: [
+      { title: 'Labels', description: 'Add short labels, captions, or reference codes.', icon: 'tag' },
+      { title: 'Reviewer Notes', description: 'Place visible reviewer instructions directly on the page.', icon: 'message-square' },
+      { title: 'Corrections', description: 'Add corrected wording to draft PDFs.', icon: 'type' },
+    ],
+    faq: [
+      { question: 'Can I add multiple text boxes?', answer: 'Yes, you can place as many text overlays as you need.' },
+      { question: 'Is this different from the full editor?', answer: 'Yes. This tool opens a focused text-first workbench for faster editing.' },
+      { question: 'Do my files leave the browser?', answer: 'No, processing remains local.' },
+    ],
+  },
+
+  'add-image': {
+    title: 'Add Image to PDF',
+    metaDescription: 'Insert logos, screenshots, or other images onto PDF pages with a focused image placement tool.',
+    keywords: ['add image to pdf', 'insert logo pdf', 'pdf image placement'],
+    description: `
+      <p>Add Image to PDF lets you place logos, screenshots, and supporting graphics directly on top of PDF pages.</p>
+      <p>Use it for branding, document review, or adding visual references without leaving the browser.</p>
+      <p>The PDF never leaves your device.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload Your PDF', description: 'Select the document that needs an image overlay.' },
+      { step: 2, title: 'Insert and Position Image', description: 'Use the image tool inside the workbench to place and resize your image.' },
+      { step: 3, title: 'Export', description: 'Download the updated PDF from the viewer export action.' },
+    ],
+    useCases: [
+      { title: 'Branding', description: 'Add logos and product visuals to client-facing PDFs.', icon: 'image' },
+      { title: 'Evidence Markup', description: 'Place screenshots or references onto case or audit files.', icon: 'camera' },
+      { title: 'Visual Notes', description: 'Add icons or diagrams to explain a page.', icon: 'layout' },
+    ],
+    faq: [
+      { question: 'Can I resize the image?', answer: 'Yes, you can place and resize the inserted image in the workbench.' },
+      { question: 'Is it good for logos?', answer: 'Yes. It is especially useful for logos, seals, and reference graphics.' },
+      { question: 'Does it require a server?', answer: 'No, everything happens locally in the browser.' },
+    ],
+  },
+
+  'remove-image': {
+    title: 'Remove Image from PDF',
+    metaDescription: 'Use a guided cleanup workbench to cover, replace, or mask unwanted images in a PDF before export.',
+    keywords: ['remove image from pdf', 'mask pdf image', 'cover image in pdf'],
+    description: `
+      <p>Remove Image from PDF gives you a guided cleanup workbench for covering or replacing unwanted images before exporting a clean copy.</p>
+      <p>It is useful when you need to hide logos, screenshots, or scanned image areas during a document review pass.</p>
+      <p>All cleanup work happens in the browser on your device.</p>
+    `,
+    howToUse: [
+      { step: 1, title: 'Upload a PDF', description: 'Choose the file that contains the image you want to remove or cover.' },
+      { step: 2, title: 'Mask or Replace the Image', description: 'Use the guided image cleanup tools to cover the unwanted content.' },
+      { step: 3, title: 'Export the Updated PDF', description: 'Save the updated PDF after reviewing each affected page.' },
+    ],
+    useCases: [
+      { title: 'Logo Removal', description: 'Cover outdated branding before reusing a document.', icon: 'image-off' },
+      { title: 'Review Cleanup', description: 'Hide screenshots or image regions in review copies.', icon: 'eraser' },
+      { title: 'Draft Reuse', description: 'Prepare template PDFs by removing or masking old graphics.', icon: 'refresh-cw' },
+    ],
+    faq: [
+      { question: 'Is this a focused tool?', answer: 'Yes. It opens a guided workbench for image cleanup instead of the full editor.' },
+      { question: 'Should I review the export?', answer: 'Yes. Always confirm the unwanted image is no longer visible in the downloaded PDF.' },
+      { question: 'Do files stay local?', answer: 'Yes, all processing remains in the browser.' },
+    ],
+  },
 };

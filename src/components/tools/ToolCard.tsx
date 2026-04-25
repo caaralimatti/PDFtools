@@ -52,6 +52,13 @@ export function ToolCard({ tool, locale, className = '', localizedContent }: Too
   const IconComponent = getToolIcon(tool.icon);
 
   const categoryName = t(`home.categories.${categoryTranslationKeys[tool.category]}`);
+  const badgeLabel = tool.status === 'new'
+    ? 'New'
+    : tool.status === 'beta'
+      ? 'Beta'
+      : tool.subcategory
+        ? tool.subcategory.replace(/-/g, ' ')
+        : null;
 
   return (
     <Link
@@ -77,6 +84,11 @@ export function ToolCard({ tool, locale, className = '', localizedContent }: Too
             >
               <IconComponent className="w-7 h-7 text-[hsl(var(--color-primary))]" />
             </div>
+            {badgeLabel && (
+              <span className="ml-auto inline-flex items-center rounded-full bg-[hsl(var(--color-primary)/0.08)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-[hsl(var(--color-primary))]">
+                {badgeLabel}
+              </span>
+            )}
           </div>
 
           {/* Tool Info */}

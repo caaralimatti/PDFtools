@@ -25,6 +25,14 @@ import { EditMetadataTool } from '@/components/tools/edit-metadata';
 import { PDFsToZipTool } from '@/components/tools/pdf-to-zip';
 import { ComparePDFsTool } from '@/components/tools/compare-pdfs';
 import { EditPDFTool } from '@/components/tools/edit-pdf';
+import { PDFTextEditorTool } from '@/components/tools/pdf-text-editor';
+import { AddTextTool } from '@/components/tools/add-text';
+import { AddImageTool } from '@/components/tools/add-image';
+import { RemoveImageTool } from '@/components/tools/remove-image';
+import { RedactPDFTool } from '@/components/tools/redact-pdf';
+import { OverlayPDFsTool } from '@/components/tools/overlay-pdfs';
+import { ScannerImageSplitTool } from '@/components/tools/scanner-image-split';
+import { ValidateSignatureTool } from '@/components/tools/validate-signature';
 import { ImageToPDFTool } from '@/components/tools/image-to-pdf';
 import { TextToPDFTool } from '@/components/tools/text-to-pdf';
 import { PSDToPDFTool } from '@/components/tools/psd-to-pdf';
@@ -244,6 +252,22 @@ export default async function ToolPageRoute({ params }: ToolPageParams) {
         return <ComparePDFsTool />;
       case 'edit-pdf':
         return <EditPDFTool />;
+      case 'pdf-text-editor':
+        return <PDFTextEditorTool />;
+      case 'add-text':
+        return <AddTextTool />;
+      case 'add-image':
+        return <AddImageTool />;
+      case 'remove-image':
+        return <RemoveImageTool />;
+      case 'redact-pdf':
+        return <RedactPDFTool />;
+      case 'overlay-pdfs':
+        return <OverlayPDFsTool />;
+      case 'scanner-image-split':
+        return <ScannerImageSplitTool />;
+      case 'validate-signature':
+        return <ValidateSignatureTool />;
       // Convert to PDF tools
       case 'image-to-pdf':
         return <ImageToPDFTool />;
