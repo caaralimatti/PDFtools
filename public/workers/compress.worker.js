@@ -3,10 +3,9 @@
  * Uses PyMuPDF for PDF compression optimized for browser WASM environment
  *
  * Compression strategy:
- * - Deflate compression: Compress all streams
- * - Garbage collection: Remove unused objects
- * - Metadata removal: Optional metadata stripping
- * - Image/font stream deflation: Reduce size without unsupported linearization
+ * - Lossless reduction via object streams / deflate / garbage collection
+ * - Optional lossy image rewriting for meaningful size reduction
+ * - Metadata removal when requested
  */
 
 import { loadPyodide } from '/pymupdf-wasm/pyodide.js';
@@ -67,37 +66,70 @@ def compress_pdf_with_pymupdf(input_bytes, options: Dict[str, Any]):
         except:
             pass
 
-    # Define compression settings based on quality level
-    # Note: In WASM environment, we use basic compression options
-    # that don't require rendering capabilities
+    # Real size reduction requires more than deflating existing streams.
+    # PyMuPDF recommends:
+    # - lossless: garbage + deflate + use_objstms
+    # - lossy: rewrite_images() for resampling / JPEG recompression
     if quality == 'low':
-        # Maximum compression with supported save flags only
-        garbage_level = 4  # Maximum garbage collection
+        garbage_level = 4
         deflate = True
         deflate_images = True
         deflate_fonts = True
-        clean = True
+        use_objstms = 1
+        compression_effort = 100
+        image_settings = {
+            'dpi_threshold': 160,
+            'dpi_target': 96,
+            'quality': 35,
+        }
     elif quality == 'medium':
-        # Balanced compression
         garbage_level = 3
         deflate = True
         deflate_images = True
         deflate_fonts = True
-        clean = True
+        use_objstms = 1
+        compression_effort = 75
+        image_settings = {
+            'dpi_threshold': 220,
+            'dpi_target': 144,
+            'quality': 50,
+        }
     elif quality == 'high':
-        # Light compression
         garbage_level = 2
         deflate = True
         deflate_images = True
         deflate_fonts = True
-        clean = True
+        use_objstms = 1
+        compression_effort = 50
+        image_settings = {
+            'dpi_threshold': 300,
+            'dpi_target': 200,
+            'quality': 70,
+        }
     else:  # maximum
-        # Minimal compression: preserve quality
-        garbage_level = 1
+        # Best visual quality with only lossless reduction
+        garbage_level = 3
         deflate = True
-        deflate_images = False
-        deflate_fonts = False
-        clean = True
+        deflate_images = True
+        deflate_fonts = True
+        use_objstms = 1
+        compression_effort = 25
+        image_settings = None
+
+    if image_settings and hasattr(doc, 'rewrite_images'):
+        try:
+            doc.rewrite_images(
+                dpi_threshold=image_settings['dpi_threshold'],
+                dpi_target=image_settings['dpi_target'],
+                quality=image_settings['quality'],
+                lossy=True,
+                lossless=True,
+                bitonal=True,
+                color=True,
+                gray=True,
+            )
+        except Exception:
+            pass
 
     # Save with compression settings
     save_options = {
@@ -105,7 +137,8 @@ def compress_pdf_with_pymupdf(input_bytes, options: Dict[str, Any]):
         'deflate': deflate,
         'deflate_images': deflate_images,
         'deflate_fonts': deflate_fonts,
-        'clean': clean,
+        'use_objstms': use_objstms,
+        'compression_effort': compression_effort,
     }
 
     # Convert to compressed PDF
