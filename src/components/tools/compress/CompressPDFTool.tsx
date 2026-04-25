@@ -295,21 +295,24 @@ export function CompressPDFTool({ className = '' }: CompressPDFToolProps) {
             {/* Additional Options */}
             <div className="space-y-3">
               {quality === 'maximum' && (
-                <div className="space-y-2">
+                <div className="space-y-2 rounded-[var(--radius-md)] border border-[hsl(var(--color-border))] bg-[hsl(var(--color-muted)/0.25)] p-3">
                   <label className="block text-sm font-medium text-[hsl(var(--color-foreground))]">
                     {tTools('compressPdf.targetSizeLabel') || 'Target size (KB)'}
                   </label>
-                  <input
-                    type="number"
-                    min={1}
-                    step={1}
-                    inputMode="numeric"
-                    value={targetSizeKB}
-                    onChange={(e) => setTargetSizeKB(e.target.value)}
-                    disabled={isProcessing}
-                    placeholder={tTools('compressPdf.targetSizePlaceholder') || 'Example: 100 or 50'}
-                    className="w-full px-3 py-2 text-sm rounded-[var(--radius-md)] border border-[hsl(var(--color-border))] bg-[hsl(var(--color-background))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--color-primary))] placeholder:text-[hsl(var(--color-muted-foreground))]"
-                  />
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      min={1}
+                      step={1}
+                      inputMode="numeric"
+                      value={targetSizeKB}
+                      onChange={(e) => setTargetSizeKB(e.target.value)}
+                      disabled={isProcessing}
+                      placeholder={tTools('compressPdf.targetSizePlaceholder') || '100'}
+                      className="w-32 px-3 py-2 text-sm rounded-[var(--radius-md)] border border-[hsl(var(--color-border))] bg-[hsl(var(--color-background))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--color-primary))] placeholder:text-[hsl(var(--color-muted-foreground))]"
+                    />
+                    <span className="text-sm font-medium text-[hsl(var(--color-muted-foreground))]">KB</span>
+                  </div>
                   <p className="text-xs text-[hsl(var(--color-muted-foreground))]">
                     {tTools('compressPdf.targetSizeHelp') || 'Optional. PDFCraft will aggressively reduce image quality to try to get below this size.'}
                   </p>
