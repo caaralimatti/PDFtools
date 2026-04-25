@@ -65,6 +65,15 @@ const getToolSettingsConfig = (): Record<string, ToolSettingsConfig> => ({
                 type: 'checkbox',
                 defaultValue: false,
             },
+            {
+                key: 'targetSizeKB',
+                labelKey: 'compressPdf.targetSizeLabel',
+                type: 'number',
+                defaultValue: 0,
+                min: 0,
+                max: 50000,
+                placeholderKey: 'compressPdf.targetSizePlaceholder',
+            },
         ],
     },
 

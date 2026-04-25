@@ -27,6 +27,8 @@ export interface CompressPDFOptions {
   quality: CompressionQuality;
   /** Remove metadata to reduce size */
   removeMetadata: boolean;
+  /** Optional target output size in kilobytes for aggressive maximum compression */
+  targetSizeKB?: number;
 }
 
 /**

@@ -520,7 +520,12 @@ export async function executeNode(
             case 'compress-pdf': {
                 if (files.length === 0) throw new Error('No input file');
                 const quality = (settings.quality as 'low' | 'medium' | 'high' | 'maximum') || 'medium';
-                return await compressPDF(files[0], { quality }, onProgress);
+                const targetSizeKB = Number(settings.targetSizeKB);
+                return await compressPDF(files[0], {
+                    quality,
+                    ...(Number.isFinite(targetSizeKB) && targetSizeKB > 0 ? { targetSizeKB } : {}),
+                    removeMetadata: settings.removeMetadata as boolean ?? false,
+                }, onProgress);
             }
 
             case 'flatten-pdf': {

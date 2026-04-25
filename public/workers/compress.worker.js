@@ -55,16 +55,29 @@ def compress_pdf_with_pymupdf(input_bytes, options: Dict[str, Any]):
     """
     quality = options.get('quality', 'medium')
     remove_metadata = options.get('removeMetadata', False)
+    target_size_kb = options.get('targetSizeKB', 0) or 0
+    target_size_bytes = int(float(target_size_kb) * 1024) if target_size_kb else 0
 
-    # Open the PDF document
-    doc = pymupdf.open(stream=input_bytes, filetype="pdf")
+    def open_doc():
+        current_doc = pymupdf.open(stream=input_bytes, filetype="pdf")
+        if remove_metadata:
+            try:
+                current_doc.set_metadata({})
+            except:
+                pass
+        return current_doc
 
-    # Remove metadata if requested
-    if remove_metadata:
-        try:
-            doc.set_metadata({})
-        except:
-            pass
+    def save_doc(current_doc, *, garbage_level, deflate, deflate_images, deflate_fonts, use_objstms, compression_effort):
+        return current_doc.tobytes(
+            garbage=garbage_level,
+            deflate=deflate,
+            deflate_images=deflate_images,
+            deflate_fonts=deflate_fonts,
+            use_objstms=use_objstms,
+            compression_effort=compression_effort,
+        )
+
+    doc = open_doc()
 
     # Real size reduction requires more than deflating existing streams.
     # PyMuPDF recommends:
@@ -131,20 +144,63 @@ def compress_pdf_with_pymupdf(input_bytes, options: Dict[str, Any]):
         except Exception:
             pass
 
-    # Save with compression settings
-    save_options = {
-        'garbage': garbage_level,
-        'deflate': deflate,
-        'deflate_images': deflate_images,
-        'deflate_fonts': deflate_fonts,
-        'use_objstms': use_objstms,
-        'compression_effort': compression_effort,
-    }
+    if quality == 'maximum' and target_size_bytes > 0:
+        doc.close()
+        best_bytes = None
+        aggressive_attempts = [
+            {'dpi_threshold': 220, 'dpi_target': 110, 'quality': 40},
+            {'dpi_threshold': 180, 'dpi_target': 96, 'quality': 30},
+            {'dpi_threshold': 150, 'dpi_target': 84, 'quality': 22},
+            {'dpi_threshold': 120, 'dpi_target': 72, 'quality': 15},
+            {'dpi_threshold': 96, 'dpi_target': 60, 'quality': 10},
+        ]
 
-    # Convert to compressed PDF
-    compressed_bytes = doc.tobytes(**save_options)
+        for attempt in aggressive_attempts:
+            candidate_doc = open_doc()
+            try:
+                if hasattr(candidate_doc, 'rewrite_images'):
+                    candidate_doc.rewrite_images(
+                        dpi_threshold=attempt['dpi_threshold'],
+                        dpi_target=attempt['dpi_target'],
+                        quality=attempt['quality'],
+                        lossy=True,
+                        lossless=True,
+                        bitonal=True,
+                        color=True,
+                        gray=True,
+                    )
+            except Exception:
+                pass
+
+            candidate_bytes = save_doc(
+                candidate_doc,
+                garbage_level=4,
+                deflate=True,
+                deflate_images=True,
+                deflate_fonts=True,
+                use_objstms=1,
+                compression_effort=100,
+            )
+            candidate_doc.close()
+
+            if best_bytes is None or len(candidate_bytes) < len(best_bytes):
+                best_bytes = candidate_bytes
+
+            if len(candidate_bytes) <= target_size_bytes:
+                return candidate_bytes
+
+        return best_bytes if best_bytes is not None else bytes(input_bytes)
+
+    compressed_bytes = save_doc(
+        doc,
+        garbage_level=garbage_level,
+        deflate=deflate,
+        deflate_images=deflate_images,
+        deflate_fonts=deflate_fonts,
+        use_objstms=use_objstms,
+        compression_effort=compression_effort,
+    )
     doc.close()
-
     return compressed_bytes
 `);
 

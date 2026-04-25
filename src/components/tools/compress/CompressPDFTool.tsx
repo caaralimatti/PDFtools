@@ -30,6 +30,7 @@ export function CompressPDFTool({ className = '' }: CompressPDFToolProps) {
   // Options
   const [quality, setQuality] = useState<CompressionQuality>('medium');
   const [removeMetadata, setRemoveMetadata] = useState(false);
+  const [targetSizeKB, setTargetSizeKB] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
   // Batch processing hook
@@ -76,6 +77,9 @@ export function CompressPDFTool({ className = '' }: CompressPDFToolProps) {
     const options: CompressPDFOptions = {
       quality,
       removeMetadata,
+      ...(quality === 'maximum' && Number(targetSizeKB) > 0
+        ? { targetSizeKB: Number(targetSizeKB) }
+        : {}),
     };
 
     const output = await compressPDF(
@@ -89,7 +93,7 @@ export function CompressPDFTool({ className = '' }: CompressPDFToolProps) {
     }
 
     throw new Error(output.error?.message || 'Failed to compress PDF file.');
-  }, [quality, removeMetadata]);
+  }, [quality, removeMetadata, targetSizeKB]);
 
   /**
    * Handle compress operation
@@ -290,6 +294,28 @@ export function CompressPDFTool({ className = '' }: CompressPDFToolProps) {
 
             {/* Additional Options */}
             <div className="space-y-3">
+              {quality === 'maximum' && (
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-[hsl(var(--color-foreground))]">
+                    {tTools('compressPdf.targetSizeLabel') || 'Target size (KB)'}
+                  </label>
+                  <input
+                    type="number"
+                    min={1}
+                    step={1}
+                    inputMode="numeric"
+                    value={targetSizeKB}
+                    onChange={(e) => setTargetSizeKB(e.target.value)}
+                    disabled={isProcessing}
+                    placeholder={tTools('compressPdf.targetSizePlaceholder') || 'Example: 100 or 50'}
+                    className="w-full px-3 py-2 text-sm rounded-[var(--radius-md)] border border-[hsl(var(--color-border))] bg-[hsl(var(--color-background))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--color-primary))] placeholder:text-[hsl(var(--color-muted-foreground))]"
+                  />
+                  <p className="text-xs text-[hsl(var(--color-muted-foreground))]">
+                    {tTools('compressPdf.targetSizeHelp') || 'Optional. PDFCraft will aggressively reduce image quality to try to get below this size.'}
+                  </p>
+                </div>
+              )}
+
               <label className="flex items-center gap-3 cursor-pointer">
                 <input
                   type="checkbox"
